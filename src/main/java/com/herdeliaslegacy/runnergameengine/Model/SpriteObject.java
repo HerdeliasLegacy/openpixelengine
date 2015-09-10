@@ -395,7 +395,7 @@ abstract public class SpriteObject {
      *
      * @param targetX
      * @param targetY
-     * @see com.herdeliaslegacy.runnergameengine.Model.Vector2D#rotate(float) for the real rotation
+     * @see com.herdeliaslegacy.runnergameengine.Model.SpriteObject#rotate(float) for the real rotation
      */
     public void rotate(int targetX, int targetY) {
         rotate(MathUtils.angleFromTwoPoint(getBoundingRectangle().centerX(), getBoundingRectangle().centerY(), targetX, targetY));
@@ -406,7 +406,6 @@ abstract public class SpriteObject {
      * Need an angle for the rotation
      *
      * @param angle
-     * @see com.herdeliaslegacy.runnergameengine.Model.Vector2D#rotate(int, int)  for the compute of this angle
      */
     public void rotate(float angle) {
         Matrix matrix = new Matrix();
