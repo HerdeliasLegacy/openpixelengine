@@ -7,7 +7,7 @@ import java.util.Observable;
 /**
  * Created by skad on 03/09/15.
  */
-public class Level extends Observable{
+public class Level extends Observable {
     public static final String TAG = "Level";
     private static Level mInstance;
 
@@ -55,5 +55,12 @@ public class Level extends Observable{
      */
     public static enum EVENT {
         GAME_OVER, GAME_SUCCESS
+    }
+
+    /**
+     * Update methode for refreshing the level
+     */
+    public void update(){
+
     }
 }
