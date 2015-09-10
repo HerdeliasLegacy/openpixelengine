@@ -6,11 +6,13 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.herdeliaslegacy.runnergameengine.Model.Level;
 import com.herdeliaslegacy.runnergameengine.Model.SpriteObject;
+import com.herdeliaslegacy.runnergameengine.Thread.GameThread;
 
 /**
  * Created by skad on 08/09/15.
@@ -18,7 +20,7 @@ import com.herdeliaslegacy.runnergameengine.Model.SpriteObject;
 public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = "LevelView";
-    //private GameThread mGameThread;
+    private GameThread mGameThread;
     private SurfaceHolder mHolder;
 
 
@@ -42,12 +44,13 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
         for (final SpriteObject sprite : Level.getInstance().getAllSprites()) {
             canvas.drawBitmap(sprite.getScaledSprite(), (int) sprite.getXPos(), (int) sprite.getYPos(), null);
         }
+        Log.d(TAG, "drawGameElements");
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         mHolder = surfaceHolder;
-
+        startLevelThread();
     }
 
     @Override
@@ -57,6 +60,11 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
+        mGameThread.interrupt();
+    }
 
+    public void startLevelThread(){
+        mGameThread = new GameThread(mHolder, getContext(), this);
+        mGameThread.start();
     }
 }

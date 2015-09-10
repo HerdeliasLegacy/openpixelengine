@@ -2,6 +2,7 @@ package com.herdeliaslegacy.runnergameengine.Thread;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.herdeliaslegacy.runnergameengine.Model.Level;
@@ -37,6 +38,7 @@ public class GameThread extends Thread implements Observer{
     public synchronized void start() {
         this.mRunning = true;
         super.start();
+        Log.d(TAG, "start running");
     }
 
     @Override
@@ -69,6 +71,6 @@ public class GameThread extends Thread implements Observer{
     @Override
     public void interrupt() {
         this.mRunning = false;
-        super.interrupt();
+        Log.d(TAG, "interrupt running");
     }
 }

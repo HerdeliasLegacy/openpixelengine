@@ -5,35 +5,66 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.herdeliaslegacy.runnergameengine.Model.Level;
 import com.herdeliaslegacy.runnergameengine.R;
+import com.herdeliaslegacy.runnergameengine.View.LevelView;
 
-public class Level_Activity extends Activity {
+import java.util.Observable;
+import java.util.Observer;
+
+public class Level_Activity extends Activity implements Observer {
+    private static final String TAG = "LevelActivity";
+    private LevelView mLevelView;
+    private boolean mObserving;
+    private Level mLevel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
+        mLevelView = (LevelView) findViewById(R.id.level_view);
+        mLevel = Level.getInstance();
+        startLevel();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_level, menu);
-        return true;
+    /**
+     * Starts the level
+     */
+    private void startLevel() {
+        //mLevelView.startLevelThread();
+        registerObserver();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    /**
+     * Pauses the game
+     */
+    private void pauseGame() {
+        unregisterObserver();
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    /**
+     * Register LevelActivity to observe both the Level
+     */
+    private void registerObserver() {
+        if (!mObserving) {
+            mLevel.addObserver(this);
+            mObserving = true;
         }
+    }
 
-        return super.onOptionsItemSelected(item);
+    /**
+     * Unregisters LevelActivity as an observer of Level
+     */
+    private void unregisterObserver() {
+        if (mObserving) {
+            mLevel.deleteObserver(this);
+            mObserving = false;
+        }
+    }
+
+
+    @Override
+    public void update(Observable observable, Object o) {
+
     }
 }
