@@ -1,15 +1,17 @@
 package com.herdeliaslegacy.runnergameengine.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.herdeliaslegacy.runnergameengine.R;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements Button.OnClickListener {
     protected static final String TAG = "Main Activity Runner Engine";
 
     @Override
@@ -17,6 +19,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.d(TAG, "test");
+
+        //bind button
+        Button startLevelActivitybtn = (Button) findViewById(R.id.startlevelactivity_btn);
+        startLevelActivitybtn.setOnClickListener(this);
+
     }
 
     //change the fullscreen mode
@@ -35,25 +42,20 @@ public class MainActivity extends Activity {
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
+    /**
+     * Start level for default but neet to be overiden into the final game
+     * @param view
+     */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onClick(View view) {
+        Intent gameIntent = null;
+        int i = view.getId();
+        if (i == R.id.startlevelactivity_btn) {
+            gameIntent = new Intent(this, Level_Activity.class);
         }
-
-        return super.onOptionsItemSelected(item);
+        if (gameIntent != null) {
+            startActivity(gameIntent);
+        }
     }
 }
