@@ -10,6 +10,7 @@ import java.util.Observable;
 public class Level extends Observable {
     public static final String TAG = "Level";
     private static Level mInstance;
+    private Player mPlayer;
 
     private Level() {
     }
@@ -37,6 +38,8 @@ public class Level extends Observable {
     public List<SpriteObject> getAllSprites() {
         List<SpriteObject> spriteList = new ArrayList<SpriteObject>();
 
+        spriteList.add(mPlayer);
+
         return spriteList;
     }
 
@@ -62,5 +65,18 @@ public class Level extends Observable {
      */
     public void update(){
 
+    }
+
+    /**
+     * Add an item to the level
+     *
+     * @param newObject The SpriteObject to add to our level
+     */
+    public void add(SpriteObject newObject) {
+        if (newObject instanceof Player) {
+            mPlayer = (Player) newObject;
+        }
+        setChanged();
+        notifyObservers();
     }
 }

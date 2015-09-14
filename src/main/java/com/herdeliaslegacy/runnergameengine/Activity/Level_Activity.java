@@ -2,9 +2,8 @@ package com.herdeliaslegacy.runnergameengine.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
+import com.herdeliaslegacy.runnergameengine.Controler.LevelControler;
 import com.herdeliaslegacy.runnergameengine.Model.Level;
 import com.herdeliaslegacy.runnergameengine.R;
 import com.herdeliaslegacy.runnergameengine.View.LevelView;
@@ -24,15 +23,23 @@ public class Level_Activity extends Activity implements Observer {
         setContentView(R.layout.activity_level);
         mLevelView = (LevelView) findViewById(R.id.level_view);
         mLevel = Level.getInstance();
-        startLevel();
+        loadLevel();
     }
 
     /**
      * Starts the level
      */
-    private void startLevel() {
-        //mLevelView.startLevelThread();
+    private void loadLevel() {
+        loadResource();
         registerObserver();
+    }
+
+    /**
+     * Load Resource
+     */
+    public void loadResource(){
+        mLevel = LevelControler.loadLevel(this,null);
+
     }
 
     /**
