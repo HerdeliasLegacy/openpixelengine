@@ -26,7 +26,7 @@ public class TxtParser {
      * @throws IOException
      */
     public static String getFileContent(Context context, String fileName) throws IOException {
-        String content = null;
+        String content = "";
 
         String filepath = FileUtils.getFile(context,fileName);
         File file = new File(filepath);
