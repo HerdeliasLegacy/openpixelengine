@@ -44,7 +44,6 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
         for (final SpriteObject sprite : Level.getInstance().getAllSprites()) {
             canvas.drawBitmap(sprite.getScaledSprite(), (int) sprite.getXPos(), (int) sprite.getYPos(), null);
         }
-        Log.d(TAG, "drawGameElements");
     }
 
     @Override
@@ -63,6 +62,9 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
         mGameThread.interrupt();
     }
 
+    /**
+     * Start LevelThread
+     */
     public void startLevelThread(){
         mGameThread = new GameThread(mHolder, getContext(), this);
         mGameThread.start();
