@@ -1,10 +1,12 @@
 package com.herdeliaslegacy.runnergameengine.Model;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 
+import com.herdeliaslegacy.runnergameengine.Utils.FileUtils;
 import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
 
 /**
@@ -17,10 +19,6 @@ abstract public class SpriteObject {
      * Position of the SpriteObject into screen repert
      */
     protected Vector2D mPosition;
-    /**
-     * Direction of the SpriteObject movement
-     */
-    protected Vector2D mDir;
     /**
      * With of the SpriteObject
      */
@@ -38,29 +36,14 @@ abstract public class SpriteObject {
      */
     protected double mRatioHeight;
     /**
-     * Velocity off the player
-     */
-    protected double mVelocity;
-    /**
      * Scaled Bitmap with is the normal picture of the sprite
      */
     protected Bitmap mScaledSprite;
     /**
-     * Scaled Bitmap with is the alternate picture of the sprite when the player was hit
-     */
-    protected Bitmap mAlternateSprite;
-    /**
      * Original Bitmap with is the normal picture of the sprite (needed for the rotation)
      */
     protected Bitmap mOriginalSprite;
-    /**
-     * Original Bitmap with is the alternate picture of the sprite when the player was hit (needed for the rotation)
-     */
-    protected Bitmap mOriginalAlternateSprite;
-    /**
-     * Switch for the sprite
-     */
-    protected boolean mShowAlternateSprite = false;
+
     /**
      * Actual rotation of the sprite
      */
@@ -176,14 +159,11 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Return the ScaledSprite Bitmap or if(mShowAlternateSprite) return the mAlternateSprite
+     * Return the ScaledSprite Bitmap
      *
      * @return Return the ScaledSprite Bitmap or if(mShowAlternateSprite) return the mAlternateSprite
      */
     public Bitmap getScaledSprite() {
-        if (mAlternateSprite != null) {
-            return mShowAlternateSprite ? mAlternateSprite : mScaledSprite;
-        }
         return mScaledSprite;
     }
 
@@ -242,28 +222,14 @@ abstract public class SpriteObject {
         this.mAngle = mAngle;
     }
 
-    public void setSprite(Bitmap sprite) {
-        mOriginalSprite = sprite;
+    /**
+     * Load Sprite from file.
+     * Need the full path for the file
+     * @param spriteFile
+     */
+    public void setSprite(String spriteFile) {
+        mOriginalSprite = BitmapFactory.decodeFile(spriteFile);
         resize();
-    }
-
-    /**
-     * Set the AlternateSprite with the param
-     *
-     * @param sprite an alternate Bitmap
-     */
-    public void setAlternateSprite(Bitmap sprite) {
-        mAlternateSprite = Bitmap.createScaledBitmap(sprite, mWidth, mHeight, false);
-        mOriginalAlternateSprite = sprite;
-    }
-
-    /**
-     * Switch the display sprite with the bool
-     *
-     * @param alternativeSprite
-     */
-    public void setShowAlternateSprite(boolean alternativeSprite) {
-        mShowAlternateSprite = alternativeSprite;
     }
 
     public void setRatioWidth(double ratioWidth) {
@@ -280,9 +246,6 @@ abstract public class SpriteObject {
     public void resize() {
         if (mOriginalSprite != null) {
             mScaledSprite = Bitmap.createScaledBitmap(mOriginalSprite, getWidth(), getHeight(), false);
-        }
-        if (mOriginalAlternateSprite != null) {
-            mAlternateSprite = Bitmap.createScaledBitmap(mOriginalAlternateSprite, getWidth(), getHeight(), false);
         }
     }
 
@@ -351,45 +314,6 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Set the direction of the movement of the SpriteObject with a point of direction and rotate it
-     *
-     * @param targetX
-     * @param targetY
-     */
-    public void setDir(double targetX, double targetY) {
-        Vector2D temp = MathUtils.vectorFromPoint(getXPos(), getYPos(), targetX, targetY);
-        mDir = temp;
-        rotate((int) targetX, (int) targetY);
-    }
-
-    public double getVelocity() {
-        return mVelocity;
-    }
-
-    public void setVelocity(int velocity) {
-        mVelocity = velocity;
-    }
-
-    /**
-     * Make the SpriteObject moving from the direction and the velocity and update the X and Y of this
-     */
-    public void forward() {
-        // TODO Better collision handling
-        mPosition.setX(mPosition.getX() + mVelocity * mDir.getX());
-        mPosition.setY(mPosition.getY() + mVelocity * mDir.getY());
-    }
-
-    /**
-     * Retrieve the position our object would take if we were to call the forward() method right now
-     *
-     * @return A Vector2D holding the next position
-     * @see com.herdeliaslegacy.runnergameengine.Model.Vector2D
-     */
-    public Vector2D getNextPosition() {
-        return new Vector2D(mPosition.getX() + mVelocity * mDir.getX(), mPosition.getY() + mVelocity * mDir.getY());
-    }
-
-    /**
      * Rotate the actual SpriteObject into the target direction
      * this one only compute the angle needed by the rotation.
      *
@@ -415,25 +339,6 @@ abstract public class SpriteObject {
         if (mScaledSprite != null) {
             mScaledSprite = Bitmap.createBitmap(mScaledSprite, 0, 0, mWidth, mHeight, matrix, true);
         }
-        if (mAlternateSprite != null) {
-            mAlternateSprite = Bitmap.createBitmap(mAlternateSprite, 0, 0, mWidth, mHeight, matrix, true);
-        }
-    }
-
-    public double getDirX() {
-        return mDir.getX();
-    }
-
-    public double getDirY() {
-        return mDir.getY();
-    }
-
-    public Vector2D getDir() {
-        return mDir;
-    }
-
-    public void setDir(Vector2D vector) {
-        setDir(vector.getX(), vector.getY());
     }
 
     /**
