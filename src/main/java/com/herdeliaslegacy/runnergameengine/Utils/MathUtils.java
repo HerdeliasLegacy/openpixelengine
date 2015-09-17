@@ -65,7 +65,7 @@ public class MathUtils {
      * @param xMax
      * @return
      */
-    public static double randomInt(int xMax) {
+    public static int randomInt(int xMax) {
         int lower = 0;
         return (int) ((Math.random() * (xMax - lower)) + lower);
     }
