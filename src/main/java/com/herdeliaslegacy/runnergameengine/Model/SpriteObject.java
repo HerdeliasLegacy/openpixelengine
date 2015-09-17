@@ -48,14 +48,6 @@ abstract public class SpriteObject {
      * Actual rotation of the sprite
      */
     protected float mAngle;
-    /**
-     * Type of the SpriteObject
-     */
-    protected String mType;
-    /**
-     * Id of the SpriteObject
-     */
-    private int mId;
 
     /**
      * Constructor of the SpriteObject
@@ -147,24 +139,6 @@ abstract public class SpriteObject {
      */
     public void setYPos(int yPos) {
         mPosition.setY(yPos);
-    }
-
-    /**
-     * Return the Id of the SpriteObject
-     *
-     * @return Return the Id of the SpriteObject
-     */
-    public int getId() {
-        return mId;
-    }
-
-    /**
-     * Set the Id of the SpriteObject
-     *
-     * @param mId Set the Id of the SpriteObject
-     */
-    public void setId(int mId) {
-        this.mId = mId;
     }
 
     /**
@@ -351,13 +325,13 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Return the String of the SpriteObject like that : type/x/y/width/height/angle
+     * Return the String of the SpriteObject like that : x/y/width/height/angle
      *
      * @return Return the String of the SpriteObject
      * @see Level#toString() for the utiliti
      */
     @Override
     public String toString() {
-        return mType + "/" + (int) getXPos() + "/" + (int) getYPos() + "/" + getWidth() + "/" + getHeight() + "/" + getAngle();
+        return (int) getXPos() + "/" + (int) getYPos() + "/" + getWidth() + "/" + getHeight() + "/" + getAngle();
     }
 }

@@ -59,19 +59,15 @@ public class Level_Activity extends Activity implements Observer {
 
     private void loadLevelFromFile(String number){
         JSONObject jsonLevel = null;
-        try {
-            jsonLevel = JsonParser.getFileContent(this, "main.json");
-            jsonLevel = JsonParser.getFileContent(this, jsonLevel.getJSONArray("levels").getString(0));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        //defining all the elements the player
         Player player = null;
         DecorsElement decorsElement = null;
+
         try {
+            //loading json file
+            jsonLevel = JsonParser.getFileContent(this, "main.json");
+            jsonLevel = JsonParser.getFileContent(this, jsonLevel.getJSONArray("levels").getString(0));
+            //setting the velocity
+            mLevel.setmVelocity(jsonLevel.getDouble("default_velocity"));
             //setting the player
             JSONArray playerpos = jsonLevel.getJSONObject("player").getJSONArray("start_pos");
             player = new Player(new Vector2D(playerpos.getInt(0),playerpos.getInt(1)),256,256);
@@ -87,14 +83,11 @@ public class Level_Activity extends Activity implements Observer {
 
                 mLevel.add(decorsElement);
             }
-
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
-
     }
 
     /**

@@ -19,10 +19,12 @@ public class Level extends Observable {
     private static int mMaxXDraw = 0;
     private static int mMaxYDraw = 0;
 
+    /** Default velocity of the element */
+    private double mVelocity;
     /** Player */
     private Player mPlayer;
     /** SpriteObject list for the decors wich will be displayed on the screen */
-    private List<MovingSpriteObject> mDecors = new ArrayList<MovingSpriteObject>();
+    private List<DecorsElement> mDecors = new ArrayList<DecorsElement>();
 
     /** SpriteObject list with only the element composing the decor. This list will never be drawed */
     private List<DecorsElement> mDecorsListElements = new ArrayList<DecorsElement>();
@@ -44,6 +46,10 @@ public class Level extends Observable {
         return mInstance;
     }
 
+
+    public void setmVelocity(double mVelocity) {
+        this.mVelocity = mVelocity;
+    }
 
     public static void setmMaxXDraw(int screenWidth) {
         mMaxXDraw = screenWidth;
@@ -88,11 +94,15 @@ public class Level extends Observable {
     private int addRandomElementToDecor(int posx){
         int sizeDecors = mDecors.size()-1;
         int pos = MathUtils.randomInt(mDecorsListElements.size());
-        MovingSpriteObject element = new MovingSpriteObject(mDecorsListElements.get(pos));
-        Vector2D elementPos = new Vector2D(posx,mMaxYDraw-element.getHeight());
-        element.setPosition(elementPos);
+
+        DecorsElement element = new DecorsElement(mDecorsListElements.get(pos));
+        element.setPosition(new Vector2D(posx,mMaxYDraw-element.getHeight()));
+        element.setVelocity(mVelocity);
+        element.setMovingDirection(new Vector2D(-1,0));
         mDecors.add(element);
+
         posx += element.getWidth();
+
         return posx;
     }
 
@@ -134,7 +144,17 @@ public class Level extends Observable {
      * Update methode for refreshing the level
      */
     public void update(){
+        updateDecors();
 
+    }
+
+    /**
+     * Update only the decor
+     */
+    private void updateDecors(){
+        for (final MovingSpriteObject decorelement:mDecors) {
+            decorelement.forward();
+        }
     }
 
 }
