@@ -84,6 +84,15 @@ abstract public class SpriteObject {
         mHeight = height;
     }
 
+    protected SpriteObject(SpriteObject object)
+    {
+        mPosition = object.getPosition();
+        mWidth = object.getWidth();
+        mHeight = object.getHeight();
+        mOriginalSprite = object.mOriginalSprite;
+        resize();
+    }
+
     /**
      * Return the actual position of the object
      *
@@ -326,7 +335,7 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Make the ScaledSprite and the AlternateSprite rotate
+     * Make the ScaledSprite
      * Need an angle for the rotation
      *
      * @param angle
