@@ -32,10 +32,9 @@ public class Vector2D {
     }
 
     /**
-     * Normalize the Vector2D.
-     * It modifying the actual instance of the vector
+     * Normalize the Vector2D and return it
      */
-    public void normalize() {
+    public Vector2D normalize() {
         double normX = 0.0;
         double normY = 0.0;
         double len = length();
@@ -43,48 +42,48 @@ public class Vector2D {
             normX = mX / len;
             normY = mY / len;
         }
-        mX = normX;
-        mY = normY;
+
+        return new Vector2D(normX,normY);
     }
 
     /**
      * Addition the actual instance of the vector with the param Vector2D
      * @param vector
      */
-    public void add(Vector2D vector) {
-        mX += vector.getX();
-        mY += vector.getY();
+    public Vector2D add(Vector2D vector) {
+        return new Vector2D(mX+vector.getX(),mY+vector.getY());
     }
 
     /**
      * Remove the actual instance of the vector with the param Vector2D
      * @param vector
      */
-    public void sub(Vector2D vector) {
-        mX -= vector.getX();
-        mY -= vector.getY();
+    public Vector2D sub(Vector2D vector) {
+        return new Vector2D(mX-vector.getX(),mY-vector.getY());
     }
 
+
+    public Vector2D multBynumber(double number){
+        return mult(new Vector2D(number,number));
+    }
     /**
      * Multiply the actual instance of the vector with the param Vector2D
      * @param vector
      */
-    public void mult(Vector2D vector) {
-        mX *= vector.getX();
-        mY *= vector.getY();
-    }
+    public Vector2D mult(Vector2D vector) {
+        return new Vector2D(mX*vector.getX(),mY*vector.getY())
+;    }
 
     /**
      * Divise the actual instance of the vector with the param Vector2D
      * @param vector
      */
-    public void div(Vector2D vector) {
-        mX /= vector.getX();
-        mY /= vector.getY();
+    public Vector2D div(Vector2D vector) {
+        return new Vector2D(mX/vector.getX(),mY/vector.getY());
     }
 
     /**
-     * Return a new vector2D witch is the scalar of the acual instance of the vector and the param
+     * Return the scalar product of the acual instance of the vector and the param
      * @param vector
      * @return new Vector2D
      */
