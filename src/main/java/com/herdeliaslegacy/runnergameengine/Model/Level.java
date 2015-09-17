@@ -14,7 +14,10 @@ import java.util.Observable;
 public class Level extends Observable {
     public static final String TAG = "Level";
     private static Level mInstance;
+
+    /** Limit of the screen */
     private static int mMaxXDraw = 0;
+    private static int mMaxYDraw = 0;
 
     /** Player */
     private Player mPlayer;
@@ -44,6 +47,11 @@ public class Level extends Observable {
 
     public static void setmMaxXDraw(int screenWidth) {
         mMaxXDraw = screenWidth;
+    }
+
+
+    public static void setmMaxYDraw(int screenHeight) {
+        mMaxYDraw = screenHeight;
     }
 
     /**
@@ -81,7 +89,7 @@ public class Level extends Observable {
         int sizeDecors = mDecors.size()-1;
         int pos = MathUtils.randomInt(mDecorsListElements.size());
         MovingSpriteObject element = new MovingSpriteObject(mDecorsListElements.get(pos));
-        Vector2D elementPos = new Vector2D(posx,700);
+        Vector2D elementPos = new Vector2D(posx,mMaxYDraw-element.getHeight());
         element.setPosition(elementPos);
         mDecors.add(element);
         posx += element.getWidth();

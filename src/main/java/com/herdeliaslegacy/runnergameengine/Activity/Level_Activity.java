@@ -50,6 +50,7 @@ public class Level_Activity extends Activity implements Observer {
     public void loadResource(){
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         mLevel.setmMaxXDraw(metrics.widthPixels);
+        mLevel.setmMaxYDraw(metrics.heightPixels);
         loadLevelFromFile("0");
 
         mLevel.generateLevelStart();
