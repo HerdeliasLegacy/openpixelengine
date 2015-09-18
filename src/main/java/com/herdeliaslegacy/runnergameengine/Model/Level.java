@@ -5,7 +5,9 @@ import android.util.Log;
 import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Observable;
 
 /**
@@ -152,8 +154,16 @@ public class Level extends Observable {
      * Update only the decor
      */
     private void updateDecors(){
-        for (final MovingSpriteObject decorelement:mDecors) {
+
+        ListIterator<DecorsElement> i = mDecors.listIterator();
+        while (i.hasNext()) {
+            DecorsElement decorelement = i.next();
             decorelement.forward();
+            i.set(decorelement);
+            if (decorelement.getXPos() + decorelement.getWidth() < 0) {
+                i.remove();
+                Log.d(TAG, "updateDecors mDecors size " + mDecors.size());
+            }
         }
     }
 
