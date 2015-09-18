@@ -8,7 +8,4 @@ public class Player extends MovingSpriteObject {
         super(x, y, width, height);
     }
 
-    public Player(Vector2D pos, int width, int height) {
-        super(pos, width, height);
-    }
 }

@@ -57,10 +57,8 @@ abstract public class SpriteObject {
      * @param width
      * @param height
      */
-    protected SpriteObject(int x, int y, int width, int height) {
-        mPosition = new Vector2D(x, y);
-        mWidth = width;
-        mHeight = height;
+    public SpriteObject(int x, int y, int width, int height) {
+        this(new Vector2D(x, y),width,height);
     }
 
     /**
@@ -70,7 +68,7 @@ abstract public class SpriteObject {
      * @param width
      * @param height
      */
-    protected SpriteObject(Vector2D pos, int width, int height) {
+    public SpriteObject(Vector2D pos, int width, int height) {
         mPosition = pos;
         mWidth = width;
         mHeight = height;

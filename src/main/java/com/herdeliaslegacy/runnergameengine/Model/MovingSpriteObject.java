@@ -9,11 +9,13 @@ public abstract class MovingSpriteObject extends SpriteObject{
     private double mVelocity;
 
     public MovingSpriteObject(int x, int y, int width, int height) {
-        super(x, y, width, height);
+        this(new Vector2D(x,y),width,height);
     }
 
     public MovingSpriteObject(Vector2D pos, int width, int height) {
         super(pos, width, height);
+        mMovingDirection = new Vector2D(0,0);
+        mVelocity = 0;
     }
 
     public MovingSpriteObject(MovingSpriteObject object) {
@@ -51,4 +53,5 @@ public abstract class MovingSpriteObject extends SpriteObject{
     public void backward(){
         mPosition = mPosition.sub(mMovingDirection.multBynumber(mVelocity));
     }
+
 }
