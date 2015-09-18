@@ -65,7 +65,7 @@ public class Level extends Observable {
     /**
      * Retrieve all the sprites!
      * Note: The order matters as the first object is drawn first (followers will be "above")
-     *
+     * Todo: need to find a better way to serve files because it will be quickly ram hungry
      * @return An (Array)List containing all sprites
      */
     public List<SpriteObject> getAllSprites() {
@@ -160,10 +160,18 @@ public class Level extends Observable {
             DecorsElement decorelement = i.next();
             decorelement.forward();
             i.set(decorelement);
+
+            //remove element who are off the screen
             if (decorelement.getXPos() + decorelement.getWidth() < 0) {
                 i.remove();
                 Log.d(TAG, "updateDecors mDecors size " + mDecors.size());
             }
+        }
+
+        //add element off the screen for the infinity loop
+        DecorsElement last = mDecors.get(mDecors.size()-1);
+        if (last.getXPos()+last.getWidth() < mMaxXDraw){
+            addRandomElementToDecor(mMaxXDraw);
         }
     }
 
