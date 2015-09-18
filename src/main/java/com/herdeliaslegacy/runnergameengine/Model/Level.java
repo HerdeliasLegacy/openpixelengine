@@ -5,7 +5,6 @@ import android.util.Log;
 import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
@@ -22,7 +21,10 @@ public class Level extends Observable {
     private static int mMaxYDraw = 0;
 
     /** Default velocity of the element */
-    private double mVelocity;
+    private double mDefaultVelocity = 1;
+    /** Default Gravity of the level */
+    private Vector2D mLevelGravity = new Vector2D(0,1);
+
     /** Player */
     private Player mPlayer;
     /** SpriteObject list for the decors wich will be displayed on the screen */
@@ -50,7 +52,7 @@ public class Level extends Observable {
 
 
     public void setmVelocity(double mVelocity) {
-        this.mVelocity = mVelocity;
+        this.mDefaultVelocity = mVelocity;
     }
 
     public static void setmMaxXDraw(int screenWidth) {
@@ -99,7 +101,7 @@ public class Level extends Observable {
 
         DecorsElement element = new DecorsElement(mDecorsListElements.get(pos));
         element.setPosition(new Vector2D(posx,mMaxYDraw-element.getHeight()));
-        element.setVelocity(mVelocity);
+        element.setVelocity(mDefaultVelocity);
         element.setMovingDirection(new Vector2D(-1,0));
         mDecors.add(element);
 
@@ -147,7 +149,7 @@ public class Level extends Observable {
      */
     public void update(){
         updateDecors();
-
+        updatePlayer();
     }
 
     /**
@@ -173,6 +175,13 @@ public class Level extends Observable {
         if (last.getXPos()+last.getWidth() < mMaxXDraw){
             addRandomElementToDecor(mMaxXDraw);
         }
+    }
+
+    /**
+     * Update the player
+     */
+    private void updatePlayer(){
+        mPlayer.applyGravity(mLevelGravity);
     }
 
 }
