@@ -58,9 +58,9 @@ public class Level_Activity extends Activity implements Observer {
     }
 
     private void loadLevelFromFile(String number){
-        JSONObject jsonLevel = null;
-        Player player = null;
-        DecorsElement decorsElement = null;
+        JSONObject jsonLevel;
+        Player player;
+        DecorsElement decorsElement;
 
         try {
             //loading json file
@@ -70,7 +70,7 @@ public class Level_Activity extends Activity implements Observer {
             mLevel.setmVelocity(jsonLevel.getDouble("default_velocity"));
             //setting the player
             JSONArray playerpos = jsonLevel.getJSONObject("player").getJSONArray("start_pos");
-            player = new Player(new Vector2D(playerpos.getInt(0),playerpos.getInt(1)),256,256);
+            player = new Player(playerpos.getInt(0),playerpos.getInt(1),256,256);
             player.setSprite(FileUtils.getFile(this, jsonLevel.getJSONObject("player").getString("sprite")));
             mLevel.add(player);
 
