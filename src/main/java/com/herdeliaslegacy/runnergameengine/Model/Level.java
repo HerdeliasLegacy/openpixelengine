@@ -5,6 +5,7 @@ import android.util.Log;
 import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Observable;
@@ -157,12 +158,10 @@ public class Level extends Observable {
      */
     private void updateDecors(){
 
-        ListIterator<DecorsElement> i = mDecors.listIterator();
+        Iterator<DecorsElement> i = mDecors.iterator();
         while (i.hasNext()) {
             DecorsElement decorelement = i.next();
             decorelement.forward();
-            i.set(decorelement);
-
             //remove element who are off the screen
             if (decorelement.getXPos() + decorelement.getWidth() < 0) {
                 i.remove();
@@ -182,6 +181,13 @@ public class Level extends Observable {
      */
     private void updatePlayer(){
         mPlayer.applyGravity(mLevelGravity);
+    }
+
+    /**
+     * Set force to the player
+     */
+    public void setForceToPlayer(Vector2D force){
+        mPlayer.applyGravity(force);
     }
 
 }

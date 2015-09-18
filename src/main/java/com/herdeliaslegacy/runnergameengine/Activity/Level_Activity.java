@@ -32,6 +32,7 @@ public class Level_Activity extends Activity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
         mLevelView = (LevelView) findViewById(R.id.level_view);
+        mLevelView.setOnTouchListener(mLevelView);
         mLevel = Level.getInstance();
         loadLevel();
     }

@@ -7,21 +7,27 @@ import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import com.herdeliaslegacy.runnergameengine.Model.Level;
 import com.herdeliaslegacy.runnergameengine.Model.SpriteObject;
+import com.herdeliaslegacy.runnergameengine.Model.Vector2D;
 import com.herdeliaslegacy.runnergameengine.Thread.GameThread;
+import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
 
 /**
  * Created by skad on 08/09/15.
  */
-public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
+public class LevelView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
     private static final String TAG = "LevelView";
     private GameThread mGameThread;
     private SurfaceHolder mHolder;
+    private float downX;
+    private float downY;
 
 
     public LevelView(Context context, AttributeSet attributeSet) {
@@ -68,5 +74,22 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
     public void startLevelThread(){
         mGameThread = new GameThread(mHolder, getContext(), this);
         mGameThread.start();
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN: {
+                    this.downX = event.getX();
+                    this.downY = event.getY();
+                    return true;
+                }
+                case MotionEvent.ACTION_UP:
+                    Vector2D swipe = MathUtils.vectorFromPoint(downX, downY, event.getX(), event.getY());
+                    Level.getInstance().setForceToPlayer(swipe);
+                    return true;
+            }
+            return false;
     }
 }
