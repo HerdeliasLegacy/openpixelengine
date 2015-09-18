@@ -54,4 +54,11 @@ public abstract class MovingSpriteObject extends SpriteObject{
         mPosition = mPosition.sub(mMovingDirection.multBynumber(mVelocity));
     }
 
+    /**
+     * Applying the pass gravity to the object
+     */
+    public void applyGravity(Vector2D grav){
+
+        mPosition = mPosition.add(grav);
+    }
 }
