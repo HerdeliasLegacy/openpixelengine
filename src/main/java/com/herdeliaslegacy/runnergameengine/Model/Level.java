@@ -181,7 +181,6 @@ public class Level extends Observable {
      */
     private void updatePlayer(){
         mPlayer.update();
-        Log.d(TAG, "updatePlayer "+mPlayer);
     }
 
     /**
