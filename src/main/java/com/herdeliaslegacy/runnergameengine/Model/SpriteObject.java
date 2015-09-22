@@ -330,6 +330,6 @@ abstract public class SpriteObject {
      */
     @Override
     public String toString() {
-        return (int) getXPos() + "/" + (int) getYPos() + "/" + getWidth() + "/" + getHeight() + "/" + getAngle();
+        return "pos : ("+(int) getXPos() + "," + (int) getYPos() + "), size: [" + getWidth() + "x" + getHeight() + "], angle:" + getAngle();
     }
 }
