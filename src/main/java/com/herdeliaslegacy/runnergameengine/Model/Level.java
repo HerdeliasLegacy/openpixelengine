@@ -7,7 +7,6 @@ import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Observable;
 
 /**
@@ -23,8 +22,8 @@ public class Level extends Observable {
 
     /** Default velocity of the element */
     private double mDefaultVelocity = 1;
-    /** Default Gravity of the level */
-    private Vector2D mLevelGravity = new Vector2D(0,1);
+    /** Default Gravity of the level (terran gravity)*/
+    private Vector2D mLevelGravity = new Vector2D(0,-9.8);
 
     /** Player */
     private Player mPlayer;
@@ -136,6 +135,7 @@ public class Level extends Observable {
     public void add(SpriteObject newObject) {
         if (newObject instanceof Player) {
             mPlayer = (Player) newObject;
+            mPlayer.setGravity(mLevelGravity);
         }else if (newObject instanceof DecorsElement){
             mDecorsListElements.add((DecorsElement) newObject);
         }
@@ -180,14 +180,16 @@ public class Level extends Observable {
      * Update the player
      */
     private void updatePlayer(){
-        mPlayer.applyGravity(mLevelGravity);
+        mPlayer.update();
+        Log.d(TAG, "updatePlayer "+mPlayer);
     }
 
     /**
      * Set force to the player
      */
     public void setForceToPlayer(Vector2D force){
-        mPlayer.applyGravity(force);
+        force = force.normalize();
+        mPlayer.setNewForce(force);
     }
 
 }
