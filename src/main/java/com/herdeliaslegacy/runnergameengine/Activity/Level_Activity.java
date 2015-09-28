@@ -3,6 +3,7 @@ package com.herdeliaslegacy.runnergameengine.Activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.herdeliaslegacy.runnergameengine.Model.DecorsElement;
 import com.herdeliaslegacy.runnergameengine.Model.Level;
@@ -52,17 +53,18 @@ public class Level_Activity extends Activity implements Observer {
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         mLevel.setmMaxXDraw(metrics.widthPixels);
         mLevel.setmMaxYDraw(metrics.heightPixels);
-        loadLevelFromFile("0");
-
-        mLevel.generateLevelStart();
-
+        if(loadLevelFromFile("0"))
+        {
+            mLevel.generateLevelStart();
+        }
     }
 
-    private void loadLevelFromFile(String number){
+    private boolean loadLevelFromFile(String number){
         JSONObject jsonLevel;
         Player player;
         DecorsElement decorsElement;
 
+        boolean returnvalue = false;
         try {
             //loading json file
             jsonLevel = JsonParser.getFileContent(this, "main.json");
@@ -84,11 +86,17 @@ public class Level_Activity extends Activity implements Observer {
 
                 mLevel.add(decorsElement);
             }
+
+            returnvalue = true;
         } catch (IOException e) {
+            Log.e(TAG, "Unable to load level from file > Level file not accessible");
             e.printStackTrace();
         } catch (JSONException e) {
+            Log.e(TAG, "Unable to load level from file > Level file corupted ?");
             e.printStackTrace();
         }
+
+        return returnvalue;
     }
 
     /**
