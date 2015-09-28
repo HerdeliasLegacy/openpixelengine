@@ -135,7 +135,7 @@ abstract public class SpriteObject {
      *
      * @param yPos Set the Y position with the param
      */
-    public void setYPos(int yPos) {
+    public void setYPos(double yPos) {
         mPosition.setY(yPos);
     }
 
@@ -269,6 +269,9 @@ abstract public class SpriteObject {
         return null;
     }
 
+    public int whereColide(Vector2D colision) {
+        return 0;
+    }
     /**
      * Calcultate the collision rectangle between two rect and return it
      *
@@ -330,6 +333,6 @@ abstract public class SpriteObject {
      */
     @Override
     public String toString() {
-        return "pos : ("+(int) getXPos() + "," + (int) getYPos() + "), size: [" + getWidth() + "x" + getHeight() + "], angle:" + getAngle();
+        return "pos : ("+mPosition+ "), size: [" + getWidth() + "x" + getHeight() + "], angle:" + getAngle();
     }
 }

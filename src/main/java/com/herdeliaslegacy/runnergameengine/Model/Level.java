@@ -170,7 +170,7 @@ public class Level extends Observable {
         }
 
         //add element off the screen for the infinity loop
-        DecorsElement last = mDecors.get(mDecors.size()-1);
+        DecorsElement last = mDecors.get(mDecors.size() - 1);
         if (last.getXPos()+last.getWidth() < mMaxXDraw){
             addRandomElementToDecor(mMaxXDraw);
         }
@@ -181,13 +181,23 @@ public class Level extends Observable {
      */
     private void updatePlayer(){
         mPlayer.update();
+        Log.d(TAG, "updatePlayer "+mPlayer);
+        Iterator<DecorsElement> i = mDecors.iterator();
+        while (i.hasNext()) {
+            DecorsElement decorelement = i.next();
+            Vector2D intersect = mPlayer.intersects(decorelement);
+            if(intersect != null){
+                mPlayer.setYPos(decorelement.getYPos()-mPlayer.getHeight());
+                mPlayer.setNewForce(mLevelGravity.invert());
+                Log.d(TAG, "updatePlayer "+intersect);
+            }
+        }
     }
 
     /**
      * Set force to the player
      */
     public void setForceToPlayer(Vector2D force){
-        force = force.normalize();
         mPlayer.setNewForce(force);
     }
 
