@@ -87,10 +87,10 @@ public abstract class MovingSpriteObject extends SpriteObject{
      * @return
      */
     private Vector2D computingPos(){
-        long time =  (SystemClock.elapsedRealtime() - mTime)/1000;
+        long time =  (SystemClock.elapsedRealtime() - mTime)/50;
         Vector2D retour = new Vector2D(mPosition.getX(),0);
-        retour.setX(mV0.getX() * Math.cos(90) * time);
-        retour.setY(-0.5*mGravity.getY()*Math.pow(time, 2)+mV0.getY()*Math.sin(90)*time+mPos0.getY());
+        //retour.setX(mV0.getX() * Math.cos(90) * time);
+        retour.setY(-0.5*mGravity.getY()*Math.pow(time, 2)-mV0.getY()*Math.sin(90)*time+mPos0.getY());
         return retour;
     }
 }
