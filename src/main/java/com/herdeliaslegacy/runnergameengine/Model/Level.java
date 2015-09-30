@@ -198,6 +198,7 @@ public class Level extends Observable {
      * Set force to the player
      */
     public void setForceToPlayer(Vector2D force){
+        force = mLevelGravity.multBynumber(-10);
         mPlayer.setNewForce(force);
     }
 
