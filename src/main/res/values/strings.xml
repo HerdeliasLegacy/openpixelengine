@@ -4,4 +4,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_level_">Level_Activity</string>
     <string name="startlevelactivity_btn_lbl">startLevel</string>
+    <string name="error_load_level_file">Unable to load level from file</string>
+    <string name="file_missing">file not accessible</string>
+    <string name="file_corrupted">file corrupted</string>
 </resources>

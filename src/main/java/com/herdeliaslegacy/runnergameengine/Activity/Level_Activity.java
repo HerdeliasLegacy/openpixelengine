@@ -89,10 +89,10 @@ public class Level_Activity extends Activity implements Observer {
 
             returnvalue = true;
         } catch (IOException e) {
-            Log.e(TAG, "Unable to load level from file > Level file not accessible");
+            Log.e(TAG, getString(R.string.error_load_level_file)+" > "+getString(R.string.file_missing));
             e.printStackTrace();
         } catch (JSONException e) {
-            Log.e(TAG, "Unable to load level from file > Level file corupted ?");
+            Log.e(TAG, getString(R.string.error_file_corupted)+" > "+getString(R.string.file_corrupted));
             e.printStackTrace();
         }
 
