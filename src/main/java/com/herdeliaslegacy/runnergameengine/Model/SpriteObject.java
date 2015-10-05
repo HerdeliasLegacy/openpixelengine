@@ -258,8 +258,8 @@ abstract public class SpriteObject {
         mRatioHeight = ratioHeight;
     }
 
-    public void addAnimation(String name, Animation animation) {
-        mAnimationMap.put(name,animation);
+    public void addAnimation(String name, String animation) {
+        mAnimationMap.put(name,new Animation(animation));
     }
 
     public void removeAnimation(String name) {

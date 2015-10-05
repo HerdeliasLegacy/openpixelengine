@@ -66,19 +66,30 @@ public class Level_Activity extends Activity implements Observer {
 
         boolean returnvalue = false;
         try {
+            //Todo need definir what is default and what is not into the level file
             //loading json file
             jsonLevel = JsonParser.getFileContent(this, "main.json");
             jsonLevel = JsonParser.getFileContent(this, jsonLevel.getJSONArray("levels").getString(0));
             //setting the velocity
             mLevel.setmVelocity(jsonLevel.getDouble("default_velocity"));
             //setting the player
-            JSONArray playerpos = jsonLevel.getJSONObject("player").getJSONArray("start_pos");
-            JSONArray playersize = jsonLevel.getJSONObject("player").getJSONArray("size");
+            JSONObject jsonplayer = jsonLevel.getJSONObject("player");
+            JSONArray playerpos = jsonplayer.getJSONArray("start_pos");
+            JSONArray playersize = jsonplayer.getJSONArray("size");
 
             player = new Player();
             player.setPosition(new Vector2D(playerpos.getInt(0),playerpos.getInt(1)));
             player.setSize(playersize.getInt(0),playersize.getInt(1));
-            player.setSprite(FileUtils.getFile(this, jsonLevel.getJSONObject("player").getString("sprite")));
+            player.setSprite(FileUtils.getFile(this, jsonplayer.getString("sprite")));
+
+
+            //setting the animations list
+            JSONArray animationArray = jsonplayer.getJSONArray("animations");
+            for (int i = 0 ; i < animationArray.length(); i++) {
+                JSONObject animation = animationArray.getJSONObject(i);
+                player.addAnimation(animation.getString("name"),animation.getString("sprite"));
+            }
+
             mLevel.add(player);
 
             //setting the decors elements list
@@ -100,6 +111,7 @@ public class Level_Activity extends Activity implements Observer {
             Log.e(TAG, getString(R.string.error_file_corupted)+" > "+getString(R.string.file_corrupted));
             e.printStackTrace();
         }
+
 
         return returnvalue;
     }
