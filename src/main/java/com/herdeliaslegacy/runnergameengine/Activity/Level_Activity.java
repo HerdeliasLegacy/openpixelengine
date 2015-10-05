@@ -87,7 +87,7 @@ public class Level_Activity extends Activity implements Observer {
             JSONArray animationArray = jsonplayer.getJSONArray("animations");
             for (int i = 0 ; i < animationArray.length(); i++) {
                 JSONObject animation = animationArray.getJSONObject(i);
-                player.addAnimation(animation.getString("name"),animation.getString("sprite"));
+                player.addAnimation(animation.getString("name"),FileUtils.getFile(this,animation.getString("sprite")));
             }
 
             mLevel.add(player);
@@ -111,7 +111,6 @@ public class Level_Activity extends Activity implements Observer {
             Log.e(TAG, getString(R.string.error_file_corupted)+" > "+getString(R.string.file_corrupted));
             e.printStackTrace();
         }
-
 
         return returnvalue;
     }

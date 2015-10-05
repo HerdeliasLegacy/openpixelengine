@@ -183,6 +183,7 @@ public class Level extends Observable {
         mPlayer.update();
         Log.d(TAG, "updatePlayer "+mPlayer);
         Iterator<DecorsElement> i = mDecors.iterator();
+        //checking colision
         while (i.hasNext()) {
             DecorsElement decorelement = i.next();
             Vector2D intersect = mPlayer.intersects(decorelement);

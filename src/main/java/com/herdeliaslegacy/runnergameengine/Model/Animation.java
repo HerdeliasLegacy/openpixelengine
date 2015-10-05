@@ -2,6 +2,7 @@ package com.herdeliaslegacy.runnergameengine.Model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 /**
  * Created by skad on 05/10/15.
@@ -36,6 +37,9 @@ public class Animation {
         this.mMaxStepAnimation = 0;
     }
 
+    public void computeMaxStepAnimation(int width){
+        mMaxStepAnimation = mAnimatedSprite.getWidth()/width;
+    }
     public void setSprite(String spriteFile) {
         this.mAnimatedSprite = BitmapFactory.decodeFile(spriteFile);
     }
@@ -47,9 +51,9 @@ public class Animation {
      * @return
      */
     public Bitmap animate(int width,int height){
-        Bitmap Retour = Bitmap.createBitmap(mAnimatedSprite, mStepAnimation*width, mStepAnimation*height, width, height);
+        Bitmap Retour = Bitmap.createBitmap(mAnimatedSprite, mStepAnimation*width, 0, width, height);
         mStepAnimation++;
-        if(mStepAnimation > mMaxStepAnimation){
+        if(mStepAnimation >= mMaxStepAnimation){
             mStepAnimation = 0;
         }
 
