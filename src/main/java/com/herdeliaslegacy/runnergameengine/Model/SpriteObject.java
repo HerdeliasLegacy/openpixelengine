@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 
-import com.herdeliaslegacy.runnergameengine.Utils.FileUtils;
 import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represent a generique object that can be drawing on the screen
@@ -45,6 +47,11 @@ abstract public class SpriteObject {
     protected Bitmap mOriginalSprite;
 
     /**
+     * Map for having some animation
+     */
+    protected Map<String,Animation> mAnimationMap;
+
+    /**
      * Actual rotation of the sprite
      */
     protected float mAngle;
@@ -79,6 +86,7 @@ abstract public class SpriteObject {
         mPosition = pos;
         mWidth = width;
         mHeight = height;
+        mAnimationMap = new HashMap<String, Animation>();
     }
 
     protected SpriteObject(SpriteObject object)
@@ -87,6 +95,7 @@ abstract public class SpriteObject {
         mWidth = object.getWidth();
         mHeight = object.getHeight();
         mOriginalSprite = object.mOriginalSprite;
+        mAnimationMap  = object.mAnimationMap;
         resize();
     }
 
@@ -249,6 +258,13 @@ abstract public class SpriteObject {
         mRatioHeight = ratioHeight;
     }
 
+    public void addAnimation(String name, Animation animation) {
+        mAnimationMap.put(name,animation);
+    }
+
+    public void removeAnimation(String name) {
+        mAnimationMap.remove(name);
+    }
     /**
      * Resize the OriginalSprites with the with and the height of the SpriteObject
      */
