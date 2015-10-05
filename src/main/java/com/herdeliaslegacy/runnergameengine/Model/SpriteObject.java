@@ -45,9 +45,31 @@ abstract public class SpriteObject {
     protected Bitmap mOriginalSprite;
 
     /**
+     * The sprite wich contain the animation
+     */
+    protected Bitmap mAnimatedSprite;
+
+    /**
+     * Curent step off the animation
+     */
+    protected int mStepAnimation;
+
+    /**
+     * Max animation step
+     */
+    protected int mMaxStepAnimation;
+
+    /**
      * Actual rotation of the sprite
      */
     protected float mAngle;
+
+    /**
+     * Default constructor
+     */
+    public SpriteObject(){
+        this(0,0,0,0);
+    }
 
     /**
      * Constructor of the SpriteObject
@@ -72,6 +94,8 @@ abstract public class SpriteObject {
         mPosition = pos;
         mWidth = width;
         mHeight = height;
+        mStepAnimation = 0;
+        mMaxStepAnimation = 1;
     }
 
     protected SpriteObject(SpriteObject object)
@@ -80,6 +104,8 @@ abstract public class SpriteObject {
         mWidth = object.getWidth();
         mHeight = object.getHeight();
         mOriginalSprite = object.mOriginalSprite;
+        mStepAnimation = 0;
+        mMaxStepAnimation = 1;
         resize();
     }
 
@@ -101,6 +127,17 @@ abstract public class SpriteObject {
      */
     public void setPosition(Vector2D position) {
         mPosition = position;
+    }
+
+    /**
+     * Set the actual position of the SpriteObject with the param
+     *
+     * @param x
+     * @param y
+     * @see com.herdeliaslegacy.runnergameengine.Model.Vector2D
+     */
+    public void setPosition(double x, double y){
+        this.setPosition(new Vector2D(x, y));
     }
 
     /**
@@ -195,6 +232,16 @@ abstract public class SpriteObject {
         mHeight = height;
     }
 
+    /**
+     * Set the size of the SpriteObject
+     * @param width
+     * @param height
+     */
+    public void setSize(int width,int height){
+        mWidth = width;
+        mHeight = height;
+    }
+
     public float getAngle() {
         return mAngle;
     }
@@ -209,7 +256,8 @@ abstract public class SpriteObject {
      * @param spriteFile
      */
     public void setSprite(String spriteFile) {
-        mOriginalSprite = BitmapFactory.decodeFile(spriteFile);
+        mAnimatedSprite = BitmapFactory.decodeFile(spriteFile);
+        animate();
         resize();
     }
 
@@ -321,7 +369,7 @@ abstract public class SpriteObject {
         matrix.postRotate(mAngle);
         resize();
         if (mScaledSprite != null) {
-            mScaledSprite = Bitmap.createBitmap(mScaledSprite, 0, 0, mWidth, mHeight, matrix, true);
+            mScaledSprite = Bitmap.createBitmap(mOriginalSprite, 0, 0, mWidth, mHeight, matrix, true);
         }
     }
 
@@ -334,5 +382,15 @@ abstract public class SpriteObject {
     @Override
     public String toString() {
         return "pos : ("+mPosition+ "), size: [" + getWidth() + "x" + getHeight() + "], angle:" + getAngle();
+    }
+
+
+    public void animate(){
+        mOriginalSprite = Bitmap.createBitmap(mAnimatedSprite, mStepAnimation*mWidth, mStepAnimation*mHeight, mWidth, mHeight);
+        mStepAnimation++;
+        if(mStepAnimation > mMaxStepAnimation){
+            mStepAnimation = 0;
+        }
+
     }
 }

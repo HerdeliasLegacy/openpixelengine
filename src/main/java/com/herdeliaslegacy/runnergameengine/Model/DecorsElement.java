@@ -4,6 +4,9 @@ package com.herdeliaslegacy.runnergameengine.Model;
  * Created by skad on 16/09/15.
  */
 public class DecorsElement extends MovingSpriteObject {
+    public DecorsElement(){
+        this(0,0,0,0);
+    }
     public DecorsElement(int x, int y, int width, int height) {
         this(new Vector2D(x,y),width,height);
     }

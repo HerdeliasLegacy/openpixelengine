@@ -73,7 +73,11 @@ public class Level_Activity extends Activity implements Observer {
             mLevel.setmVelocity(jsonLevel.getDouble("default_velocity"));
             //setting the player
             JSONArray playerpos = jsonLevel.getJSONObject("player").getJSONArray("start_pos");
-            player = new Player(playerpos.getInt(0),playerpos.getInt(1),256,256);
+            JSONArray playersize = jsonLevel.getJSONObject("player").getJSONArray("size");
+
+            player = new Player();
+            player.setPosition(new Vector2D(playerpos.getInt(0),playerpos.getInt(1)));
+            player.setSize(playersize.getInt(0),playersize.getInt(1));
             player.setSprite(FileUtils.getFile(this, jsonLevel.getJSONObject("player").getString("sprite")));
             mLevel.add(player);
 
@@ -81,7 +85,8 @@ public class Level_Activity extends Activity implements Observer {
             JSONArray decorsArray = jsonLevel.getJSONArray("decorelements");
             for (int i = 0 ; i < decorsArray.length(); i++) {
                 JSONObject decor = decorsArray.getJSONObject(i);
-                decorsElement = new DecorsElement(new Vector2D(0,0),decor.getJSONArray("size").getInt(0),decor.getJSONArray("size").getInt(1));
+                decorsElement = new DecorsElement();
+                decorsElement.setSize(decor.getJSONArray("size").getInt(0),decor.getJSONArray("size").getInt(1));
                 decorsElement.setSprite(FileUtils.getFile(this,decor.getString("sprite")));
 
                 mLevel.add(decorsElement);

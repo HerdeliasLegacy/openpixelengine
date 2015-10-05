@@ -67,7 +67,7 @@ public class Level extends Observable {
     /**
      * Retrieve all the sprites!
      * Note: The order matters as the first object is drawn first (followers will be "above")
-     * Todo: need to find a better way to serve files because it will be quickly ram hungry
+     * TODO: need to find a better way to serve files because it will be quickly ram hungry
      * @return An (Array)List containing all sprites
      */
     public List<SpriteObject> getAllSprites() {

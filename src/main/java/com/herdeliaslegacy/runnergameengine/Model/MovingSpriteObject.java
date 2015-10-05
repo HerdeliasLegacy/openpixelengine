@@ -84,6 +84,7 @@ public abstract class MovingSpriteObject extends SpriteObject{
 
     /**
      * Compute the pos of the object with gravity and force
+     * TODO: 01/10/15 find a way to to export movement for making possible other kind of mvt
      * @return
      */
     private Vector2D computingPos(){

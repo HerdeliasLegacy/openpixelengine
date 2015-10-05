@@ -60,7 +60,6 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback, Vi
 
     @Override
     public void surfaceChanged(SurfaceHolder surfaceHolder, int i, int i1, int i2) {
-        //Todo ?
     }
 
     @Override
