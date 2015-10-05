@@ -36,28 +36,13 @@ abstract public class SpriteObject {
      */
     protected double mRatioHeight;
     /**
-     * Scaled Bitmap with is the normal picture of the sprite
+     * Scaled BitmapElement with is the normal picture of the sprite
      */
     protected Bitmap mScaledSprite;
     /**
-     * Original Bitmap with is the normal picture of the sprite (needed for the rotation)
+     * Original BitmapElement with is the normal picture of the sprite (needed for the rotation)
      */
     protected Bitmap mOriginalSprite;
-
-    /**
-     * The sprite wich contain the animation
-     */
-    protected Bitmap mAnimatedSprite;
-
-    /**
-     * Curent step off the animation
-     */
-    protected int mStepAnimation;
-
-    /**
-     * Max animation step
-     */
-    protected int mMaxStepAnimation;
 
     /**
      * Actual rotation of the sprite
@@ -94,8 +79,6 @@ abstract public class SpriteObject {
         mPosition = pos;
         mWidth = width;
         mHeight = height;
-        mStepAnimation = 0;
-        mMaxStepAnimation = 1;
     }
 
     protected SpriteObject(SpriteObject object)
@@ -104,8 +87,6 @@ abstract public class SpriteObject {
         mWidth = object.getWidth();
         mHeight = object.getHeight();
         mOriginalSprite = object.mOriginalSprite;
-        mStepAnimation = 0;
-        mMaxStepAnimation = 1;
         resize();
     }
 
@@ -177,9 +158,9 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Return the ScaledSprite Bitmap
+     * Return the ScaledSprite BitmapElement
      *
-     * @return Return the ScaledSprite Bitmap or if(mShowAlternateSprite) return the mAlternateSprite
+     * @return Return the ScaledSprite BitmapElement or if(mShowAlternateSprite) return the mAlternateSprite
      */
     public Bitmap getScaledSprite() {
         return mScaledSprite;
@@ -256,8 +237,7 @@ abstract public class SpriteObject {
      * @param spriteFile
      */
     public void setSprite(String spriteFile) {
-        mAnimatedSprite = BitmapFactory.decodeFile(spriteFile);
-        animate();
+        mOriginalSprite = BitmapFactory.decodeFile(spriteFile);
         resize();
     }
 
@@ -382,15 +362,5 @@ abstract public class SpriteObject {
     @Override
     public String toString() {
         return "pos : ("+mPosition+ "), size: [" + getWidth() + "x" + getHeight() + "], angle:" + getAngle();
-    }
-
-
-    public void animate(){
-        mOriginalSprite = Bitmap.createBitmap(mAnimatedSprite, mStepAnimation*mWidth, mStepAnimation*mHeight, mWidth, mHeight);
-        mStepAnimation++;
-        if(mStepAnimation > mMaxStepAnimation){
-            mStepAnimation = 0;
-        }
-
     }
 }
