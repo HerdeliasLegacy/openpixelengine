@@ -259,7 +259,9 @@ abstract public class SpriteObject {
     }
 
     public void addAnimation(String name, String animation) {
-        mAnimationMap.put(name,new Animation(animation));
+        Animation anim = new Animation(animation);
+        anim.computeMaxStepAnimation(mWidth);
+        mAnimationMap.put(name,anim);
     }
 
     public void removeAnimation(String name) {
@@ -378,5 +380,14 @@ abstract public class SpriteObject {
     @Override
     public String toString() {
         return "pos : ("+mPosition+ "), size: [" + getWidth() + "x" + getHeight() + "], angle:" + getAngle();
+    }
+
+    /**
+     * update object
+     */
+    public void update(){
+        Animation anim = mAnimationMap.get("default");
+        mOriginalSprite = anim.animate(mWidth,mHeight);
+        resize();
     }
 }

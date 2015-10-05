@@ -79,6 +79,7 @@ public abstract class MovingSpriteObject extends SpriteObject{
     }
 
     public void update(){
+        super.update();
         mPosition = computingPos();
     }
 
