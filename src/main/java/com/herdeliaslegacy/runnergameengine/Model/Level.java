@@ -182,7 +182,6 @@ public class Level extends Observable {
      */
     private void updatePlayer(){
         mPlayer.update();
-        Log.d(TAG, "updatePlayer "+mPlayer);
         Iterator<DecorsElement> i = mDecors.iterator();
         //checking colision
         while (i.hasNext()) {
@@ -191,7 +190,6 @@ public class Level extends Observable {
             if(intersect != null){
                 mPlayer.setYPos(decorelement.getYPos()-mPlayer.getHeight());
                 mPlayer.setNewForce(mLevelGravity.invert());
-                Log.d(TAG, "updatePlayer "+intersect);
             }
         }
     }
