@@ -87,7 +87,7 @@ public class Level_Activity extends Activity implements Observer {
             JSONArray animationArray = jsonplayer.getJSONArray("animations");
             for (int i = 0 ; i < animationArray.length(); i++) {
                 JSONObject animation = animationArray.getJSONObject(i);
-                player.addAnimation(animation.getString("name"),FileUtils.getFile(this,animation.getString("sprite")));
+                player.addAnimation(animation.getString("name"),FileUtils.getFile(this,animation.getString("sprite")),animation.getDouble("time"));
             }
 
             mLevel.add(player);
