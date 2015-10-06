@@ -102,6 +102,7 @@ public class Level extends Observable {
         DecorsElement element = new DecorsElement(mDecorsListElements.get(pos));
         element.setPosition(new Vector2D(posx,mMaxYDraw-element.getHeight()));
         element.setVelocity(mDefaultVelocity);
+        element.setGravity(new Vector2D(0,0));
         element.setMovingDirection(new Vector2D(-1,0));
         mDecors.add(element);
 
@@ -161,7 +162,7 @@ public class Level extends Observable {
         Iterator<DecorsElement> i = mDecors.iterator();
         while (i.hasNext()) {
             DecorsElement decorelement = i.next();
-            decorelement.forward();
+            decorelement.update();
             //remove element who are off the screen
             if (decorelement.getXPos() + decorelement.getWidth() < 0) {
                 i.remove();

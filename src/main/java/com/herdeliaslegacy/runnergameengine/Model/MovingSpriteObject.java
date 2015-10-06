@@ -1,5 +1,6 @@
 package com.herdeliaslegacy.runnergameengine.Model;
 
+import android.mtp.MtpObjectInfo;
 import android.os.SystemClock;
 import android.util.Log;
 
@@ -8,7 +9,6 @@ import android.util.Log;
  * COPYRIGHT
  */
 public abstract class MovingSpriteObject extends SpriteObject{
-
     private Vector2D mMovingDirection;
     private double mVelocity;
     private Vector2D mGravity; //gravity applying during the game
@@ -16,6 +16,9 @@ public abstract class MovingSpriteObject extends SpriteObject{
     private Vector2D mV0; //force initial
     private Vector2D mPos0; // posinitial for appling the force
 
+    public MovingSpriteObject(){
+        this(0,0,0,0);
+    }
     public MovingSpriteObject(int x, int y, int width, int height) {
         this(new Vector2D(x,y),width,height);
     }
@@ -29,7 +32,9 @@ public abstract class MovingSpriteObject extends SpriteObject{
 
     public MovingSpriteObject(MovingSpriteObject object) {
         super(object);
+        mMovingDirection = object.getMovingDirection();
         mVelocity = object.getVelocity();
+        setNewForce(object.mV0);
     }
 
     public Vector2D getMovingDirection() {
@@ -92,7 +97,7 @@ public abstract class MovingSpriteObject extends SpriteObject{
     private Vector2D computingPos(){
         long time =  (SystemClock.elapsedRealtime() - mTime)/50;
         Vector2D retour = new Vector2D(mPosition.getX(),0);
-        //retour.setX(mV0.getX() * Math.cos(90) * time);
+        retour.setX(mV0.getX() * Math.cos(90) * time);
         retour.setY(-0.5*mGravity.getY()*Math.pow(time, 2)-mV0.getY()*Math.sin(90)*time+mPos0.getY());
         return retour;
     }
