@@ -78,8 +78,9 @@ public abstract class MovingSpriteObject extends SpriteObject{
         mV0 = mvt;
     }
 
-    public void update(){
-        super.update();
+
+    @Override
+    protected void updateChild(){
         mPosition = computingPos();
     }
 

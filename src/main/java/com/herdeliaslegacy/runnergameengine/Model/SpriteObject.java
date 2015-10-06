@@ -258,10 +258,10 @@ abstract public class SpriteObject {
         mRatioHeight = ratioHeight;
     }
 
-    public void addAnimation(String name, String animation) {
+    public void addAnimation(String name, String animation,double time) {
         Animation anim = new Animation(animation);
-        anim.computeMaxStepAnimation(mWidth);
-        mAnimationMap.put(name,anim);
+        anim.computeMaxStepAnimation(mWidth,time);
+        mAnimationMap.put(name, anim);
     }
 
     public void removeAnimation(String name) {
@@ -387,7 +387,16 @@ abstract public class SpriteObject {
      */
     public void update(){
         Animation anim = mAnimationMap.get("default");
-        mOriginalSprite = anim.animate(mWidth,mHeight);
-        resize();
+        Bitmap frame =  anim.animate(mWidth,mHeight);
+        if(frame != null){
+            mOriginalSprite = frame;
+            resize();
+        }
+        updateChild();
     }
+
+    /**
+     * Updating method for the child
+     */
+    protected void updateChild(){};
 }
