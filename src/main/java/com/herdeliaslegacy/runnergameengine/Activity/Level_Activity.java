@@ -104,7 +104,9 @@ public class Level_Activity extends Activity implements Observer {
             decorsElement.setSize(decor.getJSONArray("size").getInt(0), decor.getJSONArray("size").getInt(1));
             decorsElement.setSprite(FileUtils.getFile(this, decor.getString("sprite")));
             //setting the animations list
-            addAnimationToElement(decorsElement, decor.getJSONArray("animations"));
+            if(!decor.isNull("animations")){
+                addAnimationToElement(decorsElement, decor.getJSONArray("animations"));
+            }
             mLevel.add(decorsElement);
         }
     }

@@ -386,12 +386,13 @@ abstract public class SpriteObject {
      * update object
      */
     public void update(){
-        Animation anim = mAnimationMap.get("default");
-        Bitmap frame =  anim.animate(mWidth,mHeight);
-        if(frame != null){
-            mOriginalSprite = frame;
-            resize();
-        }
+       if(mAnimationMap.containsKey("default")){Animation anim = mAnimationMap.get("default");
+           Bitmap frame =  anim.animate(mWidth,mHeight);
+           if(frame != null){
+               mOriginalSprite = frame;
+               resize();
+           }
+       }
         updateChild();
     }
 
