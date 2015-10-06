@@ -94,7 +94,7 @@ public abstract class MovingSpriteObject extends SpriteObject{
      * TODO: 01/10/15 find a way to to export movement for making possible other kind of mvt
      * @return
      */
-    private Vector2D computingPos(){
+    protected Vector2D computingPos(){
         long time =  (SystemClock.elapsedRealtime() - mTime)/50;
         Vector2D retour = new Vector2D(mPosition.getX(),0);
         retour.setX(mV0.getX() * Math.cos(90) * time);

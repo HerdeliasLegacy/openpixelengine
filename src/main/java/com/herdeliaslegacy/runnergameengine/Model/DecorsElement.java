@@ -18,4 +18,10 @@ public class DecorsElement extends MovingSpriteObject {
     public DecorsElement(DecorsElement object) {
         super(object);
     }
+    
+    @Override
+    protected Vector2D computingPos() {
+        this.forward();
+        return this.mPosition;
+    }
 }
