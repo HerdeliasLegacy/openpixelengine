@@ -1,6 +1,6 @@
 # Open Pixel Engine
 
-This is a 2D Runner Game Engine.
+A new simple opensource 2D game engine
 
 For now :
 
@@ -35,4 +35,4 @@ and build your app
 
 
 
-#TODO do better readme
+## TODO do better readme
