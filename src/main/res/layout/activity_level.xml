@@ -3,10 +3,10 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.herdeliaslegacy.runnergameengine.Activity.Level_Activity"
+    tools:context="com.herdeliaslegacy.openpixelengine.Activity.Level_Activity"
     tools:ignore="MergeRootFrame">
 
-    <com.herdeliaslegacy.runnergameengine.View.LevelView
+    <com.herdeliaslegacy.openpixelengine.View.LevelView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"

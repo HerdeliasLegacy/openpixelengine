@@ -1,6 +1,6 @@
-package com.herdeliaslegacy.runnergameengine.Model;
+package com.herdeliaslegacy.openpixelengine.Model;
 
-import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
+import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 
 /**
  * Created by skad on 03/09/15.

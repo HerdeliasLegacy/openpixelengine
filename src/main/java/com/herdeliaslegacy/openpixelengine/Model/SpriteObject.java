@@ -1,4 +1,4 @@
-package com.herdeliaslegacy.runnergameengine.Model;
+package com.herdeliaslegacy.openpixelengine.Model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 
-import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
+import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -103,7 +103,7 @@ abstract public class SpriteObject {
      * Return the actual position of the object
      *
      * @return Return the actual position of the object
-     * @see com.herdeliaslegacy.runnergameengine.Model.Vector2D
+     * @see com.herdeliaslegacy.openpixelengine.Model.Vector2D
      */
     public Vector2D getPosition() {
         return mPosition;
@@ -113,7 +113,7 @@ abstract public class SpriteObject {
      * Set the actual position of the SpriteObject with the param
      *
      * @param position
-     * @see com.herdeliaslegacy.runnergameengine.Model.Vector2D
+     * @see com.herdeliaslegacy.openpixelengine.Model.Vector2D
      */
     public void setPosition(Vector2D position) {
         mPosition = position;
@@ -124,7 +124,7 @@ abstract public class SpriteObject {
      *
      * @param x
      * @param y
-     * @see com.herdeliaslegacy.runnergameengine.Model.Vector2D
+     * @see com.herdeliaslegacy.openpixelengine.Model.Vector2D
      */
     public void setPosition(double x, double y){
         this.setPosition(new Vector2D(x, y));
@@ -290,7 +290,7 @@ abstract public class SpriteObject {
      *
      * @param object The other SpriteObject we may be intersecting with
      * @return A Vector2D representing the intersection between the two SpriteObjects, null if there's no intersection
-     * @see com.herdeliaslegacy.runnergameengine.Model.Vector2D
+     * @see com.herdeliaslegacy.openpixelengine.Model.Vector2D
      */
     public Vector2D intersects(SpriteObject object) {
         if (Rect.intersects(getBoundingRectangle(), object.getBoundingRectangle())) {
@@ -349,7 +349,7 @@ abstract public class SpriteObject {
      *
      * @param targetX
      * @param targetY
-     * @see com.herdeliaslegacy.runnergameengine.Model.SpriteObject#rotate(float) for the real rotation
+     * @see com.herdeliaslegacy.openpixelengine.Model.SpriteObject#rotate(float) for the real rotation
      */
     public void rotate(int targetX, int targetY) {
         rotate(MathUtils.angleFromTwoPoint(getBoundingRectangle().centerX(), getBoundingRectangle().centerY(), targetX, targetY));

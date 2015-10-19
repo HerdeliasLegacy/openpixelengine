@@ -1,4 +1,4 @@
-package com.herdeliaslegacy.runnergameengine.Model;
+package com.herdeliaslegacy.openpixelengine.Model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

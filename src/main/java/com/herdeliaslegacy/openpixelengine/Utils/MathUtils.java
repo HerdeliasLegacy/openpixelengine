@@ -1,11 +1,10 @@
-package com.herdeliaslegacy.runnergameengine.Utils;
+package com.herdeliaslegacy.openpixelengine.Utils;
 
 /**
  * Created by skad on 03/09/15.
  * Original from pschmitt
  */
-import android.graphics.Point;
-import com.herdeliaslegacy.runnergameengine.Model.Vector2D;
+import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
 
 public class MathUtils {
     /**

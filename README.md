@@ -1,4 +1,4 @@
-# RUNNER 2D GAME ENGINE
+# Open Pixel Engine
 
 This is a 2D Runner Game Engine.
 
@@ -7,7 +7,7 @@ For now :
     package com.me.app;
 
     import android.os.Bundle;
-    import com.herdeliaslegacy.runnergameengine.Activity.MainActivity;
+    import com.herdeliaslegacy.openpixelengine.Activity.MainActivity;
 
     public class MainActivityDemo extends MainActivity {
 

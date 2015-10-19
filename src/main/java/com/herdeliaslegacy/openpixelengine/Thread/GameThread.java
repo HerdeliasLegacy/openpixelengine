@@ -1,12 +1,12 @@
-package com.herdeliaslegacy.runnergameengine.Thread;
+package com.herdeliaslegacy.openpixelengine.Thread;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-import com.herdeliaslegacy.runnergameengine.Model.Level;
-import com.herdeliaslegacy.runnergameengine.View.LevelView;
+import com.herdeliaslegacy.openpixelengine.Model.Level;
+import com.herdeliaslegacy.openpixelengine.View.LevelView;
 
 import java.util.Observable;
 import java.util.Observer;

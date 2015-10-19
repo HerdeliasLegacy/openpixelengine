@@ -1,8 +1,6 @@
-package com.herdeliaslegacy.runnergameengine.Model;
+package com.herdeliaslegacy.openpixelengine.Model;
 
-import android.mtp.MtpObjectInfo;
 import android.os.SystemClock;
-import android.util.Log;
 
 /**
  * Created by skad on 14/09/15.

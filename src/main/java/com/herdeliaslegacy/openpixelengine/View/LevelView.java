@@ -1,4 +1,4 @@
-package com.herdeliaslegacy.runnergameengine.View;
+package com.herdeliaslegacy.openpixelengine.View;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,17 +6,16 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 
-import com.herdeliaslegacy.runnergameengine.Model.Level;
-import com.herdeliaslegacy.runnergameengine.Model.SpriteObject;
-import com.herdeliaslegacy.runnergameengine.Model.Vector2D;
-import com.herdeliaslegacy.runnergameengine.Thread.GameThread;
-import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
+import com.herdeliaslegacy.openpixelengine.Model.Level;
+import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
+import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
+import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
+import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 
 /**
  * Created by skad on 08/09/15.

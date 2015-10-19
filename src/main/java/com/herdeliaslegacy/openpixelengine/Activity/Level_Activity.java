@@ -1,19 +1,19 @@
-package com.herdeliaslegacy.runnergameengine.Activity;
+package com.herdeliaslegacy.openpixelengine.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
-import com.herdeliaslegacy.runnergameengine.Model.DecorsElement;
-import com.herdeliaslegacy.runnergameengine.Model.Level;
-import com.herdeliaslegacy.runnergameengine.Model.Player;
-import com.herdeliaslegacy.runnergameengine.Model.SpriteObject;
-import com.herdeliaslegacy.runnergameengine.Model.Vector2D;
-import com.herdeliaslegacy.runnergameengine.R;
-import com.herdeliaslegacy.runnergameengine.Utils.FileUtils;
-import com.herdeliaslegacy.runnergameengine.Utils.JsonParser;
-import com.herdeliaslegacy.runnergameengine.View.LevelView;
+import com.herdeliaslegacy.openpixelengine.Model.DecorsElement;
+import com.herdeliaslegacy.openpixelengine.Model.Level;
+import com.herdeliaslegacy.openpixelengine.Model.Player;
+import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
+import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
+import com.herdeliaslegacy.openpixelengine.Utils.FileUtils;
+import com.herdeliaslegacy.openpixelengine.Utils.JsonParser;
+import com.herdeliaslegacy.openpixelengine.View.LevelView;
+import com.herdeliaslegacy.openpixelengine.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;

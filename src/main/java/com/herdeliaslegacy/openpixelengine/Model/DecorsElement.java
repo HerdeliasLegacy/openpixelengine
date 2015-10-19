@@ -1,4 +1,4 @@
-package com.herdeliaslegacy.runnergameengine.Model;
+package com.herdeliaslegacy.openpixelengine.Model;
 
 /**
  * Created by skad on 16/09/15.

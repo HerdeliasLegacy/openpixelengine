@@ -1,7 +1,6 @@
-package com.herdeliaslegacy.runnergameengine.Utils;
+package com.herdeliaslegacy.openpixelengine.Utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;

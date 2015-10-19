@@ -1,8 +1,8 @@
-package com.herdeliaslegacy.runnergameengine.Model;
+package com.herdeliaslegacy.openpixelengine.Model;
 
 import android.util.Log;
 
-import com.herdeliaslegacy.runnergameengine.Utils.MathUtils;
+import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;

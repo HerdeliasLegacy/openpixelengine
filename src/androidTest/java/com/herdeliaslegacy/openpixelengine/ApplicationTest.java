@@ -1,4 +1,4 @@
-package com.herdeliaslegacy.runnergameengine;
+package com.herdeliaslegacy.openpixelengine;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
