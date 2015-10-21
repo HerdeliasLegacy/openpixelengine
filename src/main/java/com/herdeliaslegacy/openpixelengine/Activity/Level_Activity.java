@@ -2,33 +2,19 @@ package com.herdeliaslegacy.openpixelengine.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-
-import com.herdeliaslegacy.openpixelengine.Model.DecorsElement;
 import com.herdeliaslegacy.openpixelengine.Model.Level;
-import com.herdeliaslegacy.openpixelengine.Model.Player;
-import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
-import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
 import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
-import com.herdeliaslegacy.openpixelengine.Utils.FileUtils;
-import com.herdeliaslegacy.openpixelengine.Utils.JsonParser;
 import com.herdeliaslegacy.openpixelengine.View.LevelView;
 import com.herdeliaslegacy.openpixelengine.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
-public class Level_Activity extends Activity implements Observer {
-    private static final String TAG = "LevelActivity";
+public abstract class Level_Activity extends Activity implements Observer {
+    protected static final String TAG = "LevelActivity";
     private LevelView mLevelView;
     private boolean mObserving;
-    private Level mLevel;
+    protected Level mLevel;
     private GameThread mgameThread;
 
     @Override
@@ -38,94 +24,26 @@ public class Level_Activity extends Activity implements Observer {
         mLevelView = (LevelView) findViewById(R.id.level_view);
         mLevelView.setOnTouchListener(mLevelView);
         mLevel = Level.getInstance();
-        loadLevel();
-
         mgameThread = new GameThread(mLevelView.getHolder(),mLevelView.getContext(),mLevelView);
+    }
+
+    /**
+     * Starts the activity and the level
+     */
+    @Override
+    protected void onStart(){
+        super.onStart();
+        registerObserver();
         mgameThread.start();
     }
 
-    /**
-     * Starts the level
-     */
-    private void loadLevel() {
-        loadResource();
-        registerObserver();
-    }
 
     /**
-     * Load Resource
+     * On pause stop thread game
      */
-    public void loadResource(){
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
-        mLevel.setmMaxXDraw(metrics.widthPixels);
-        mLevel.setmMaxYDraw(metrics.heightPixels);
-        try
-        {
-            loadLevelFromFile("0");
-            mLevel.generateLevelStart();
-        }
-        catch (IOException e) {
-            Log.e(TAG, getString(R.string.error_load_level_file)+" > "+getString(R.string.file_missing));
-            e.printStackTrace();
-            finish();
-        } catch (JSONException e) {
-            Log.e(TAG, getString(R.string.error_load_level_file) + " > " + getString(R.string.file_corrupted));
-            e.printStackTrace();
-            finish();
-        }
-    }
-
-    private void loadLevelFromFile(String number) throws IOException, JSONException {
-        JSONObject jsonLevel;
-        Player player;
-        DecorsElement decorsElement;
-
-        //Todo need definir what is default and what is not into the level file
-        //loading json file
-        jsonLevel = JsonParser.getFileContent(this, "main.json");
-        jsonLevel = JsonParser.getFileContent(this, jsonLevel.getJSONArray("levels").getString(0));
-        //setting the velocity
-        mLevel.setmVelocity(jsonLevel.getDouble("default_velocity"));
-        //setting the player
-        JSONObject jsonplayer = jsonLevel.getJSONObject("player");
-        JSONArray playerpos = jsonplayer.getJSONArray("start_pos");
-        JSONArray playersize = jsonplayer.getJSONArray("size");
-
-        player = new Player();
-        player.setPosition(new Vector2D(playerpos.getInt(0),playerpos.getInt(1)));
-        player.setSize(playersize.getInt(0),playersize.getInt(1));
-        player.setSprite(FileUtils.getFile(this, jsonplayer.getString("sprite")));
-
-
-        //setting the animations list
-        addAnimationToElement(player,jsonplayer.getJSONArray("animations"));
-        mLevel.add(player);
-
-        //setting the decors elements list
-        JSONArray decorsArray = jsonLevel.getJSONArray("decorelements");
-        for (int i = 0 ; i < decorsArray.length(); i++) {
-            JSONObject decor = decorsArray.getJSONObject(i);
-            decorsElement = new DecorsElement();
-            decorsElement.setSize(decor.getJSONArray("size").getInt(0), decor.getJSONArray("size").getInt(1));
-            decorsElement.setSprite(FileUtils.getFile(this, decor.getString("sprite")));
-            //setting the animations list
-            if(!decor.isNull("animations")){
-                addAnimationToElement(decorsElement, decor.getJSONArray("animations"));
-            }
-            mLevel.add(decorsElement);
-        }
-    }
-
-    private void addAnimationToElement(SpriteObject object,JSONArray animationArray) throws JSONException {
-        for (int i = 0 ; i < animationArray.length(); i++) {
-            JSONObject animation = animationArray.getJSONObject(i);
-            object.addAnimation(animation.getString("name"),FileUtils.getFile(this,animation.getString("sprite")),animation.getDouble("time"));
-        }
-    }
-    /**
-     * Pauses the game
-     */
-    private void pauseGame() {
+    @Override
+    protected void onPause() {
+        super.onPause();
         mgameThread.interrupt();
         unregisterObserver();
     }
@@ -137,6 +55,7 @@ public class Level_Activity extends Activity implements Observer {
     protected void onStop() {
         super.onStop();
         mgameThread.interrupt();
+        unregisterObserver();
     }
 
     /**
@@ -158,7 +77,6 @@ public class Level_Activity extends Activity implements Observer {
             mObserving = false;
         }
     }
-
 
     @Override
     public void update(Observable observable, Object o) {

@@ -10,4 +10,5 @@
             android:hardwareAccelerated="true">
         </activity>
     </application>
+
 </manifest>
