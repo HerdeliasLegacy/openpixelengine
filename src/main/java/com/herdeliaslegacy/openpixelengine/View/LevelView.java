@@ -23,8 +23,6 @@ import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 public class LevelView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
 
     private static final String TAG = "LevelView";
-    private GameThread mGameThread;
-    private SurfaceHolder mHolder;
     private float downX;
     private float downY;
 
@@ -44,16 +42,15 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback, Vi
      * Draw the level's content in our view
      * @param canvas Where to draw
      */
-    public void drawGameElements(Canvas canvas) {
+    public void drawGameElements(Canvas canvas,Level level) {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        for (final SpriteObject sprite : Level.getInstance().getAllSprites()) {
+        for (final SpriteObject sprite : level.getAllSprites()) {
             canvas.drawBitmap(sprite.getScaledSprite(), (int) sprite.getXPos(), (int) sprite.getYPos(), null);
         }
     }
 
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
-        mHolder = surfaceHolder;
     }
 
     @Override
@@ -75,7 +72,7 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback, Vi
                 }
                 case MotionEvent.ACTION_UP:
                     Vector2D swipe = MathUtils.vectorFromPoint(downX, downY, event.getX(), event.getY());
-                    Level.getInstance().setForceToPlayer(swipe);
+                    //Level.getInstance().setForceToPlayer(swipe);
                     return true;
             }
             return false;

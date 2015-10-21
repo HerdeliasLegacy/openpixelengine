@@ -14,7 +14,6 @@ import java.util.Observable;
  */
 public class Level extends Observable {
     public static final String TAG = "Level";
-    private static Level mInstance;
 
     /** Limit of the screen */
     private static int mMaxXDraw = 0;
@@ -33,23 +32,8 @@ public class Level extends Observable {
     /** SpriteObject list with only the element composing the decor. This list will never be drawed */
     private List<DecorsElement> mDecorsListElements = new ArrayList<DecorsElement>();
 
-    private Level() {
+    public Level() {
     }
-
-    /**
-     * This class is a singleton, instead of calling its (private) constructor, use this method
-     *
-     * @return The one and only instance of this class
-     */
-    public static Level getInstance() {
-        if (mInstance == null) {
-            synchronized (Level.class) {
-                mInstance = new Level();
-            }
-        }
-        return mInstance;
-    }
-
 
     public void setmVelocity(double mVelocity) {
         this.mDefaultVelocity = mVelocity;

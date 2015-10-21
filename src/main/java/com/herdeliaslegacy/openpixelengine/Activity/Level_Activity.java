@@ -23,8 +23,8 @@ public abstract class Level_Activity extends Activity implements Observer {
         setContentView(R.layout.activity_level);
         mLevelView = (LevelView) findViewById(R.id.level_view);
         mLevelView.setOnTouchListener(mLevelView);
-        mLevel = Level.getInstance();
-        mgameThread = new GameThread(mLevelView.getHolder(),mLevelView.getContext(),mLevelView);
+        mLevel = new Level();
+        mgameThread = new GameThread(mLevelView,mLevel);
     }
 
     /**
