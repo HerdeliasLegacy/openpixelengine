@@ -37,17 +37,6 @@ public abstract class Level_Activity extends Activity implements Observer {
         mgameThread.start();
     }
 
-
-    /**
-     * On pause stop thread game
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mgameThread.interrupt();
-        unregisterObserver();
-    }
-
     /**
      * On quit stop thread game
      */

@@ -19,6 +19,7 @@ public class GameThread extends Thread implements Observer{
     private static final String TAG = "GameThread";
 
     private boolean mRunning;
+    private boolean mPause;
 
     private Level mLevel;
     private LevelView mLevelView;
@@ -29,6 +30,7 @@ public class GameThread extends Thread implements Observer{
         mSurfaceHolder = surfaceHolder;
         mContext = context;
         mRunning = false;
+        mPause = false;
         mLevelView = levelView;
         mLevel = Level.getInstance();
         mLevel.addObserver(this);
@@ -45,7 +47,9 @@ public class GameThread extends Thread implements Observer{
     public void run() {
         synchronized (this) {
             while (mRunning) {
-                mLevel.update();
+                if(!mPause){
+                    mLevel.update();
+                }
                 Canvas canvas = mSurfaceHolder.lockCanvas();
                 if (canvas != null) {
                     mLevelView.drawGameElements(canvas);
@@ -55,6 +59,16 @@ public class GameThread extends Thread implements Observer{
         }
     }
 
+    public void setPause(){
+        Log.d(TAG, "set pause");
+        mPause = true;
+    }
+
+    public void unPause()
+    {
+        Log.d(TAG, "unset pause");
+        mPause = false;
+    }
     @Override
     public void update(Observable observable, Object data) {
         if (observable instanceof Level && data instanceof Level.EVENT) {
