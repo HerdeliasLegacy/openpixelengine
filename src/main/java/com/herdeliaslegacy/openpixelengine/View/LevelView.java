@@ -31,7 +31,7 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback, Vi
 
     public LevelView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
-        SurfaceHolder holder = getHolder();
+        SurfaceHolder holder = super.getHolder();
         if (holder != null) {
             holder.addCallback(this);
         }
@@ -54,7 +54,6 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback, Vi
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
         mHolder = surfaceHolder;
-        startLevelThread();
     }
 
     @Override
@@ -63,15 +62,6 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback, Vi
 
     @Override
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
-        mGameThread.interrupt();
-    }
-
-    /**
-     * Start LevelThread
-     */
-    public void startLevelThread(){
-        mGameThread = new GameThread(mHolder, getContext(), this);
-        mGameThread.start();
     }
 
     @Override

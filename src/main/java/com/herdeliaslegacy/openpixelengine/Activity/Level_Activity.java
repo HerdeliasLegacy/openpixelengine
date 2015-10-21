@@ -10,6 +10,7 @@ import com.herdeliaslegacy.openpixelengine.Model.Level;
 import com.herdeliaslegacy.openpixelengine.Model.Player;
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
 import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
+import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
 import com.herdeliaslegacy.openpixelengine.Utils.FileUtils;
 import com.herdeliaslegacy.openpixelengine.Utils.JsonParser;
 import com.herdeliaslegacy.openpixelengine.View.LevelView;
@@ -28,6 +29,7 @@ public class Level_Activity extends Activity implements Observer {
     private LevelView mLevelView;
     private boolean mObserving;
     private Level mLevel;
+    private GameThread mgameThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,9 @@ public class Level_Activity extends Activity implements Observer {
         mLevelView.setOnTouchListener(mLevelView);
         mLevel = Level.getInstance();
         loadLevel();
+
+        mgameThread = new GameThread(mLevelView.getHolder(),mLevelView.getContext(),mLevelView);
+        mgameThread.start();
     }
 
     /**
@@ -121,7 +126,17 @@ public class Level_Activity extends Activity implements Observer {
      * Pauses the game
      */
     private void pauseGame() {
+        mgameThread.interrupt();
         unregisterObserver();
+    }
+
+    /**
+     * On quit stop thread game
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mgameThread.interrupt();
     }
 
     /**
