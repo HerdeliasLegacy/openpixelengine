@@ -20,11 +20,9 @@ import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 /**
  * Created by skad on 08/09/15.
  */
-public class LevelView extends SurfaceView implements SurfaceHolder.Callback, View.OnTouchListener {
+public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = "LevelView";
-    private float downX;
-    private float downY;
 
 
     public LevelView(Context context, AttributeSet attributeSet) {
@@ -61,20 +59,4 @@ public class LevelView extends SurfaceView implements SurfaceHolder.Callback, Vi
     public void surfaceDestroyed(SurfaceHolder surfaceHolder) {
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent event) {
-
-            switch (event.getActionMasked()) {
-                case MotionEvent.ACTION_DOWN: {
-                    this.downX = event.getX();
-                    this.downY = event.getY();
-                    return true;
-                }
-                case MotionEvent.ACTION_UP:
-                    Vector2D swipe = MathUtils.vectorFromPoint(downX, downY, event.getX(), event.getY());
-                    //Level.getInstance().setForceToPlayer(swipe);
-                    return true;
-            }
-            return false;
-    }
 }

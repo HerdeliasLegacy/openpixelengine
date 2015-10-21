@@ -2,6 +2,7 @@ package com.herdeliaslegacy.openpixelengine.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import com.herdeliaslegacy.openpixelengine.Model.Level;
 import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
 import com.herdeliaslegacy.openpixelengine.View.LevelView;
@@ -12,7 +13,7 @@ import java.util.Observer;
 
 public abstract class Level_Activity extends Activity implements Observer {
     protected static final String TAG = "LevelActivity";
-    private LevelView mLevelView;
+    protected LevelView mLevelView;
     private boolean mObserving;
     protected Level mLevel;
     private GameThread mgameThread;
@@ -22,7 +23,6 @@ public abstract class Level_Activity extends Activity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
         mLevelView = (LevelView) findViewById(R.id.level_view);
-        mLevelView.setOnTouchListener(mLevelView);
         mLevel = new Level();
         mgameThread = new GameThread(mLevelView,mLevel);
     }
