@@ -7,7 +7,7 @@ For now :
     package com.me.app;
 
     import android.os.Bundle;
-    import com.herdeliaslegacy.openpixelengine.Activity.MainActivity;
+    import com.herdeliaslegacy.runnerdemogame.MainActivity;
 
     public class MainActivityDemo extends MainActivity {
 
