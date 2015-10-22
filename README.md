@@ -4,20 +4,7 @@ A new simple opensource 2D game engine
 
 For now :
 
-    package com.me.app;
-
-    import android.os.Bundle;
-    import com.herdeliaslegacy.runnerdemogame.MainActivity;
-
-    public class MainActivityDemo extends MainActivity {
-
-        private static final String TAG = "Main Activity Demo";
-
-        @Override
-        protected void onCreate (Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-        }
-    }
+#todo
 
 and build your app
 
