@@ -12,9 +12,6 @@ import java.util.Observable;
  */
 public abstract class Level extends Observable {
     public static final String TAG = "Level";
-    /** SpriteObject list for the decors wich will be displayed on the screen */
-    protected List<DecorsElement> mDecors = new ArrayList<DecorsElement>();
-
 
     public Level() {
     }
@@ -25,19 +22,13 @@ public abstract class Level extends Observable {
      * TODO: need to find a better way to serve files because it will be quickly ram hungry
      * @return An (Array)List containing all sprites
      */
-    public List<SpriteObject> getAllSprites() {
-        List<SpriteObject> spriteList = new ArrayList<SpriteObject>();
-        spriteList.addAll(mDecors);
-        return spriteList;
-    }
+    public abstract List<SpriteObject> getAllSprites();
 
     /**
      * Method for updating all the element. By default do nothing but must be overrided
      * This is you level logic
      */
-    public void update(){
-
-    }
+    public abstract void update();
 
     @Override
     public String toString() {
