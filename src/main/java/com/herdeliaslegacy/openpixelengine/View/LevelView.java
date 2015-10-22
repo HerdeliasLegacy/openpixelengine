@@ -6,16 +6,11 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
 import com.herdeliaslegacy.openpixelengine.Model.Level;
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
-import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
-import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
-import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 
 /**
  * Created by skad on 08/09/15.

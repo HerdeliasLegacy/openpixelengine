@@ -1,6 +1,5 @@
 package com.herdeliaslegacy.openpixelengine.Model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
