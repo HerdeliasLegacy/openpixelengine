@@ -4,6 +4,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 
+import org.json.JSONObject;
+
+import java.util.InputMismatchException;
+
 /**
  * Created by skad on 05/10/15.
  * COPYRIGHT
@@ -11,29 +15,34 @@ import android.os.SystemClock;
 public class Animation {
 
     /**
+     * Name of the file
+     */
+    private String mAnimationFile;
+
+    /**
      * The sprite wich contain the animation
      */
-    protected Bitmap mAnimatedSprite;
+    private Bitmap mAnimatedSprite;
 
     /**
      * Curent step off the animation
      */
-    protected int mNumFrames;
+    private int mNumFrames;
 
     /**
      * Max animation step
      */
-    protected int mMaxFrames;
+    private int mMaxFrames;
 
     /**
      * Time for one frame in millisecond
      */
-    protected int mTimeFrame;
+    private int mTimeFrame;
 
     /**
      * actual frame clock time
      */
-    protected long mTime;
+    private long mTime;
 
 
     public Animation(){
@@ -42,18 +51,33 @@ public class Animation {
         this.mTimeFrame = 0;
     }
 
-    public Animation(String mAnimatedSprite) {
-        this.setSprite(mAnimatedSprite);
+    public Animation(String animatedsprite) {
+        this.setSprite(animatedsprite);
         this.mNumFrames = 0;
         this.mMaxFrames = 0;
         this.mTimeFrame = 0;
     }
 
+    public Animation (Animation anim){
+        this.setSprite(anim.mAnimationFile);
+        this.mNumFrames = anim.mNumFrames;
+        this.mMaxFrames = anim.mMaxFrames;
+        this.mTimeFrame = anim.mTimeFrame;
+    }
+
+    public String getAnimationFile() {
+        return this.mAnimationFile;
+    }
+
+    public double getAnimationTime() {
+        return (mMaxFrames*mTimeFrame)/1000;
+    }
     public void computeMaxStepAnimation(int width, double animationtime){
         mMaxFrames = mAnimatedSprite.getWidth()/width;
         mTimeFrame = (int)(1000*animationtime)/mMaxFrames;
     }
     public void setSprite(String spriteFile) {
+        this.mAnimationFile = spriteFile;
         this.mAnimatedSprite = BitmapFactory.decodeFile(spriteFile);
     }
 

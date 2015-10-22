@@ -95,7 +95,11 @@ abstract public class SpriteObject {
         mWidth = object.getWidth();
         mHeight = object.getHeight();
         mOriginalSprite = object.mOriginalSprite;
-        mAnimationMap  = object.mAnimationMap;
+        mAnimationMap  = new HashMap<String, Animation>();
+        //Iterate over HashMap
+        for(String key: object.mAnimationMap.keySet()){
+            this.addAnimation(key, object.mAnimationMap.get(key).getAnimationFile(), object.mAnimationMap.get(key).getAnimationTime());
+        }
         resize();
     }
 
