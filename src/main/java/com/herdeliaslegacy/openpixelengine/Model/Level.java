@@ -1,51 +1,22 @@
 package com.herdeliaslegacy.openpixelengine.Model;
 
-import android.util.Log;
-
-import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 
 /**
  * Created by skad on 03/09/15.
+ * This class represent a level for the game (maybe need to be rename)
+ * it must be extend and by defaut only define a methode for get all element to be drawing and
+ * for updating the level
  */
-public class Level extends Observable {
+public abstract class Level extends Observable {
     public static final String TAG = "Level";
-
-    /** Limit of the screen */
-    private static int mMaxXDraw = 0;
-    private static int mMaxYDraw = 0;
-
-    /** Default velocity of the element */
-    private double mDefaultVelocity = 1;
-    /** Default Gravity of the level (terran gravity)*/
-    private Vector2D mLevelGravity = new Vector2D(0,-9.8);
-
-    /** Player */
-    private Player mPlayer;
     /** SpriteObject list for the decors wich will be displayed on the screen */
-    private List<DecorsElement> mDecors = new ArrayList<DecorsElement>();
+    protected List<DecorsElement> mDecors = new ArrayList<DecorsElement>();
 
-    /** SpriteObject list with only the element composing the decor. This list will never be drawed */
-    private List<DecorsElement> mDecorsListElements = new ArrayList<DecorsElement>();
 
     public Level() {
-    }
-
-    public void setmVelocity(double mVelocity) {
-        this.mDefaultVelocity = mVelocity;
-    }
-
-    public static void setmMaxXDraw(int screenWidth) {
-        mMaxXDraw = screenWidth;
-    }
-
-
-    public static void setmMaxYDraw(int screenHeight) {
-        mMaxYDraw = screenHeight;
     }
 
     /**
@@ -56,50 +27,23 @@ public class Level extends Observable {
      */
     public List<SpriteObject> getAllSprites() {
         List<SpriteObject> spriteList = new ArrayList<SpriteObject>();
-
-        spriteList.add(mPlayer);
         spriteList.addAll(mDecors);
-
         return spriteList;
     }
 
-
     /**
-     * Generate the begening of the level for start running
+     * Method for updating all the element. By default do nothing but must be overrided
+     * This is you level logic
      */
-    public void generateLevelStart()
-    {
-        int i = 0;
-        while(i < mMaxXDraw)
-        {
-            i = addRandomElementToDecor(i);
-        }
-    }
+    public void update(){
 
-    /**
-     * Add a new Element to the DecoList
-     */
-    private int addRandomElementToDecor(int posx){
-        int sizeDecors = mDecors.size()-1;
-        int pos = MathUtils.randomInt(mDecorsListElements.size());
-
-        DecorsElement element = new DecorsElement(mDecorsListElements.get(pos));
-        element.setPosition(new Vector2D(posx,mMaxYDraw-element.getHeight()));
-        element.setVelocity(mDefaultVelocity);
-        element.setGravity(new Vector2D(0,0));
-        element.setMovingDirection(new Vector2D(-1,0));
-        mDecors.add(element);
-
-        posx += element.getWidth();
-
-        return posx;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (final SpriteObject mSpriteObject : getAllSprites()) {
-            sb.append(mSpriteObject + "\n");
+            sb.append(mSpriteObject).append("\n");
         }
 
         return sb.toString();
@@ -108,82 +52,7 @@ public class Level extends Observable {
     /**
      * Events to be reported to observers
      */
-    public static enum EVENT {
+    public enum EVENT {
         GAME_OVER, GAME_SUCCESS
     }
-
-    /**
-     * Add an item to the level
-     *
-     * @param newObject The SpriteObject to add to our level
-     */
-    public void add(SpriteObject newObject) {
-        if (newObject instanceof Player) {
-            mPlayer = (Player) newObject;
-            mPlayer.setGravity(mLevelGravity);
-        }else if (newObject instanceof DecorsElement){
-            mDecorsListElements.add((DecorsElement) newObject);
-        }
-
-
-        setChanged();
-        notifyObservers();
-    }
-
-    /**
-     * Update methode for refreshing the level
-     */
-    public void update(){
-        updateDecors();
-        updatePlayer();
-    }
-
-    /**
-     * Update only the decor
-     */
-    private void updateDecors(){
-
-        Iterator<DecorsElement> i = mDecors.iterator();
-        while (i.hasNext()) {
-            DecorsElement decorelement = i.next();
-            decorelement.update();
-            //remove element who are off the screen
-            if (decorelement.getXPos() + decorelement.getWidth() < 0) {
-                i.remove();
-                Log.d(TAG, "updateDecors mDecors size " + mDecors.size());
-            }
-        }
-
-        //add element off the screen for the infinity loop
-        DecorsElement last = mDecors.get(mDecors.size() - 1);
-        if (last.getXPos()+last.getWidth() < mMaxXDraw){
-            addRandomElementToDecor(mMaxXDraw);
-        }
-    }
-
-    /**
-     * Update the player
-     */
-    private void updatePlayer(){
-        mPlayer.update();
-        Iterator<DecorsElement> i = mDecors.iterator();
-        //checking colision
-        while (i.hasNext()) {
-            DecorsElement decorelement = i.next();
-            Vector2D intersect = mPlayer.intersects(decorelement);
-            if(intersect != null){
-                mPlayer.setYPos(decorelement.getYPos()-mPlayer.getHeight());
-                mPlayer.setNewForce(mLevelGravity.invert());
-            }
-        }
-    }
-
-    /**
-     * Set force to the player
-     */
-    public void setForceToPlayer(Vector2D force){
-        force = mLevelGravity.multBynumber(-10);
-        mPlayer.setNewForce(force);
-    }
-
 }

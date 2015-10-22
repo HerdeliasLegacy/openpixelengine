@@ -15,7 +15,7 @@ public abstract class Level_Activity extends Activity implements Observer {
     protected static final String TAG = "LevelActivity";
     protected LevelView mLevelView;
     private boolean mObserving;
-    protected Level mLevel;
+    private Level mLevel;
     private GameThread mgameThread;
 
     @Override
@@ -23,10 +23,15 @@ public abstract class Level_Activity extends Activity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
         mLevelView = (LevelView) findViewById(R.id.level_view);
-        mLevel = new Level();
-        mgameThread = new GameThread(mLevelView,mLevel);
     }
 
+    /**
+     * Attach the level to the activity. Must be do before onStart (during the onCreate of the child class)
+     */
+    protected void attachLevel(Level level){
+        mLevel = level;
+        mgameThread = new GameThread(mLevelView,mLevel);
+    }
     /**
      * Starts the activity and the level
      */
