@@ -4,68 +4,30 @@ import android.os.SystemClock;
 
 /**
  * Created by skad on 14/09/15.
- * COPYRIGHT
+ * Represent an object witch use gravity to move
  */
-public abstract class MovingSpriteObject extends SpriteObject{
-    private Vector2D mMovingDirection;
-    private double mVelocity;
+public abstract class GravitingMovingSpriteObject extends SpriteObject{
     private Vector2D mGravity; //gravity applying during the game
     private long mTime; //time for applying the force
     private Vector2D mV0; //force initial
     private Vector2D mPos0; // posinitial for appling the force
 
-    public MovingSpriteObject(){
+    public GravitingMovingSpriteObject(){
         this(0,0,0,0);
     }
-    public MovingSpriteObject(int x, int y, int width, int height) {
+    public GravitingMovingSpriteObject(int x, int y, int width, int height) {
         this(new Vector2D(x,y),width,height);
     }
 
-    public MovingSpriteObject(Vector2D pos, int width, int height) {
+    public GravitingMovingSpriteObject(Vector2D pos, int width, int height) {
         super(pos, width, height);
-        mMovingDirection = new Vector2D(0,0);
-        mVelocity = 0;
         setNewForce(new Vector2D(0,0));
     }
 
-    public MovingSpriteObject(MovingSpriteObject object) {
+    public GravitingMovingSpriteObject(GravitingMovingSpriteObject object) {
         super(object);
-        mMovingDirection = object.getMovingDirection();
-        mVelocity = object.getVelocity();
         setNewForce(object.mV0);
     }
-
-    public Vector2D getMovingDirection() {
-        return mMovingDirection;
-    }
-
-    public void setMovingDirection(Vector2D mMovingDirection) {
-        this.mMovingDirection = mMovingDirection;
-    }
-
-    public double getVelocity() {
-        return mVelocity;
-    }
-
-    public void setVelocity(double mVelocity) {
-        this.mVelocity = mVelocity;
-    }
-
-    /**
-     * Move forward into the direction
-     */
-    public void forward()
-    {
-        mPosition = mPosition.add(mMovingDirection.multBynumber(mVelocity));
-    }
-
-    /**
-     * Move backward into the direction
-     */
-    public void backward(){
-        mPosition = mPosition.sub(mMovingDirection.multBynumber(mVelocity));
-    }
-
 
     /**
      * Applying the pass gravity to the object
@@ -89,7 +51,6 @@ public abstract class MovingSpriteObject extends SpriteObject{
 
     /**
      * Compute the pos of the object with gravity and force
-     * TODO: 01/10/15 find a way to to export movement for making possible other kind of mvt
      * @return
      */
     protected Vector2D computingPos(){
