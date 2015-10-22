@@ -57,4 +57,8 @@ public class DirectionalMovingSpriteObject extends SpriteObject {
         mPosition = mPosition.sub(mMovingDirection.multBynumber(mVelocity));
     }
 
+    @Override
+    protected void updateChild() {
+        forward();
+    }
 }

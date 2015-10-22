@@ -399,5 +399,5 @@ abstract public class SpriteObject {
     /**
      * Updating method for the child
      */
-    protected void updateChild(){};
+    protected abstract void updateChild();
 }
