@@ -45,12 +45,15 @@ public class LoopingSpriteObject extends SpriteObject {
     }
     /**
      * Loop the picture on X from pixel pixels
+     * well it's work but need to find better way (timed update ?)
      */
     private void Slide(){
         Bitmap temp = Bitmap.createBitmap(mOriginalSprite.getWidth(), mOriginalSprite.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas newbitmap = new Canvas(temp);
-        newbitmap.drawBitmap(mOriginalSprite,0-mStep,0,null);
-        newbitmap.drawBitmap(mOriginalSprite,temp.getWidth()-mStep,0,null);
+        Canvas conbiningcanvas = new Canvas(temp);
+        conbiningcanvas.drawBitmap(mOriginalSprite, 0 - mStep, 0, null);
+        conbiningcanvas.drawBitmap(mOriginalSprite, temp.getWidth() - mStep, 0, null);
+        mOriginalSprite.recycle();
+        mOriginalSprite = temp;
         super.resize();
     }
 
