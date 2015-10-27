@@ -3,38 +3,63 @@ package com.herdeliaslegacy.openpixelengine.Manager;
 import android.app.Activity;
 import android.content.Context;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by skad on 26/10/15.
- * COPYRIGHT
- * thank to http://stackoverflow.com/a/27552576
+ * Class for Managing sound into the game
+ *
  */
 public class SoundManager {
     private SoundPool mSoundPool;
     private HashMap<String,Integer> mSoundMap;
     private AudioManager mAudioManager;
+    private MediaPlayer mBackgroundMusic;
+    private boolean mBackgroundMusicReady;
 
     public SoundManager(Activity context){
         context.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mSoundPool = new SoundPool(5,AudioManager.STREAM_MUSIC,0);
         mSoundMap = new HashMap<String, Integer>();
         mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        mBackgroundMusic = new MediaPlayer();
+        mBackgroundMusicReady = false;
     }
 
-    public void Add(String name, String file){
+    public void AddSound(String name, String file){
         int soundID = mSoundPool.load(file, 1);
         mSoundMap.put(name,soundID);
     }
 
-    public void Remove(String name){
+    public void SetBackgroundMusic(String name) throws IOException {
+        mBackgroundMusic.setDataSource(name);
+        mBackgroundMusic.prepare();
+        mBackgroundMusic.setLooping(true);
+        mBackgroundMusicReady = true;
+    }
+
+    public void RemoveSound(String name){
         int soundID = mSoundMap.get(name);
         mSoundMap.remove(name);
         mSoundPool.unload(soundID);
+    }
 
+    public void PlayBackground(){
+        if(mBackgroundMusicReady){
+            mBackgroundMusic.start();
+        }
+    }
+
+    public void StopBackground(){
+        if(mBackgroundMusic.isPlaying()){
+            mBackgroundMusic.stop();
+            mBackgroundMusic.reset();
+            mBackgroundMusicReady = false;
+        }
     }
 
     public int Play(String name){

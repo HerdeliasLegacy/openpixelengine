@@ -3,6 +3,7 @@ package com.herdeliaslegacy.openpixelengine.Activity;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.herdeliaslegacy.openpixelengine.Manager.SoundManager;
 import com.herdeliaslegacy.openpixelengine.Model.Level;
 import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
 import com.herdeliaslegacy.openpixelengine.View.LevelView;
@@ -17,12 +18,14 @@ public abstract class Level_Activity extends Activity implements Observer {
     private boolean mObserving;
     private Level mLevel;
     private GameThread mgameThread;
+    protected SoundManager msoundManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level);
         mLevelView = (LevelView) findViewById(R.id.level_view);
+        msoundManager = new SoundManager(this);
     }
 
     /**
@@ -36,20 +39,22 @@ public abstract class Level_Activity extends Activity implements Observer {
      * Starts the activity and the level
      */
     @Override
-    protected void onStart(){
-        super.onStart();
+    protected void onResume(){
+        super.onResume();
         registerObserver();
         mgameThread.start();
+        msoundManager.PlayBackground();
     }
 
     /**
      * On quit stop thread game
      */
     @Override
-    protected void onStop() {
-        super.onStop();
-        mgameThread.interrupt();
+    protected void onPause() {
+        super.onPause();
         unregisterObserver();
+        mgameThread.interrupt();
+        msoundManager.StopBackground();
     }
 
     /**
