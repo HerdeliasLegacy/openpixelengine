@@ -30,6 +30,9 @@ public class SoundManager {
         mBackgroundMusicReady = false;
     }
 
+    public void finalize(){
+        mBackgroundMusic.release();
+    }
     public void AddSound(String name, String file){
         int soundID = mSoundPool.load(file, 1);
         mSoundMap.put(name,soundID);
