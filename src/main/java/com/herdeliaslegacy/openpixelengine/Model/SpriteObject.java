@@ -379,7 +379,7 @@ abstract public class SpriteObject {
      * Return the String of the SpriteObject like that : x/y/width/height/angle
      *
      * @return Return the String of the SpriteObject
-     * @see Level#toString() for the utiliti
+     * @see Scene#toString() for the utiliti
      */
     @Override
     public String toString() {

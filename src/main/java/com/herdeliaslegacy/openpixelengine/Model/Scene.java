@@ -9,10 +9,10 @@ import java.util.Observable;
  * it must be extend and by defaut only define a methode for get all element to be drawing and
  * for updating the level
  */
-public abstract class Level extends Observable {
-    public static final String TAG = "Level";
+public abstract class Scene extends Observable {
+    public static final String TAG = "Scene";
 
-    public Level() {
+    public Scene() {
     }
 
     /**

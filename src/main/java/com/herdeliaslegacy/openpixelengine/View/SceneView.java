@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import com.herdeliaslegacy.openpixelengine.Model.Level;
+import com.herdeliaslegacy.openpixelengine.Model.Scene;
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
 
 /**
@@ -32,12 +32,12 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     /**
-     * Draw the level's content in our view
+     * Draw the scene's content in our view
      * @param canvas Where to draw
      */
-    public void drawGameElements(Canvas canvas,Level level) {
+    public void drawGameElements(Canvas canvas,Scene scene) {
         canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        for (final SpriteObject sprite : level.getAllSprites()) {
+        for (final SpriteObject sprite : scene.getAllSprites()) {
             canvas.drawBitmap(sprite.getScaledSprite(), (int) sprite.getXPos(), (int) sprite.getYPos(), null);
         }
     }

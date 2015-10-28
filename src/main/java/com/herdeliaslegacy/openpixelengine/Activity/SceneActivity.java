@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.herdeliaslegacy.openpixelengine.Manager.SoundManager;
-import com.herdeliaslegacy.openpixelengine.Model.Level;
+import com.herdeliaslegacy.openpixelengine.Model.Scene;
 import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
 import com.herdeliaslegacy.openpixelengine.View.SceneView;
 import com.herdeliaslegacy.openpixelengine.R;
@@ -16,7 +16,7 @@ public abstract class SceneActivity extends Activity implements Observer {
     protected static final String TAG = "Scene Activity";
     protected SceneView mSceneView;
     private boolean mObserving;
-    private Level mLevel;
+    private Scene mScene;
     private GameThread mgameThread;
     protected SoundManager msoundManager;
 
@@ -29,11 +29,11 @@ public abstract class SceneActivity extends Activity implements Observer {
     }
 
     /**
-     * Attach the level to the activity. Must be do before onStart (during the onCreate of the child class)
+     * Attach the scene to the activity. Must be do before onStart (during the onCreate of the child class)
      */
-    protected void attachLevel(Level level){
-        mLevel = level;
-        mgameThread = new GameThread(mSceneView,mLevel);
+    protected void attachLevel(Scene scene){
+        mScene = scene;
+        mgameThread = new GameThread(mSceneView, mScene);
     }
     /**
      * Starts the activity and the level
@@ -58,21 +58,21 @@ public abstract class SceneActivity extends Activity implements Observer {
     }
 
     /**
-     * Register LevelActivity to observe both the Level
+     * Register LevelActivity to observe both the Scene
      */
     private void registerObserver() {
         if (!mObserving) {
-            mLevel.addObserver(this);
+            mScene.addObserver(this);
             mObserving = true;
         }
     }
 
     /**
-     * Unregisters LevelActivity as an observer of Level
+     * Unregisters LevelActivity as an observer of Scene
      */
     private void unregisterObserver() {
         if (mObserving) {
-            mLevel.deleteObserver(this);
+            mScene.deleteObserver(this);
             mObserving = false;
         }
     }

@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
-import com.herdeliaslegacy.openpixelengine.Model.Level;
+import com.herdeliaslegacy.openpixelengine.Model.Scene;
 import com.herdeliaslegacy.openpixelengine.View.SceneView;
 
 import java.util.Observable;
@@ -20,17 +20,17 @@ public class GameThread extends Thread implements Observer{
     private boolean mRunning;
     private boolean mPause;
 
-    private Level mLevel;
+    private Scene mScene;
     private SceneView mSceneView;
     private SurfaceHolder mSurfaceHolder;
 
-    public GameThread(SceneView sceneview,Level level) {
+    public GameThread(SceneView sceneview,Scene scene) {
         mRunning = false;
         mPause = false;
         mSceneView = sceneview;
         mSurfaceHolder = sceneview.getHolder();
-        mLevel = level;
-        mLevel.addObserver(this);
+        mScene = scene;
+        mScene.addObserver(this);
     }
 
     @Override
@@ -45,11 +45,11 @@ public class GameThread extends Thread implements Observer{
         synchronized (this) {
             while (mRunning) {
                 if(!mPause){
-                    mLevel.update();
+                    mScene.update();
                 }
                 Canvas canvas = mSurfaceHolder.lockCanvas();
                 if (canvas != null) {
-                    mSceneView.drawGameElements(canvas, mLevel);
+                    mSceneView.drawGameElements(canvas, mScene);
                     mSurfaceHolder.unlockCanvasAndPost(canvas);
                 }
             }
@@ -68,8 +68,8 @@ public class GameThread extends Thread implements Observer{
     }
     @Override
     public void update(Observable observable, Object data) {
-        if (observable instanceof Level && data instanceof Level.EVENT) {
-            Level.EVENT event = (Level.EVENT) data;
+        if (observable instanceof Scene && data instanceof Scene.EVENT) {
+            Scene.EVENT event = (Scene.EVENT) data;
             switch (event) {
                 case GAME_OVER:
                 case GAME_SUCCESS:
