@@ -21,14 +21,14 @@ public class GameThread extends Thread implements Observer{
     private boolean mPause;
 
     private Level mLevel;
-    private SceneView mLevelView;
+    private SceneView mSceneView;
     private SurfaceHolder mSurfaceHolder;
 
-    public GameThread(SceneView levelView,Level level) {
+    public GameThread(SceneView sceneview,Level level) {
         mRunning = false;
         mPause = false;
-        mLevelView = levelView;
-        mSurfaceHolder = levelView.getHolder();
+        mSceneView = sceneview;
+        mSurfaceHolder = sceneview.getHolder();
         mLevel = level;
         mLevel.addObserver(this);
     }
@@ -49,7 +49,7 @@ public class GameThread extends Thread implements Observer{
                 }
                 Canvas canvas = mSurfaceHolder.lockCanvas();
                 if (canvas != null) {
-                    mLevelView.drawGameElements(canvas,mLevel);
+                    mSceneView.drawGameElements(canvas, mLevel);
                     mSurfaceHolder.unlockCanvasAndPost(canvas);
                 }
             }

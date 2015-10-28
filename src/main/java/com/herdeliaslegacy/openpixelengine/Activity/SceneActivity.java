@@ -13,7 +13,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 public abstract class SceneActivity extends Activity implements Observer {
-    protected static final String TAG = "sceneactivity";
+    protected static final String TAG = "Scene Activity";
     protected SceneView mSceneView;
     private boolean mObserving;
     private Level mLevel;
