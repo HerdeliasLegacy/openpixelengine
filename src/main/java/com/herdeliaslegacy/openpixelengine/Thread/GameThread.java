@@ -22,13 +22,11 @@ public class GameThread extends Thread implements Observer{
 
     private Scene mScene;
     private SceneView mSceneView;
-    private SurfaceHolder mSurfaceHolder;
 
     public GameThread(SceneView sceneview,Scene scene) {
         mRunning = false;
         mPause = false;
         mSceneView = sceneview;
-        mSurfaceHolder = sceneview.getHolder();
         mScene = scene;
         mScene.addObserver(this);
     }
@@ -47,14 +45,10 @@ public class GameThread extends Thread implements Observer{
                 if(!mPause){
                     mScene.update();
                 }
-                Canvas canvas = mSurfaceHolder.lockCanvas();
-                if (canvas != null) {
-                    mSceneView.drawGameElements(canvas, mScene);
-                    mSurfaceHolder.unlockCanvasAndPost(canvas);
+                mSceneView.drawGameElements(mScene);
                 }
             }
         }
-    }
 
     public void setPause(){
         Log.d(TAG, "set pause");

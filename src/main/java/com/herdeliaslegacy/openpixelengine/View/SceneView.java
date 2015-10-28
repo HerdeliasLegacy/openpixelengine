@@ -33,12 +33,17 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
 
     /**
      * Draw the scene's content in our view
-     * @param canvas Where to draw
+     * @param scene what to draw
      */
-    public void drawGameElements(Canvas canvas,Scene scene) {
-        canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-        for (final SpriteObject sprite : scene.getAllSprites()) {
-            canvas.drawBitmap(sprite.getScaledSprite(), (int) sprite.getXPos(), (int) sprite.getYPos(), null);
+    public void drawGameElements(Scene scene) {
+        SurfaceHolder holder =  this.getHolder();
+        Canvas canvas = holder.lockCanvas();
+        if (canvas != null) {
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            for (final SpriteObject sprite : scene.getAllSprites()) {
+                canvas.drawBitmap(sprite.getScaledSprite(), (int) sprite.getXPos(), (int) sprite.getYPos(), null);
+            }
+            holder.unlockCanvasAndPost(canvas);
         }
     }
 
