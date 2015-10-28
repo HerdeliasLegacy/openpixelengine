@@ -15,12 +15,12 @@ import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
 /**
  * Created by skad on 08/09/15.
  */
-public class LevelView extends SurfaceView implements SurfaceHolder.Callback {
+public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = "LevelView";
 
 
-    public LevelView(Context context, AttributeSet attributeSet) {
+    public SceneView(Context context, AttributeSet attributeSet) {
         super(context, attributeSet);
         SurfaceHolder holder = super.getHolder();
         if (holder != null) {

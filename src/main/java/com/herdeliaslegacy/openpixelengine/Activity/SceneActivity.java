@@ -6,15 +6,15 @@ import android.os.Bundle;
 import com.herdeliaslegacy.openpixelengine.Manager.SoundManager;
 import com.herdeliaslegacy.openpixelengine.Model.Level;
 import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
-import com.herdeliaslegacy.openpixelengine.View.LevelView;
+import com.herdeliaslegacy.openpixelengine.View.SceneView;
 import com.herdeliaslegacy.openpixelengine.R;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class Level_Activity extends Activity implements Observer {
-    protected static final String TAG = "LevelActivity";
-    protected LevelView mLevelView;
+public abstract class SceneActivity extends Activity implements Observer {
+    protected static final String TAG = "sceneactivity";
+    protected SceneView mSceneView;
     private boolean mObserving;
     private Level mLevel;
     private GameThread mgameThread;
@@ -23,8 +23,8 @@ public abstract class Level_Activity extends Activity implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_level);
-        mLevelView = (LevelView) findViewById(R.id.level_view);
+        setContentView(R.layout.sceneactivity);
+        mSceneView = (SceneView) findViewById(R.id.level_view);
         msoundManager = new SoundManager(this);
     }
 
@@ -33,7 +33,7 @@ public abstract class Level_Activity extends Activity implements Observer {
      */
     protected void attachLevel(Level level){
         mLevel = level;
-        mgameThread = new GameThread(mLevelView,mLevel);
+        mgameThread = new GameThread(mSceneView,mLevel);
     }
     /**
      * Starts the activity and the level

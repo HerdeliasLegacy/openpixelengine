@@ -4,7 +4,7 @@
     <application
         android:theme="@style/noAnimTheme">
         <activity
-            android:name=".Activity.Level_Activity"
+            android:name=".Activity.SceneActivity"
             android:label="@string/title_activity_level_"
             android:screenOrientation="sensorLandscape"
             android:hardwareAccelerated="true">

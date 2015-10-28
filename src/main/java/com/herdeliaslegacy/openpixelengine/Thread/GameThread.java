@@ -5,7 +5,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.herdeliaslegacy.openpixelengine.Model.Level;
-import com.herdeliaslegacy.openpixelengine.View.LevelView;
+import com.herdeliaslegacy.openpixelengine.View.SceneView;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -21,10 +21,10 @@ public class GameThread extends Thread implements Observer{
     private boolean mPause;
 
     private Level mLevel;
-    private LevelView mLevelView;
+    private SceneView mLevelView;
     private SurfaceHolder mSurfaceHolder;
 
-    public GameThread(LevelView levelView,Level level) {
+    public GameThread(SceneView levelView,Level level) {
         mRunning = false;
         mPause = false;
         mLevelView = levelView;
