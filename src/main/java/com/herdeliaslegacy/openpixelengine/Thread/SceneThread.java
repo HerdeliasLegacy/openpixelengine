@@ -14,8 +14,8 @@ import java.util.Observer;
  * Created by skad on 10/09/15.
  * Original from pschmitt
  */
-public class GameThread extends Thread implements Observer{
-    private static final String TAG = "GameThread";
+public class SceneThread extends Thread implements Observer{
+    private static final String TAG = "SceneThread";
 
     private boolean mRunning;
     private boolean mPause;
@@ -23,7 +23,7 @@ public class GameThread extends Thread implements Observer{
     private Scene mScene;
     private SceneView mSceneView;
 
-    public GameThread(SceneView sceneview,Scene scene) {
+    public SceneThread(SceneView sceneview, Scene scene) {
         mRunning = false;
         mPause = false;
         mSceneView = sceneview;

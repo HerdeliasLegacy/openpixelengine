@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.herdeliaslegacy.openpixelengine.Manager.SoundManager;
 import com.herdeliaslegacy.openpixelengine.Model.Scene;
-import com.herdeliaslegacy.openpixelengine.Thread.GameThread;
+import com.herdeliaslegacy.openpixelengine.Thread.SceneThread;
 import com.herdeliaslegacy.openpixelengine.View.SceneView;
 import com.herdeliaslegacy.openpixelengine.R;
 
@@ -17,7 +17,7 @@ public abstract class SceneActivity extends Activity implements Observer {
     protected SceneView mSceneView;
     private boolean mObserving;
     private Scene mScene;
-    private GameThread mgameThread;
+    private SceneThread msceneThread;
     protected SoundManager msoundManager;
 
     @Override
@@ -33,7 +33,7 @@ public abstract class SceneActivity extends Activity implements Observer {
      */
     protected void attachLevel(Scene scene){
         mScene = scene;
-        mgameThread = new GameThread(mSceneView, mScene);
+        msceneThread = new SceneThread(mSceneView, mScene);
     }
     /**
      * Starts the activity and the level
@@ -42,7 +42,7 @@ public abstract class SceneActivity extends Activity implements Observer {
     protected void onResume(){
         super.onResume();
         registerObserver();
-        mgameThread.start();
+        msceneThread.start();
         msoundManager.PlayBackground();
     }
 
@@ -53,7 +53,7 @@ public abstract class SceneActivity extends Activity implements Observer {
     protected void onPause() {
         super.onPause();
         unregisterObserver();
-        mgameThread.interrupt();
+        msceneThread.interrupt();
         msoundManager.StopBackground();
     }
 
