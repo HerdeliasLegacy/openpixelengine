@@ -44,7 +44,6 @@ public class Animation {
      */
     private long mTime;
 
-
     public Animation(){
         this.mNumFrames = 0;
         this.mMaxFrames = 0;
@@ -72,11 +71,22 @@ public class Animation {
     public double getAnimationTime() {
         return (mMaxFrames*mTimeFrame)/1000;
     }
+
+    /**
+     * Compune the number of frame for the animation and the time for each frame
+     * @param width of one frame
+     * @param animationtime
+     */
     public void computeMaxStepAnimation(int width, double animationtime){
         mMaxFrames = mAnimatedSprite.getWidth()/width;
         mTimeFrame = (int)(1000*animationtime)/mMaxFrames;
     }
-    public void setSprite(String spriteFile) {
+
+    /**
+     * set the file for the animation (need to call computeMaxStepAnimation after)
+     * @param spriteFile
+     */
+    private void setSprite(String spriteFile) {
         this.mAnimationFile = spriteFile;
         this.mAnimatedSprite = BitmapFactory.decodeFile(spriteFile);
     }
@@ -91,7 +101,7 @@ public class Animation {
         Bitmap Retour = null;
         long time  = SystemClock.elapsedRealtime();
         if((time - mTime)>mTimeFrame){
-            Retour = Bitmap.createBitmap(mAnimatedSprite, mNumFrames *width, 0, width, height);
+            Retour = Bitmap.createBitmap(mAnimatedSprite, mNumFrames*width, 0, width, height);
             mNumFrames++;
             mTime = time;
             if(mNumFrames >= mMaxFrames){

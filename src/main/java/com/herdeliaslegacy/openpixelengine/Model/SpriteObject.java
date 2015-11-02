@@ -29,14 +29,7 @@ abstract public class SpriteObject {
      * Height of the SpriteObject
      */
     protected int mHeight;
-    /**
-     * Width Ratio between the original screen size were the lvl was design and the actual screen size
-     */
-    protected double mRatioWidth;
-    /**
-     * Height Ratio between the original screen size were the lvl was design and the actual screen size
-     */
-    protected double mRatioHeight;
+
     /**
      * Scaled BitmapElement with is the normal picture of the sprite
      */
@@ -254,17 +247,9 @@ abstract public class SpriteObject {
         resize();
     }
 
-    public void setRatioWidth(double ratioWidth) {
-        mRatioWidth = ratioWidth;
-    }
-
-    public void setRatioHeight(double ratioHeight) {
-        mRatioHeight = ratioHeight;
-    }
-
     public void addAnimation(String name, String animation,double time) {
         Animation anim = new Animation(animation);
-        anim.computeMaxStepAnimation(mWidth,time);
+        anim.computeMaxStepAnimation(mOriginalSprite.getWidth(),time);
         mAnimationMap.put(name, anim);
     }
 
@@ -391,7 +376,7 @@ abstract public class SpriteObject {
      */
     public void update(){
        if(mAnimationMap.containsKey("default")){Animation anim = mAnimationMap.get("default");
-           Bitmap frame =  anim.animate(mWidth,mHeight);
+           Bitmap frame =  anim.animate(mOriginalSprite.getWidth(),mOriginalSprite.getHeight());
            if(frame != null){
                mOriginalSprite = frame;
                resize();
