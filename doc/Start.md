@@ -42,7 +42,7 @@ This is the model of your level. It will contain the logic and all the graphics 
 ```
 
 Only those two methods are requred for implementing a level.   
-getAllSprite() must return a list wich need to be draw (background/decors/player)
+getAllSprite() must return a list of all sprites wich need to be draw (background/decors/player)
 update() this is where you implement the gamelogic (moving player, update background and other stuff)
 
 
