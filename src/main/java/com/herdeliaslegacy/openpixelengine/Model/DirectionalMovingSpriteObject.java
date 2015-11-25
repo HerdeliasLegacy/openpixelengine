@@ -61,4 +61,8 @@ public class DirectionalMovingSpriteObject extends SpriteObject {
     protected void updateChild() {
         forward();
     }
+
+    public String toString(){
+        return super.toString()+ ", direction: (" + mMovingDirection + "), velocity: "+mVelocity;
+    }
 }
