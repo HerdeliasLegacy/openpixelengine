@@ -9,6 +9,7 @@ import android.graphics.Canvas;
  */
 public class LoopingSpriteObject extends SpriteObject {
 
+
     private int mStep;
 
     public LoopingSpriteObject() {
@@ -30,7 +31,7 @@ public class LoopingSpriteObject extends SpriteObject {
 
     /**
      * return the step of the loop
-     * @return
+     * @return step of the loop
      */
     public int getStep(){
         return mStep;
@@ -38,7 +39,7 @@ public class LoopingSpriteObject extends SpriteObject {
 
     /**
      * Set the step of the loop
-     * @param pixel
+     * @param pixel step of the loop
      */
     public void setStep(int pixel){
         mStep = pixel;
@@ -48,6 +49,7 @@ public class LoopingSpriteObject extends SpriteObject {
      * well it's work but need to find better way (timed update ?)
      */
     private void Slide(){
+        /**
         Bitmap temp = Bitmap.createBitmap(mOriginalSprite.getWidth(), mOriginalSprite.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas conbiningcanvas = new Canvas(temp);
         conbiningcanvas.drawBitmap(mOriginalSprite, 0 - mStep, 0, null);
@@ -55,6 +57,8 @@ public class LoopingSpriteObject extends SpriteObject {
         mOriginalSprite.recycle();
         mOriginalSprite = temp;
         super.resize();
+         */
+        super.setXPos((int)super.getXPos()-mStep);
     }
 
     @Override
