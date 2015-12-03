@@ -26,6 +26,7 @@ public class LevelFileParser {
 
     public static SpriteObject JsonToSprite(Context context,SpriteObject obj,JSONObject jsonObject) throws JSONException {
         JSONArray size = null;
+        JSONArray pos = null;
         if(!jsonObject.isNull("size")){
             size = jsonObject.getJSONArray("size");
         }
@@ -34,13 +35,14 @@ public class LevelFileParser {
         }
 
         if(!jsonObject.isNull("pos")){
-            size = jsonObject.getJSONArray("pos");
+            pos = jsonObject.getJSONArray("pos");
         }
         else {
-            size = new JSONArray("[1,1]");
+            pos = new JSONArray("[1,1]");
         }
 
         obj.setSize(size.getInt(0), size.getInt(1));
+        obj.setPosition(pos.getInt(0),pos.getInt(1));
         obj.setSprite(FileUtils.getFile(context, jsonObject.getString("sprite")));
         //setting the animations list
         if(!jsonObject.isNull("animations")){
