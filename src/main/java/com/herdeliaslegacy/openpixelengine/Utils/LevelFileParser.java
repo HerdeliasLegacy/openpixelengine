@@ -32,6 +32,14 @@ public class LevelFileParser {
         else {
             size = new JSONArray("[1,1]");
         }
+
+        if(!jsonObject.isNull("pos")){
+            size = jsonObject.getJSONArray("pos");
+        }
+        else {
+            size = new JSONArray("[1,1]");
+        }
+
         obj.setSize(size.getInt(0), size.getInt(1));
         obj.setSprite(FileUtils.getFile(context, jsonObject.getString("sprite")));
         //setting the animations list
