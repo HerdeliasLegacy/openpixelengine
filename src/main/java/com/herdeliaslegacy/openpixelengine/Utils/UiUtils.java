@@ -14,6 +14,10 @@ public class UiUtils {
     }
 
 
+    public static void setId(View element,String name){
+        int id = element.getResources().getIdentifier(name, "id", element.getContext().getPackageName());
+        element.setId(id);
+    }
     public static void setLayout(View element){
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.topMargin = 0;

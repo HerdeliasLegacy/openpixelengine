@@ -81,6 +81,8 @@ public class LevelFileParser {
         if(elem instanceof TextBox){
             ((TextBox) elem).setSize(size.getInt(0), size.getInt(1));
         }
+
+        elem.setId(jsonObject.getString("id"));
         elem.setPos(pos.getInt(0),pos.getInt(1));
         elem.setTexture(jsonObject.getString("sprite"));
 

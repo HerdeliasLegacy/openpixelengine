@@ -18,8 +18,13 @@ public class TextBox extends TextView implements IUiElement {
     }
 
     @Override
+    public void setId(String id) {
+        UiUtils.setId(this,id);
+    }
+
+    @Override
     public void setPos(int x, int y) {
-        UiUtils.setPos(this,x,y);
+        UiUtils.setPos(this, x, y);
     }
 
     @Override

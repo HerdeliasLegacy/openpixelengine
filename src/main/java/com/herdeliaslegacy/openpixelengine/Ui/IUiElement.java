@@ -9,6 +9,8 @@ import android.widget.FrameLayout;
  */
 public interface IUiElement {
 
+    public void setId(String id);
+
     public void setPos(int x, int y);
 
     public void setX(int x);
