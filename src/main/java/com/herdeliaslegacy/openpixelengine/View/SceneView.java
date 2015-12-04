@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
+
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -31,11 +32,17 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
         holder.setFormat(PixelFormat.TRANSPARENT);
     }
 
+
+    public void drawScene(Scene scene){
+        drawSpriteElements(scene);
+
+    }
+
     /**
      * Draw the scene's content in our view
      * @param scene what to draw
      */
-    public void drawGameElements(Scene scene) {
+    private void drawSpriteElements(Scene scene) {
         SurfaceHolder holder =  this.getHolder();
         Canvas canvas = holder.lockCanvas();
         if (canvas != null) {
