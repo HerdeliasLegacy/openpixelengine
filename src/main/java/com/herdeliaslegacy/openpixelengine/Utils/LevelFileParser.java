@@ -3,6 +3,8 @@ package com.herdeliaslegacy.openpixelengine.Utils;
 import android.content.Context;
 
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
+import com.herdeliaslegacy.openpixelengine.Ui.IUiElement;
+import com.herdeliaslegacy.openpixelengine.Ui.TextBox;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,14 +17,6 @@ import org.json.JSONObject;
  */
 public class LevelFileParser {
     private LevelFileParser(){}
-
-    public static SpriteObject addAnimationToElement(Context context,SpriteObject object,JSONArray animationArray) throws JSONException {
-        for (int i = 0 ; i < animationArray.length(); i++) {
-            JSONObject animation = animationArray.getJSONObject(i);
-            object.addAnimation(animation.getString("name"),FileUtils.getFile(context,animation.getString("sprite")),animation.getDouble("time"));
-        }
-        return object;
-    }
 
     public static SpriteObject JsonToSprite(Context context,SpriteObject obj,JSONObject jsonObject) throws JSONException {
         JSONArray size = null;
@@ -50,4 +44,47 @@ public class LevelFileParser {
         }
         return  obj;
     }
+
+    public static SpriteObject addAnimationToElement(Context context,SpriteObject object,JSONArray animationArray) throws JSONException {
+        for (int i = 0 ; i < animationArray.length(); i++) {
+            JSONObject animation = animationArray.getJSONObject(i);
+            object.addAnimation(animation.getString("name"),FileUtils.getFile(context,animation.getString("sprite")),animation.getDouble("time"));
+        }
+        return object;
+    }
+
+    /**
+     * Populate the elem from the json passed into param
+     * @param context
+     * @param elem
+     * @param jsonObject
+     * @return
+     */
+    public static IUiElement JsonToUiElement(Context context,IUiElement elem,JSONObject jsonObject) throws JSONException {
+        JSONArray size = null;
+        JSONArray pos = null;
+
+        if(!jsonObject.isNull("size")){
+            size = jsonObject.getJSONArray("size");
+        }
+        else {
+            size = new JSONArray("[1,1]");
+        }
+
+        if(!jsonObject.isNull("pos")){
+            pos = jsonObject.getJSONArray("pos");
+        }
+        else {
+            pos = new JSONArray("[1,1]");
+        }
+
+        if(elem instanceof TextBox){
+            ((TextBox) elem).setSize(size.getInt(0), size.getInt(1));
+        }
+        elem.setPos(pos.getInt(0),pos.getInt(1));
+        elem.setTexture(jsonObject.getString("sprite"));
+
+        return elem;
+    }
+
 }

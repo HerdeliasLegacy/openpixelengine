@@ -2,6 +2,8 @@ package com.herdeliaslegacy.openpixelengine.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.herdeliaslegacy.openpixelengine.Manager.SoundManager;
 import com.herdeliaslegacy.openpixelengine.Model.Scene;
@@ -81,4 +83,15 @@ public abstract class SceneActivity extends Activity implements Observer {
     public void update(Observable observable, Object o) {
 
     }
+
+    /**
+     *  Add an Ui element to the LevelView
+     * @param elem Ui element to add into the layout
+     */
+    public void addUiElement(View elem){
+        FrameLayout ui = (FrameLayout) findViewById(R.id.iulayout);
+        ui.addView(elem);
+    }
+
+
 }

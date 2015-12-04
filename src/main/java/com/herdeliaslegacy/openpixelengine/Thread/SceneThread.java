@@ -45,7 +45,7 @@ public class SceneThread extends Thread implements Observer{
                 if(!mPause){
                     mScene.update();
                 }
-                mSceneView.drawGameElements(mScene);
+                mSceneView.drawScene(mScene);
                 }
             }
         }
