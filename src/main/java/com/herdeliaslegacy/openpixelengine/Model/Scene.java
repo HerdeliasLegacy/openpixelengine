@@ -10,7 +10,16 @@ import java.util.Observable;
  * for updating the level
  */
 public abstract class Scene extends Observable {
+
+
     public static final String TAG = "Scene";
+
+    /**
+     * Events to be reported to observers
+     */
+    public enum EVENT {
+        SCENE_END
+    }
 
     public Scene() {
     }
@@ -36,12 +45,5 @@ public abstract class Scene extends Observable {
         }
 
         return sb.toString();
-    }
-
-    /**
-     * Events to be reported to observers
-     */
-    public enum EVENT {
-        GAME_OVER, GAME_SUCCESS
     }
 }
