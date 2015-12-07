@@ -1,6 +1,7 @@
 package com.herdeliaslegacy.openpixelengine.Thread;
 
 import android.graphics.Canvas;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -14,11 +15,13 @@ import java.util.Observer;
  * Created by skad on 10/09/15.
  * Original from pschmitt
  */
-public class SceneThread extends Thread implements Observer{
+public class SceneThread extends Thread implements Observer {
     private static final String TAG = "SceneThread";
 
     private boolean mRunning;
     private boolean mPause;
+    private long mDelay = 16; //default value for running at 60HZ
+
 
     private Scene mScene;
     private SceneView mSceneView;
@@ -40,15 +43,31 @@ public class SceneThread extends Thread implements Observer{
 
     @Override
     public void run() {
+
         synchronized (this) {
             while (mRunning) {
-                if(!mPause){
+
+                long time = SystemClock.elapsedRealtime();
+
+                if (!mPause) {
                     mScene.update();
                 }
                 mSceneView.drawScene(mScene);
+
+
+                time = mDelay -(SystemClock.elapsedRealtime() - time);
+
+                if(time>0){
+                    try {
+                        this.sleep(time);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
+    }
+
 
     public void setPause(){
         Log.d(TAG, "set pause");
