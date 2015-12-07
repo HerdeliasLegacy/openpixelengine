@@ -80,9 +80,7 @@ public abstract class SceneActivity extends Activity implements Observer {
     }
 
     @Override
-    public void update(Observable observable, Object o) {
-
-    }
+    public abstract void update(Observable observable, Object o);
 
     /**
      *  Add an Ui element to the LevelView
