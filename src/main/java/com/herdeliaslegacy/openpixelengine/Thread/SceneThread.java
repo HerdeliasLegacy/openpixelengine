@@ -14,7 +14,10 @@ public class SceneThread extends Thread {
     private static final String TAG = "SceneThread";
 
     private boolean mRunning;
-    private boolean mPause;
+    private Object mActivityPauseLock; //activty pause lock
+    private boolean mActivityPause; //activty pause
+    private boolean mGamePause; //pause for update but running display
+
     private long mDelay = 16; //default value for running at 60HZ
 
 
@@ -22,8 +25,10 @@ public class SceneThread extends Thread {
     private SceneView mSceneView;
 
     public SceneThread(SceneView sceneview, Scene scene) {
+        mActivityPauseLock = new Object();
+        mActivityPauseLock = false;
         mRunning = false;
-        mPause = false;
+        mGamePause = false;
         mSceneView = sceneview;
         mScene = scene;
     }
@@ -43,14 +48,15 @@ public class SceneThread extends Thread {
 
                 long time = SystemClock.elapsedRealtime();
 
-                if (!mPause) {
+                //update
+                if (!mGamePause) {
                     mScene.update();
                 }
+                //drawing
                 mSceneView.drawScene(mScene);
 
-
+                //wait for running at 60Hz
                 time = mDelay -(SystemClock.elapsedRealtime() - time);
-
                 if(time>0){
                     try {
                         sleep(time);
@@ -58,20 +64,54 @@ public class SceneThread extends Thread {
                         e.printStackTrace();
                     }
                 }
+
+                //pause activity
+                synchronized (mActivityPauseLock) {
+                    while (mActivityPause) {
+                        try {
+                            mActivityPauseLock.wait();
+                        } catch (InterruptedException e) {
+                        }
+                    }
+                }
             }
         }
     }
 
 
-    public void setPause(){
-        Log.d(TAG, "set pause");
-        mPause = true;
+
+    /**
+     * Activity resume
+     */
+    public void activityResume() {
+        Log.d(TAG, "resume activity");
+        synchronized (mActivityPauseLock) {
+            mActivityPause = false;
+            mActivityPauseLock.notifyAll();
+        }
     }
 
-    public void unPause()
-    {
-        Log.d(TAG, "unset pause");
-        mPause = false;
+    public boolean isActivityPause(){
+        return this.mActivityPause;
+    }
+
+    /**
+     * Activity pause
+     */
+    public void activityPause() {
+        Log.d(TAG, "set activity in pause");
+        this.pause();
+        synchronized (mActivityPauseLock) {
+            mActivityPause = true;
+        }
+    }
+
+    /**
+     * Update pause
+     */
+    public void pause(){
+        mGamePause = !mGamePause;
+        Log.d(TAG, "set game pause to "+mGamePause);
     }
 
     @Override
@@ -79,4 +119,5 @@ public class SceneThread extends Thread {
         this.mRunning = false;
         Log.d(TAG, "interrupt running");
     }
+
 }
