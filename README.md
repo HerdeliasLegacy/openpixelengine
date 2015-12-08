@@ -10,4 +10,4 @@ look to the doc directory
 
 ## Links
 There is a Slack if you want comme and discus about OpenPixelEngine : [chan](https://openpixelengine.slack.com)   
-There is a Taiga board for looking for the futur : [board](https://tree.taiga.io/project/skad-runner-game-engine/)   
+There is a Taiga board for looking for the futur : [board](https://tree.taiga.io/project/skad-open-pixel-engine)   
