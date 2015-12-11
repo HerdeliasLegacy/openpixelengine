@@ -2,6 +2,7 @@ package com.herdeliaslegacy.openpixelengine.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -34,6 +35,9 @@ public abstract class SceneActivity extends Activity implements Observer {
         //load componnant for the child
         msoundManager = new SoundManager(this);
         mSceneView = (SceneView) findViewById(R.id.level_view);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        mSceneView.setScreenMetric(metrics);
 
         //load from the child
         mScene = this.loadResource();

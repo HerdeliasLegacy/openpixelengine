@@ -6,12 +6,17 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 
+import android.media.MediaRecorder;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.herdeliaslegacy.openpixelengine.Model.Scene;
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
+import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
+
+import java.security.PrivateKey;
 
 /**
  * Created by skad on 08/09/15.
@@ -19,6 +24,7 @@ import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
 public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = "LevelView";
+    private DisplayMetrics mScreenSize=null;
 
 
     public SceneView(Context context, AttributeSet attributeSet) {
@@ -33,6 +39,9 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
 
+    public void setScreenMetric(DisplayMetrics metric){
+        this.mScreenSize = metric;
+    }
     public void drawScene(Scene scene){
         drawSpriteElements(scene);
 
@@ -48,12 +57,25 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
         if (canvas != null) {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
             for (final SpriteObject sprite : scene.getAllSprites()) {
-                canvas.drawBitmap(sprite.getScaledSprite(), (int) sprite.getXPos(), (int) sprite.getYPos(), null);
+                Vector2D temp = this.computeScreenPosition(sprite);
+                canvas.drawBitmap(sprite.getScaledSprite(), (int)temp.getX(), (int)temp.getY(), null);
             }
             holder.unlockCanvasAndPost(canvas);
         }
     }
 
+    /**
+     * Compute the screen position for the Sprite pass into params
+     * @param spriteObject
+     * @return
+     */
+    private Vector2D computeScreenPosition(SpriteObject spriteObject){
+        Vector2D screenpos = new Vector2D(0,0);
+        screenpos.setX(spriteObject.getXPos());
+        screenpos.setY(mScreenSize.heightPixels - spriteObject.getYPos() - spriteObject.getHeight());
+
+        return screenpos;
+    }
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
     }
