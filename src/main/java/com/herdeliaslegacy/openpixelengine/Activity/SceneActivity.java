@@ -14,6 +14,11 @@ import com.herdeliaslegacy.openpixelengine.R;
 import java.util.Observable;
 import java.util.Observer;
 
+
+/**
+ * Scene activity.
+ * It will the scene object and the scene thread.
+ */
 public abstract class SceneActivity extends Activity implements Observer {
     protected static final String TAG = "Scene Activity";
     protected SceneView mSceneView;

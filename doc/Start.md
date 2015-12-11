@@ -42,8 +42,9 @@ This is the model of your level. It will contain the logic and all the graphics 
 ```
 
 Only those two methods are requred for implementing a level.   
-getAllSprite() must return a list of all sprites wich need to be draw (background/decors/player)
-update() this is where you implement the gamelogic (moving player, update background and other stuff)
+
+* getAllSprite() must return a list of all sprites wich need to be draw (background/decors/player)
+* update() this is where you implement the gamelogic (moving player, update background and other stuff)
 
 
 #### Level Activity
@@ -55,14 +56,17 @@ Simply extend the SceneActity like this
 ```
     public class LevelActivity extends SceneActivity {    
         @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            MyLevel level = new MyLevel();
+        public MyLevel loadResource(){
+        
+            //load your stuf
             
-            //todo ; load stuf to your level
-            
-            super.attachLevel(level);
+            return myLevel;
         }
+        
+         @Override
+         public void update(final Observable observable, Object o) {
+         
+         }
     }
 ```
 
