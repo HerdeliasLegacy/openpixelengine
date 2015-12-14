@@ -142,4 +142,11 @@ public abstract class SceneActivity extends Activity implements Observer {
         msceneThread.pause();
     }
 
+    /**
+     * Called method for ending the scene
+     */
+    public void endScene(){
+        this.finish();
+    }
+
 }
