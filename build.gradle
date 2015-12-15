@@ -25,3 +25,22 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
+
+task MoveAssets(type: Exec) {
+    description = "Move Files from Assets to file "
+    group = "Utils"
+
+    /**
+     * https://stackoverflow.com/questions/30443518/gradle-and-android-obtain-package-id-from-android-library-project
+     */
+    String packageName = ""
+    File pluginManifestFile = file(""+project.rootDir+"/app/src/main/AndroidManifest.xml")
+    if(pluginManifestFile.exists()){
+        String manifestContents = pluginManifestFile.text
+        def pluginManifestXml = new XmlSlurper().parseText(manifestContents)
+        packageName = pluginManifestXml.@package.toString()
+    }
+
+    commandLine "adb"
+    args = ["push", "$project.rootDir/assets/", "/sdcard/Android/data/"+packageName+"/files/"]
+}

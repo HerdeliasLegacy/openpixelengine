@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
+import android.util.Log;
 
 import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 
@@ -17,6 +18,12 @@ import java.util.Map;
  * Original by skad
  */
 abstract public class SpriteObject {
+
+    public enum CollisionPosition {
+        TOP_LEFT,TOP_CENTER,TOP_RIGHT,
+        LEFT_CENTER,CENTER_CENTER,RIGHT_CENTER,
+        BOTTOM_LEFT,BOTTOM_CENTER,BOTTOM_RIGHT
+    }
     /**
      * Position of the SpriteObject into screen repert
      */
@@ -304,9 +311,40 @@ abstract public class SpriteObject {
         return null;
     }
 
-    public int whereColide(Vector2D colision) {
-        return 0;
+    /**
+     * return the enum for the position of collision
+     * @param collision Vector 2D from this.intersect
+     * @return
+     */
+    public CollisionPosition whereColide(Vector2D collision) {
+        String temp  = "";
+        int widthontree = this.getWidth()/3;
+        int heightontree = this.getHeight()/3;
+
+        if(collision.getY() < heightontree){
+            temp += "TOP";
+        }else if (collision.getY() >= heightontree && collision.getY() < 2*heightontree){
+            temp += "CENTER";
+        }
+        else {
+            temp += "BOTTOM";
+        }
+
+        temp += "_";
+
+        if(collision.getX() < widthontree){
+            temp += "LEFT";
+        }else if (collision.getX() >= widthontree && collision.getX() < 2*widthontree){
+            temp += "CENTER";
+        }
+        else {
+            temp += "RIGHT";
+        }
+
+        Log.d("Sprite Object", "whereColide: "+collision+" -> "+temp);
+        return CollisionPosition.valueOf(temp.toUpperCase());
     }
+
     /**
      * Calcultate the collision rectangle between two rect and return it
      *
