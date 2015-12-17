@@ -22,7 +22,8 @@ abstract public class SpriteObject {
     public enum CollisionPosition {
         TOP_LEFT,TOP_CENTER,TOP_RIGHT,
         LEFT_CENTER,CENTER_CENTER,RIGHT_CENTER,
-        BOTTOM_LEFT,BOTTOM_CENTER,BOTTOM_RIGHT
+        BOTTOM_LEFT,BOTTOM_CENTER,BOTTOM_RIGHT,
+        NONE
     }
     /**
      * Position of the SpriteObject into screen repert
@@ -317,17 +318,17 @@ abstract public class SpriteObject {
      * @return
      */
     public CollisionPosition whereColide(Vector2D collision) {
-        String temp  = "";
+        String temp  = "NONE";
         int widthontree = this.getWidth()/3;
         int heightontree = this.getHeight()/3;
 
         if(collision.getY() < heightontree){
-            temp += "TOP";
+            temp = "BOTTOM";
         }else if (collision.getY() >= heightontree && collision.getY() < 2*heightontree){
-            temp += "CENTER";
+            temp = "CENTER";
         }
         else {
-            temp += "BOTTOM";
+            temp = "TOP";
         }
 
         temp += "_";
