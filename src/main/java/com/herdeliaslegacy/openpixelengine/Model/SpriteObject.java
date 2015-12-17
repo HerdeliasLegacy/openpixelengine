@@ -317,7 +317,7 @@ abstract public class SpriteObject {
      * @param collision Vector 2D from this.intersect
      * @return
      */
-    public CollisionPosition whereColide(Vector2D collision) {
+    public CollisionPosition whereCollide(Vector2D collision) {
         String temp  = "NONE";
         int widthontree = this.getWidth()/3;
         int heightontree = this.getHeight()/3;
@@ -342,7 +342,6 @@ abstract public class SpriteObject {
             temp += "RIGHT";
         }
 
-        Log.d("Sprite Object", "whereColide: "+collision+" -> "+temp);
         return CollisionPosition.valueOf(temp.toUpperCase());
     }
 
