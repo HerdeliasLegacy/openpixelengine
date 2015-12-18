@@ -21,7 +21,7 @@ abstract public class SpriteObject {
 
     public enum CollisionPosition {
         TOP_LEFT,TOP_CENTER,TOP_RIGHT,
-        LEFT_CENTER,CENTER_CENTER,RIGHT_CENTER,
+        CENTER_LEFT,CENTER_CENTER,CENTER_RIGHT,
         BOTTOM_LEFT,BOTTOM_CENTER,BOTTOM_RIGHT,
         NONE
     }
