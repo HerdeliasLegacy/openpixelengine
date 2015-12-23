@@ -2,6 +2,7 @@ package com.herdeliaslegacy.openpixelengine.Model;
 
 /**
  * Created by skad on 16/09/15.
+ * Represent a Sprite Object which can be moved around the scene witch a directional vector
  */
 public class DirectionalMovingSpriteObject extends SpriteObject {
     private Vector2D mMovingDirection;
