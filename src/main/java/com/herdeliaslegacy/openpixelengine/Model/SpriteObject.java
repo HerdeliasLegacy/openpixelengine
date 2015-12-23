@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Rect;
-import android.util.Log;
 
 import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 
@@ -13,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represent a generique object that can be drawing on the screen
+ * Represent a generic object that can be drawing on the screen
  * Created by skad on 08/09/15.
  * Original by skad
  */
@@ -26,7 +25,7 @@ abstract public class SpriteObject {
         NONE
     }
     /**
-     * Position of the SpriteObject into screen repert
+     * Position of the SpriteObject into level norm
      */
     protected Vector2D mPosition;
     /**
@@ -50,7 +49,7 @@ abstract public class SpriteObject {
     /**
      * Map for having some animation
      */
-    protected Map<String,Animation> mAnimationMap;
+    protected final Map<String,Animation> mAnimationMap;
 
     /**
      * Actual rotation of the sprite
@@ -87,7 +86,7 @@ abstract public class SpriteObject {
         mPosition = pos;
         mWidth = width;
         mHeight = height;
-        mAnimationMap = new HashMap<String, Animation>();
+        mAnimationMap = new HashMap<>();
     }
 
     protected SpriteObject(SpriteObject object)
@@ -96,7 +95,7 @@ abstract public class SpriteObject {
         mWidth = object.getWidth();
         mHeight = object.getHeight();
         mOriginalSprite = object.mOriginalSprite;
-        mAnimationMap  = new HashMap<String, Animation>();
+        mAnimationMap  = new HashMap<>();
         //Iterate over HashMap
         for(String key: object.mAnimationMap.keySet()){
             this.addAnimation(key, object.mAnimationMap.get(key).getAnimationFile(), object.mAnimationMap.get(key).getAnimationTime());
@@ -303,7 +302,7 @@ abstract public class SpriteObject {
                     int bitmap1Pixel = mScaledSprite.getPixel(deltaX1, deltaY1);
                     int bitmap2Pixel = object.getScaledSprite().getPixel(deltaX2, deltaY2);
                     // If both pixels are filled (ie. non-transparent) the 2 bitmaps are intersecting
-                    if (PixelisFilled(bitmap1Pixel) && PixelisFilled(bitmap2Pixel)) {
+                    if (PixelIsFilled(bitmap1Pixel) && PixelIsFilled(bitmap2Pixel)) {
                         return new Vector2D(deltaX1, deltaY1);
                     }
                 }
@@ -318,13 +317,13 @@ abstract public class SpriteObject {
      * @return
      */
     public CollisionPosition whereCollide(Vector2D collision) {
-        String temp  = "NONE";
-        int widthontree = this.getWidth()/3;
-        int heightontree = this.getHeight()/3;
+        String temp;
+        int widthOntThree = this.getWidth()/3;
+        int heightOnThree = this.getHeight()/3;
 
-        if(collision.getY() < heightontree){
+        if(collision.getY() < heightOnThree){
             temp = "BOTTOM";
-        }else if (collision.getY() >= heightontree && collision.getY() < 2*heightontree){
+        }else if (collision.getY() >= heightOnThree && collision.getY() < 2*heightOnThree){
             temp = "CENTER";
         }
         else {
@@ -333,9 +332,9 @@ abstract public class SpriteObject {
 
         temp += "_";
 
-        if(collision.getX() < widthontree){
+        if(collision.getX() < widthOntThree){
             temp += "LEFT";
-        }else if (collision.getX() >= widthontree && collision.getX() < 2*widthontree){
+        }else if (collision.getX() >= widthOntThree && collision.getX() < 2*widthOntThree){
             temp += "CENTER";
         }
         else {
@@ -346,7 +345,7 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Calcultate the collision rectangle between two rect and return it
+     * Compute the collision rectangle between two rect and return it
      *
      * @param rect1
      * @param rect2
@@ -364,9 +363,9 @@ abstract public class SpriteObject {
      * Calculate if the param pixel contain a color
      *
      * @param pixel
-     * @return True if transparente else false
+     * @return boolean
      */
-    private boolean PixelisFilled(int pixel) {
+    private boolean PixelIsFilled(int pixel) {
         return pixel != Color.TRANSPARENT;
     }
 

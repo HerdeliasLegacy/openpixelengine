@@ -14,23 +14,29 @@ public class SceneThread extends Thread {
     private static final String TAG = "SceneThread";
 
     private boolean mRunning;
-    private Object mActivityPauseLock; //activty pause lock
-    private boolean mActivityPause; //activty pause
-    private boolean mGamePause; //pause for update but running display
+    private final Object mActivityPauseLock = new Object(); //activity pause lock
+    private boolean mActivityPause;                         //activity pause
+    private boolean mGamePause;                             //pause for update but running display
+    private long mDelay = 16;                               //default value for running at 60HZ
 
-    private long mDelay = 16; //default value for running at 60HZ
 
-
-    private Scene mScene;
-    private SceneView mSceneView;
+    private final Scene mScene;
+    private final SceneView mSceneView;
 
     public SceneThread(SceneView sceneview, Scene scene) {
-        mActivityPauseLock = new Object();
-        mActivityPauseLock = false;
+        mActivityPause = false;
         mRunning = false;
         mGamePause = false;
         mSceneView = sceneview;
         mScene = scene;
+    }
+
+    public long getDelay() {
+        return mDelay;
+    }
+
+    public void setDelay(long mDelay) {
+        this.mDelay = mDelay;
     }
 
     @Override
@@ -70,7 +76,7 @@ public class SceneThread extends Thread {
                     while (mActivityPause) {
                         try {
                             mActivityPauseLock.wait();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }

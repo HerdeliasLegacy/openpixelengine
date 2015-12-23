@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.PorterDuff;
 
-import android.media.MediaRecorder;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
@@ -15,8 +14,6 @@ import android.view.SurfaceView;
 import com.herdeliaslegacy.openpixelengine.Model.Scene;
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
 import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
-
-import java.security.PrivateKey;
 
 /**
  * Created by skad on 08/09/15.
@@ -35,6 +32,7 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
         }
         // Make transparent so that we can see our background
         setZOrderOnTop(true);
+        assert holder != null;
         holder.setFormat(PixelFormat.TRANSPARENT);
     }
 
@@ -70,11 +68,11 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
      * @return
      */
     private Vector2D computeScreenPosition(SpriteObject spriteObject){
-        Vector2D screenpos = new Vector2D(0,0);
-        screenpos.setX(spriteObject.getXPos());
-        screenpos.setY(mScreenSize.heightPixels - spriteObject.getYPos() - spriteObject.getHeight());
+        Vector2D position = new Vector2D(0,0);
+        position.setX(spriteObject.getXPos());
+        position.setY(mScreenSize.heightPixels - spriteObject.getYPos() - spriteObject.getHeight());
 
-        return screenpos;
+        return position;
     }
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {

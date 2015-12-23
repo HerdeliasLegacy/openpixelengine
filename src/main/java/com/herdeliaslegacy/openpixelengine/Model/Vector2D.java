@@ -24,8 +24,8 @@ public class Vector2D {
     }
 
     /**
-     *
-     * @return Return the length (norme) of the vector
+     * Compute and return the length (norm) of the vector
+     * @return Double
      */
     public double length() {
         return Math.sqrt((mX * mX) + (mY * mY));
@@ -63,27 +63,33 @@ public class Vector2D {
     }
 
 
-    public Vector2D multBynumber(double number){
-        return mult(new Vector2D(number,number));
-    }
     /**
-     * Multiply the actual instance of the vector with the param Vector2D
+     * Multiply the actual instance of the vector by a number
+     * @param number
+     * @return
+     */
+    public Vector2D multiplyByNumber(double number){
+        return multiplyByVector2D(new Vector2D(number, number));
+    }
+
+    /**
+     * Multiply the actual instance of the vector with a Vector2D
      * @param vector
      */
-    public Vector2D mult(Vector2D vector) {
+    public Vector2D multiplyByVector2D(Vector2D vector) {
         return new Vector2D(mX*vector.getX(),mY*vector.getY())
 ;    }
 
     /**
-     * Divise the actual instance of the vector with the param Vector2D
+     * Divide the actual instance of the vector with the param Vector2D
      * @param vector
      */
-    public Vector2D div(Vector2D vector) {
+    public Vector2D divideByVector2D(Vector2D vector) {
         return new Vector2D(mX/vector.getX(),mY/vector.getY());
     }
 
     /**
-     * Return the scalar product of the acual instance of the vector and the param
+     * Return the scalar product of the actual instance of the vector and the param
      * @param vector
      * @return new Vector2D
      */
@@ -96,6 +102,7 @@ public class Vector2D {
      * Return a new vector witch is the normal vector of the actual instance of vector
      * @return new Vector2D
      */
+    @SuppressWarnings("SuspiciousNameCombination")
     public Vector2D getNormalVector() {
         return new Vector2D(mY, -mX);
     }
@@ -109,7 +116,7 @@ public class Vector2D {
     }
 
     /**
-     * Return the angle with the actual instance of the vector and the I vector of the repert
+     * Return the angle with the actual instance of the vector and the I vector of the norm
      * @return float
      */
     public float angle() {
@@ -155,7 +162,7 @@ public class Vector2D {
      * @param x
      * @param y
      */
-    public void setXandY(double x, double y) {
+    public void setXAndY(double x, double y) {
         mX = x;
         mY = y;
     }

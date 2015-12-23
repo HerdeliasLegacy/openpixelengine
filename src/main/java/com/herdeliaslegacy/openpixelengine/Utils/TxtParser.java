@@ -32,7 +32,7 @@ public class TxtParser {
         InputStream fileStream = new FileInputStream(file);
         BufferedReader reader = new BufferedReader(new InputStreamReader( fileStream));
 
-        String line = null;
+        String line;
         while ((line = reader.readLine()) != null) {
             content += line;
         }

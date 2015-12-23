@@ -24,8 +24,8 @@ public class JsonParser{
      * @throws JSONException
      */
     public static JSONObject getFileContent(Context context,String fileName) throws IOException, JSONException {
-        String txtcontent = TxtParser.getFileContent(context,fileName);
-        return new JSONObject(txtcontent);
+        String fileContent = TxtParser.getFileContent(context,fileName);
+        return new JSONObject(fileContent);
     }
 
 }

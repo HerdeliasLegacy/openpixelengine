@@ -38,14 +38,14 @@ public class MathUtils {
     }
 
     /**
-     * Genertate a Vector2D from 0 to Max
+     * Generate a random vector Vector2D between 0 and Max
      *
      * @param xMax
      * @param yMax
      * @return a new vector2D
      */
     public static Vector2D randomVector(int xMax, int yMax) {
-        int lower = 0; // retourne 1 point de point entre : [lower , xMax]
+        int lower = 0;
         return new Vector2D((int) (Math.random() * (xMax - lower)) + lower, (int) (Math.random() * (yMax - lower)) + lower);
     }
 
@@ -79,8 +79,7 @@ public class MathUtils {
      */
     public static Vector2D vectorFromPoint(double X1, double Y1, double X2, double Y2) {
         Vector2D vector = new Vector2D(X2 - X1, Y2 - Y1);
-        vector.normalize();
-        return vector;
+        return vector.normalize();
     }
 
     /**
@@ -92,8 +91,8 @@ public class MathUtils {
      * @param targetY
      * @return Return the angle
      */
-    public static final float angleFromTwoPoint(int x, int y, int targetX, int targetY) {
-        float angle = 0;
+    public static float angleFromTwoPoint(int x, int y, int targetX, int targetY) {
+        float angle;
         double dx = targetX - x;
         double dy = targetY - y;
 

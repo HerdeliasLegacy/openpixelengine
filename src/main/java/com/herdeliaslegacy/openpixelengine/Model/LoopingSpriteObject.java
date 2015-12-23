@@ -1,8 +1,5 @@
 package com.herdeliaslegacy.openpixelengine.Model;
 
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-
 /**
  * Created by skad on 27/10/15.
  * COPYRIGHT
@@ -44,16 +41,17 @@ public class LoopingSpriteObject extends SpriteObject {
     public void setStep(int pixel){
         mStep = pixel;
     }
+
     /**
-     * Loop the picture on X from pixel pixels
-     * well it's work but need to find better way (timed update ?)
+     * Loop the picture on X from pixels
+     * @// TODO: 23/12/15 find a way to loop bitmap without being so ram hungry
      */
     private void Slide(){
         /**
         Bitmap temp = Bitmap.createBitmap(mOriginalSprite.getWidth(), mOriginalSprite.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas conbiningcanvas = new Canvas(temp);
-        conbiningcanvas.drawBitmap(mOriginalSprite, 0 - mStep, 0, null);
-        conbiningcanvas.drawBitmap(mOriginalSprite, temp.getWidth() - mStep, 0, null);
+        Canvas combiningCanvas = new Canvas(temp);
+        combiningCanvas.drawBitmap(mOriginalSprite, 0 - mStep, 0, null);
+        combiningCanvas.drawBitmap(mOriginalSprite, temp.getWidth() - mStep, 0, null);
         mOriginalSprite.recycle();
         mOriginalSprite = temp;
         super.resize();

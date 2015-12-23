@@ -47,14 +47,14 @@ public class DirectionalMovingSpriteObject extends SpriteObject {
      */
     public void forward()
     {
-        mPosition = mPosition.add(mMovingDirection.multBynumber(mVelocity));
+        mPosition = mPosition.add(mMovingDirection.multiplyByNumber(mVelocity));
     }
 
     /**
      * Move backward into the direction
      */
     public void backward(){
-        mPosition = mPosition.sub(mMovingDirection.multBynumber(mVelocity));
+        mPosition = mPosition.sub(mMovingDirection.multiplyByNumber(mVelocity));
     }
 
     @Override

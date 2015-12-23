@@ -19,8 +19,8 @@ public class LevelFileParser {
     private LevelFileParser(){}
 
     public static SpriteObject JsonToSprite(Context context,SpriteObject obj,JSONObject jsonObject) throws JSONException {
-        JSONArray size = null;
-        JSONArray pos = null;
+        JSONArray size;
+        JSONArray pos;
         if(!jsonObject.isNull("size")){
             size = jsonObject.getJSONArray("size");
         }
@@ -55,14 +55,13 @@ public class LevelFileParser {
 
     /**
      * Populate the elem from the json passed into param
-     * @param context
      * @param elem
      * @param jsonObject
      * @return
      */
-    public static IUiElement JsonToUiElement(Context context,IUiElement elem,JSONObject jsonObject) throws JSONException {
-        JSONArray size = null;
-        JSONArray pos = null;
+    public static IUiElement JsonToUiElement(IUiElement elem, JSONObject jsonObject) throws JSONException {
+        JSONArray size;
+        JSONArray pos;
 
         if(!jsonObject.isNull("size")){
             size = jsonObject.getJSONArray("size");
@@ -79,7 +78,7 @@ public class LevelFileParser {
         }
 
         if(elem instanceof TextBox){
-            ((TextBox) elem).setSize(size.getInt(0), size.getInt(1));
+            elem.setSize(size.getInt(0), size.getInt(1));
         }
 
         elem.setId(jsonObject.getString("id"));

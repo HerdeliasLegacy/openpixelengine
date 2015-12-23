@@ -1,23 +1,20 @@
 package com.herdeliaslegacy.openpixelengine.Ui;
 
-import android.content.Context;
-import android.widget.FrameLayout;
-
 /**
  * Created by skad on 04/12/15.
  * COPYRIGHT
  */
 public interface IUiElement {
 
-    public void setId(String id);
+    void setId(String id);
 
-    public void setPos(int x, int y);
+    void setPos(int x, int y);
 
-    public void setX(int x);
+    void setX(int x);
 
-    public void setY(int y);
+    void setY(int y);
 
-    public void setSize(int x, int y);
+    void setSize(int x, int y);
 
-    public void setTexture(String file);
+    void setTexture(String file);
 }

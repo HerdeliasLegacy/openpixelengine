@@ -15,22 +15,23 @@ import java.util.HashMap;
  *
  */
 public class SoundManager {
-    private SoundPool mSoundPool;
-    private HashMap<String,Integer> mSoundMap;
-    private AudioManager mAudioManager;
-    private MediaPlayer mBackgroundMusic;
+    private final SoundPool mSoundPool;
+    private final HashMap<String,Integer> mSoundMap;
+    private final AudioManager mAudioManager;
+    private final MediaPlayer mBackgroundMusic;
     private boolean mBackgroundMusicReady;
 
     public SoundManager(Activity context){
         context.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         mSoundPool = new SoundPool(5,AudioManager.STREAM_MUSIC,0);
-        mSoundMap = new HashMap<String, Integer>();
+        mSoundMap = new HashMap<>();
         mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         mBackgroundMusic = new MediaPlayer();
         mBackgroundMusicReady = false;
     }
 
-    public void finalize(){
+    public void finalize() throws Throwable {
+        super.finalize();
         mBackgroundMusic.release();
     }
     public void AddSound(String name, String file){

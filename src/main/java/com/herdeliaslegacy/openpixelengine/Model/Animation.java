@@ -4,15 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 
-import org.json.JSONObject;
-
-import java.util.InputMismatchException;
-
 /**
  * Created by skad on 05/10/15.
  * COPYRIGHT
  */
-public class Animation {
+class Animation {
 
     /**
      * Name of the file
@@ -20,12 +16,12 @@ public class Animation {
     private String mAnimationFile;
 
     /**
-     * The sprite wich contain the animation
+     * The sprite which contain the animation
      */
     private Bitmap mAnimatedSprite;
 
     /**
-     * Curent step off the animation
+     * Current step off the animation
      */
     private int mNumFrames;
 
@@ -50,8 +46,8 @@ public class Animation {
         this.mTimeFrame = 0;
     }
 
-    public Animation(String animatedsprite) {
-        this.setSprite(animatedsprite);
+    public Animation(String animatedSprite) {
+        this.setSprite(animatedSprite);
         this.mNumFrames = 0;
         this.mMaxFrames = 0;
         this.mTimeFrame = 0;
@@ -73,13 +69,13 @@ public class Animation {
     }
 
     /**
-     * Compune the number of frame for the animation and the time for each frame
+     * Compute the number of frame for the animation and the time for each frame
      * @param width of one frame
-     * @param animationtime
+     * @param animationTime
      */
-    public void computeMaxStepAnimation(int width, double animationtime){
+    public void computeMaxStepAnimation(int width, double animationTime){
         mMaxFrames = mAnimatedSprite.getWidth()/width;
-        mTimeFrame = (int)(1000*animationtime)/mMaxFrames;
+        mTimeFrame = (int)(1000*animationTime)/mMaxFrames;
     }
 
     /**
@@ -98,10 +94,10 @@ public class Animation {
      * @return
      */
     public Bitmap animate(int width,int height){
-        Bitmap Retour = null;
+        Bitmap temp = null;
         long time  = SystemClock.elapsedRealtime();
         if((time - mTime)>mTimeFrame){
-            Retour = Bitmap.createBitmap(mAnimatedSprite, mNumFrames*width, 0, width, height);
+            temp = Bitmap.createBitmap(mAnimatedSprite, mNumFrames*width, 0, width, height);
             mNumFrames++;
             mTime = time;
             if(mNumFrames >= mMaxFrames){
@@ -109,6 +105,6 @@ public class Animation {
             }
 
         }
-        return Retour;
+        return temp;
     }
 }

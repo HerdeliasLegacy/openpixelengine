@@ -18,22 +18,30 @@ import java.util.Observer;
 
 /**
  * Scene activity.
- * It will the scene object and the scene thread.
+ * This activity manage the scene object and the scene thread. With that the dev don't need to manage it
+ * This class must be extended for each scene (lvl) to display
  */
 public abstract class SceneActivity extends Activity implements Observer {
-    protected static final String TAG = "Scene Activity";
-    protected SceneView mSceneView;
-    private boolean mObserving;
-    private Scene mScene;
-    private SceneThread msceneThread;
-    protected SoundManager msoundManager;
 
+    protected static final String TAG = "Scene Activity"; // Tag for login echo
+    protected SceneView mSceneView;                       // View for the Scene object
+    private boolean mObserving;                           // State of the observation
+    private Scene mScene;                                 // Scene object
+    private SceneThread mSceneThread;                     // Scene Thread of updating the Scene object
+    protected SoundManager mSoundManager;                 // Sound manager for background playback and fx
+
+    /**
+     * Set the content view
+     * Create the SoundManager
+     * Load the stuff from the game @link #loadResource()
+     * Create the Scene thread
+     * @param savedInstanceState // same as android OnCreate
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sceneactivity);
-        //load componnant for the child
-        msoundManager = new SoundManager(this);
+        mSoundManager = new SoundManager(this);
         mSceneView = (SceneView) findViewById(R.id.level_view);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -42,51 +50,59 @@ public abstract class SceneActivity extends Activity implements Observer {
         //load from the child
         mScene = this.loadResource();
 
-        //start the thread
-        msceneThread = new SceneThread(mSceneView, mScene);
+        //Create the thread
+        mSceneThread = new SceneThread(mSceneView, mScene);
     }
 
+    /**
+     * OnStart of the activity
+     *
+     * Start (restart) all the stuff
+     *  - background Playback
+     *  - scene thread
+     *  - observer
+     */
     @Override
     protected void onStart(){
         super.onStart();
         registerObserver();
-        if(msceneThread.isActivityPause())
+        if(mSceneThread.isActivityPause())
         {
-            msceneThread.activityResume();
+            mSceneThread.activityResume();
         }else{
-            msceneThread.start();
+            mSceneThread.start();
         }
-        msoundManager.PlayBackground();
-    }
-    /**
-     * Starts the activity and the level
-     */
-    @Override
-    protected void onResume(){
-        super.onResume();
+        mSoundManager.PlayBackground();
     }
 
     /**
-     * On quit stop thread game
+     * OnPause
+     * Stop all the stuff
+     *  - background Playback
+     *  - scene thread
      */
     @Override
     protected void onPause() {
         super.onPause();
-        msceneThread.activityPause();
-        msoundManager.StopBackground();
+        mSceneThread.activityPause();
+        mSoundManager.StopBackground();
     }
 
-    @Override
-    protected void onStop(){
-        super.onStop();
-    }
-
+    /**
+     * OnQuit
+     * Destroy all the stuff
+     *  - background Playback
+     *  - scene thread
+     *  - remove observer
+     *  - activity
+     */
     @Override
     protected void onDestroy(){
-        msceneThread.interrupt();
+        mSceneThread.interrupt();
         unregisterObserver();
         super.onDestroy();
     }
+
     /**
      * Register LevelActivity to observe both the Scene
      */
@@ -109,24 +125,22 @@ public abstract class SceneActivity extends Activity implements Observer {
 
 
     /**
-     * Load all Resource
-     * Must be overided by the child activity into the game
+     * Load all Resource for the game
+     * Must be override by the child activity into the game
+     * Must return the Scene
+     * @return Scene
      */
     public abstract Scene loadResource();
-    @Override
-    public abstract void update(Observable observable, Object o);
-
 
     /**
-     * Attach the scene to the activity. Must be do before onStart (during the onCreate of the child class)
+     * Update method for the observing
+     * Must be override by the child activity into the game
+     *
+     * @param observable // The object which is observed
+     * @param o          // Data from the object
      */
-    protected void attachLevel(Scene scene){
-
-    }
-
-    protected void dettachLevel(){
-        msceneThread.interrupt();
-    }
+    @Override
+    public abstract void update(Observable observable, Object o);
 
 
     /**
@@ -134,16 +148,19 @@ public abstract class SceneActivity extends Activity implements Observer {
      * @param elem Ui element to add into the layout
      */
     public void addUiElement(View elem){
-        FrameLayout ui = (FrameLayout) findViewById(R.id.iulayout);
+        FrameLayout ui = (FrameLayout) findViewById(R.id.iu_layout);
         ui.addView(elem);
     }
 
+    /**
+     * Pause the Scene thread
+     */
     protected void Pause(){
-        msceneThread.pause();
+        mSceneThread.pause();
     }
 
     /**
-     * Called method for ending the scene
+     * Manual ending method for closing the activity
      */
     public void endScene(){
         this.finish();

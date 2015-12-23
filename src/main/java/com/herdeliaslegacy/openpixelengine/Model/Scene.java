@@ -5,9 +5,7 @@ import java.util.Observable;
 
 /**
  * Created by skad on 03/09/15.
- * This class represent a level for the game (maybe need to be rename)
- * it must be extend and by defaut only define a methode for get all element to be drawing and
- * for updating the level
+ * This class represent a scene for the game. It's must be extend
  */
 public abstract class Scene extends Observable {
 
@@ -27,12 +25,12 @@ public abstract class Scene extends Observable {
     /**
      * Retrieve all the sprites!
      * Note: The order matters as the first object is drawn first (followers will be "above")
-     * @return An (Array)List containing all sprites
+     * @return An List containing all sprites
      */
     public abstract List<SpriteObject> getAllSprites();
 
     /**
-     * Method for updating all the element. By default do nothing but must be overrided
+     * Method for updating all the element. By default do nothing
      * This is you level logic
      */
     public abstract void update();

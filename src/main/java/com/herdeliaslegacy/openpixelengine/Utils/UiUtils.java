@@ -3,14 +3,13 @@ package com.herdeliaslegacy.openpixelengine.Utils;
 import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 /**
  * Created by skad on 04/12/15.
  * COPYRIGHT
  */
 public class UiUtils {
-    private UiUtils(View element) {
+    private UiUtils() {
     }
 
 
