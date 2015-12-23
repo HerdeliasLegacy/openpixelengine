@@ -1,3 +1,21 @@
+/*
+ *  This file is part of  OpenPixelEngine.
+ *
+ *     OpenPixelEngine is free software: you can redistribute it and/or modify
+ *     it under the terms of the GNU Lesser General Public License as published by
+ *     the Free Software Foundation, either version 3 of the License, or any later version.
+ *
+ *     OpenPixelEngine is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *     GNU Lesser General Public License for more details.
+ *
+ *     You should have received a copy of the GNU Lesser General Public License
+ *     along with OpenPixelEngine.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright (c) 2015
+ */
+
 package com.herdeliaslegacy.openpixelengine.Utils;
 
 import android.content.Context;
@@ -10,11 +28,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by skad on 27/10/15.
- * This class provide somme tools for parsing Json and create OpenPixel Elements like sprite and animations
- * COPYRIGHT
- */
 public class LevelFileParser {
     private LevelFileParser(){}
 
