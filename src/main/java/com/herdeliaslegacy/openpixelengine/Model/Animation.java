@@ -23,46 +23,34 @@ import android.graphics.BitmapFactory;
 import android.os.SystemClock;
 
 /**
- * @author skad on 05/10/15.
+ * This class represent an animation
+ *
+ * @author skad
+ * @date 05/10/15.
  */
 class Animation {
 
-    /**
-     * Name of the file
-     */
-    private String mAnimationFile;
+    private String mAnimationFile;              // Name of the file
+    private Bitmap mAnimatedSprite;             // The sprite which contain the animation
+    private int mNumFrames;                     // Current step off the animation
+    private int mMaxFrames;                     // Max animation step
+    private int mTimeFrame;                     // Time for one frame in millisecond
+    private long mTime;                         // Actual frame clock time
+
 
     /**
-     * The sprite which contain the animation
+     * Default constructor,
      */
-    private Bitmap mAnimatedSprite;
-
-    /**
-     * Current step off the animation
-     */
-    private int mNumFrames;
-
-    /**
-     * Max animation step
-     */
-    private int mMaxFrames;
-
-    /**
-     * Time for one frame in millisecond
-     */
-    private int mTimeFrame;
-
-    /**
-     * actual frame clock time
-     */
-    private long mTime;
-
     public Animation(){
-        this.mNumFrames = 0;
-        this.mMaxFrames = 0;
-        this.mTimeFrame = 0;
+        this("");
     }
 
+    /**
+     * Constructor with file
+     *
+     * Construct an animation from animatedSprite and set all param to 0
+     * @param animatedSprite                    // File name (must be a absolute path)
+     */
     public Animation(String animatedSprite) {
         this.setSprite(animatedSprite);
         this.mNumFrames = 0;
@@ -70,6 +58,12 @@ class Animation {
         this.mTimeFrame = 0;
     }
 
+    /**
+     * Constructor by copy
+     *
+     * Duplicate the animation in params
+     * @param anim Animation to duplicate
+     */
     public Animation (Animation anim){
         this.setSprite(anim.mAnimationFile);
         this.mNumFrames = anim.mNumFrames;
@@ -77,10 +71,18 @@ class Animation {
         this.mTimeFrame = anim.mTimeFrame;
     }
 
+    /**
+     * Return the filename of the animation
+     * @return filename
+     */
     public String getAnimationFile() {
         return this.mAnimationFile;
     }
 
+    /**
+     * Return the time of the animation in second
+     * @return animation time
+     */
     public double getAnimationTime() {
         return (mMaxFrames*mTimeFrame)/1000;
     }
@@ -88,7 +90,7 @@ class Animation {
     /**
      * Compute the number of frame for the animation and the time for each frame
      * @param width of one frame
-     * @param animationTime
+     * @param animationTime time of the animation
      */
     public void computeMaxStepAnimation(int width, double animationTime){
         mMaxFrames = mAnimatedSprite.getWidth()/width;
@@ -97,18 +99,20 @@ class Animation {
 
     /**
      * set the file for the animation (need to call computeMaxStepAnimation after)
-     * @param spriteFile
+     * @param spriteFile Filename
      */
     private void setSprite(String spriteFile) {
-        this.mAnimationFile = spriteFile;
-        this.mAnimatedSprite = BitmapFactory.decodeFile(spriteFile);
+        if(!spriteFile.equals("")){
+            this.mAnimationFile = spriteFile;
+            this.mAnimatedSprite = BitmapFactory.decodeFile(spriteFile);
+        }
     }
 
     /**
      * Return the current bitmap of this animation
-     * @param width
-     * @param height
-     * @return
+     * @param width width of the sprite to animate
+     * @param height hight of the sprite to animate
+     * @return new bitmap form the animation
      */
     public Bitmap animate(int width,int height){
         Bitmap temp = null;
@@ -123,5 +127,13 @@ class Animation {
 
         }
         return temp;
+    }
+
+    /**
+     * To String Method in case off
+     * @return desctiption string of the animation
+     */
+    public String toString(){
+        return "Name: "+mAnimationFile+" Step: "+mNumFrames+" on "+mMaxFrames+" Frame time: "+mTimeFrame;
     }
 }
