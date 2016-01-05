@@ -22,83 +22,111 @@ import android.content.Context;
 
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
 import com.herdeliaslegacy.openpixelengine.Ui.IUiElement;
-import com.herdeliaslegacy.openpixelengine.Ui.TextBox;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Static class with somme utilities methods for working on level file from json element
+ *
+ * @// TODO: 05/01/16 lots of work
+ * @author skad
+ * @date 14/09/15.
+ */
 public class LevelFileParser {
     private LevelFileParser(){}
 
-    public static SpriteObject JsonToSprite(Context context,SpriteObject obj,JSONObject jsonObject) throws JSONException {
-        JSONArray size;
-        JSONArray pos;
-        if(!jsonObject.isNull("size")){
-            size = jsonObject.getJSONArray("size");
-        }
-        else {
-            size = new JSONArray("[1,1]");
-        }
+    /**
+     * Populate a SpriteObject from JSONObject
+     *
+     * @param context of the activity
+     * @param object to populate
+     * @param jsonObject with data
+     * @return obj populated
+     *
+     * @throws JSONException
+     */
+    public static SpriteObject JsonToSprite(Context context,SpriteObject object,JSONObject jsonObject) throws JSONException {
+        JSONArray size = getSizeFromJson(jsonObject);
+        JSONArray pos =  getPosFromJson(jsonObject);
 
-        if(!jsonObject.isNull("pos")){
-            pos = jsonObject.getJSONArray("pos");
-        }
-        else {
-            pos = new JSONArray("[1,1]");
-        }
+        object.setSize(size.getInt(0), size.getInt(1));
+        object.setPosition(pos.getInt(0), pos.getInt(1));
+        object.setSprite(FileUtils.getFile(context, jsonObject.getString("sprite")));
+        object = addAnimationToElement(context,object,jsonObject);
 
-        obj.setSize(size.getInt(0), size.getInt(1));
-        obj.setPosition(pos.getInt(0),pos.getInt(1));
-        obj.setSprite(FileUtils.getFile(context, jsonObject.getString("sprite")));
-        //setting the animations list
-        if(!jsonObject.isNull("animations")){
-            obj = addAnimationToElement(context,obj,jsonObject.getJSONArray("animations"));
-        }
-        return  obj;
-    }
-
-    public static SpriteObject addAnimationToElement(Context context,SpriteObject object,JSONArray animationArray) throws JSONException {
-        for (int i = 0 ; i < animationArray.length(); i++) {
-            JSONObject animation = animationArray.getJSONObject(i);
-            object.addAnimation(animation.getString("name"),FileUtils.getFile(context,animation.getString("sprite")),animation.getDouble("time"));
-        }
-        return object;
+        return  object;
     }
 
     /**
      * Populate the elem from the json passed into param
-     * @param elem
-     * @param jsonObject
-     * @return
+     * @param elem to populate
+     * @param jsonObject with data
+     * @return elem populated
      */
     public static IUiElement JsonToUiElement(IUiElement elem, JSONObject jsonObject) throws JSONException {
-        JSONArray size;
-        JSONArray pos;
-
-        if(!jsonObject.isNull("size")){
-            size = jsonObject.getJSONArray("size");
-        }
-        else {
-            size = new JSONArray("[1,1]");
-        }
-
-        if(!jsonObject.isNull("pos")){
-            pos = jsonObject.getJSONArray("pos");
-        }
-        else {
-            pos = new JSONArray("[1,1]");
-        }
-
-        if(elem instanceof TextBox){
-            elem.setSize(size.getInt(0), size.getInt(1));
-        }
+        JSONArray size = getSizeFromJson(jsonObject);
+        JSONArray pos = getPosFromJson(jsonObject);
 
         elem.setId(jsonObject.getString("id"));
-        elem.setPos(pos.getInt(0),pos.getInt(1));
+        elem.setSize(size.getInt(0), size.getInt(1));
+        elem.setPos(pos.getInt(0), pos.getInt(1));
         elem.setTexture(jsonObject.getString("sprite"));
 
         return elem;
     }
 
+    /**
+     * Extract size of element from JSONOBJECT
+     * @param jsonObject object to read
+     * @return size
+     */
+    private static JSONArray getSizeFromJson(JSONObject jsonObject) throws JSONException {
+        JSONArray size;
+        if(!jsonObject.isNull("size")){
+            size = jsonObject.getJSONArray("size");
+        }
+        else {
+            size = new JSONArray("[1,1]");
+        }
+
+        return size;
+    }
+
+    /**
+     * Extract position of element from JSONOBJECT
+     * @param jsonObject object to read
+     * @return pos
+     */
+    private static JSONArray getPosFromJson(JSONObject jsonObject) throws JSONException {
+        JSONArray size;
+        if(!jsonObject.isNull("pos")){
+            size = jsonObject.getJSONArray("size");
+        }
+        else {
+            size = new JSONArray("[1,1]");
+        }
+
+        return size;
+    }
+
+    /**
+     * Add animation for the sprite from json
+     * @param context of the activity
+     * @param object to populate
+     * @param jsonObject with data
+     * @return Sprite with animations
+     * @throws JSONException
+     */
+    public static SpriteObject addAnimationToElement(Context context,SpriteObject object,JSONObject jsonObject) throws JSONException {
+        if(!jsonObject.isNull("animations")) {
+            JSONArray animationArray = jsonObject.getJSONArray("animations");
+            for (int i = 0; i < animationArray.length(); i++) {
+                JSONObject animation = animationArray.getJSONObject(i);
+                object.addAnimation(animation.getString("name"), FileUtils.getFile(context, animation.getString("sprite")), animation.getDouble("time"));
+            }
+        }
+        return object;
+    }
 }
