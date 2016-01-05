@@ -425,7 +425,7 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Update the prite with the animation
+     * Update the sprite with the animation and call the updatechild method
      */
     public void update(){
        if(mAnimationMap.containsKey("default")){Animation anim = mAnimationMap.get("default");
