@@ -30,8 +30,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represent a generic object that can be drawing on the screen
- * Created by skad on 08/09/15.
+ * Represent a Sprite object that can be drawing on the screen
+ * @author skad
+ * @date 08/09/15.
  * Original by skad
  */
 abstract public class SpriteObject {
@@ -43,36 +44,15 @@ abstract public class SpriteObject {
         NONE
     }
     /**
-     * Position of the SpriteObject into level norm
+     *
      */
-    protected Vector2D mPosition;
-    /**
-     * With of the SpriteObject
-     */
-    protected int mWidth;
-    /**
-     * Height of the SpriteObject
-     */
-    protected int mHeight;
-
-    /**
-     * Scaled BitmapElement with is the normal picture of the sprite
-     */
-    protected Bitmap mScaledSprite;
-    /**
-     * Original BitmapElement with is the normal picture of the sprite (needed for the rotation)
-     */
-    protected Bitmap mOriginalSprite;
-
-    /**
-     * Map for having some animation
-     */
-    protected final Map<String,Animation> mAnimationMap;
-
-    /**
-     * Actual rotation of the sprite
-     */
-    protected float mAngle;
+    protected Vector2D mPosition;                        // Position of the SpriteObject into level norm
+    protected int mWidth;                                // With of the SpriteObject
+    protected int mHeight;                               // Height of the SpriteObject
+    protected Bitmap mScaledSprite;                      // Scaled BitmapElement with is the normal picture of the sprite
+    protected Bitmap mOriginalSprite;                    // Original BitmapElement with is the normal picture of the sprite (needed for the rotation)
+    protected final Map<String,Animation> mAnimationMap; // Map of animation ["Name":Animation]
+    protected float mAngle;                              // Actual rotation of the sprite
 
     /**
      * Default constructor
@@ -84,10 +64,10 @@ abstract public class SpriteObject {
     /**
      * Constructor of the SpriteObject
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
+     * @param x position of the sprite
+     * @param y position of the sprite
+     * @param width of the sprite
+     * @param height of the sprite
      */
     public SpriteObject(int x, int y, int width, int height) {
         this(new Vector2D(x, y),width,height);
@@ -96,9 +76,9 @@ abstract public class SpriteObject {
     /**
      * Constructor of the SpriteObject but take an Vector2D instead of X and Y
      *
-     * @param pos
-     * @param width
-     * @param height
+     * @param pos Vector2D position
+     * @param width of the sprite
+     * @param height of the sprite
      */
     public SpriteObject(Vector2D pos, int width, int height) {
         mPosition = pos;
@@ -107,6 +87,10 @@ abstract public class SpriteObject {
         mAnimationMap = new HashMap<>();
     }
 
+    /**
+     * Copy constructor
+     * @param object SpriteObject to copy
+     */
     protected SpriteObject(SpriteObject object)
     {
         mPosition = object.getPosition();
@@ -134,8 +118,7 @@ abstract public class SpriteObject {
     /**
      * Set the actual position of the SpriteObject with the param
      *
-     * @param position
-     * @see com.herdeliaslegacy.openpixelengine.Model.Vector2D
+     * @param position Vector2D position
      */
     public void setPosition(Vector2D position) {
         mPosition = position;
@@ -144,9 +127,8 @@ abstract public class SpriteObject {
     /**
      * Set the actual position of the SpriteObject with the param
      *
-     * @param x
-     * @param y
-     * @see com.herdeliaslegacy.openpixelengine.Model.Vector2D
+     * @param x position
+     * @param y position
      */
     public void setPosition(double x, double y){
         this.setPosition(new Vector2D(x, y));
@@ -191,7 +173,7 @@ abstract public class SpriteObject {
     /**
      * Return the ScaledSprite BitmapElement
      *
-     * @return Return the ScaledSprite BitmapElement or if(mShowAlternateSprite) return the mAlternateSprite
+     * @return Return the ScaledSprite BitmapElement
      */
     public Bitmap getScaledSprite() {
         return mScaledSprite;
@@ -200,8 +182,8 @@ abstract public class SpriteObject {
     /**
      * Calculate if a point is into the bounding rectangle of the sprite
      *
-     * @param x
-     * @param y
+     * @param x position of the point
+     * @param y position of the point
      * @return Return true if X and Y is into the bounding rectangle of the sprite else false
      */
     public boolean isInto(int x, int y) {
@@ -220,7 +202,7 @@ abstract public class SpriteObject {
     /**
      * Set the Width of the SpriteObject
      *
-     * @param width
+     * @param width of the sprite
      */
     public void setWidth(int width) {
         mWidth = width;
@@ -238,7 +220,7 @@ abstract public class SpriteObject {
     /**
      * Set the Height of the SpriteObject
      *
-     * @param height
+     * @param height of the sprite
      */
     public void setHeight(int height) {
         mHeight = height;
@@ -246,18 +228,26 @@ abstract public class SpriteObject {
 
     /**
      * Set the size of the SpriteObject
-     * @param width
-     * @param height
+     * @param width of the sprite
+     * @param height of the sprite
      */
     public void setSize(int width,int height){
         mWidth = width;
         mHeight = height;
     }
 
+    /**
+     * Return the rotation of the sprite
+     * @return rotation
+     */
     public float getAngle() {
         return mAngle;
     }
 
+    /**
+     * Set the rotation of the sprite
+     * @param mAngle angle to set
+     */
     public void setAngle(float mAngle) {
         this.mAngle = mAngle;
     }
@@ -265,24 +255,35 @@ abstract public class SpriteObject {
     /**
      * Load Sprite from file.
      * Need the full path for the file
-     * @param spriteFile
+     * @param spriteFile sprite name
      */
     public void setSprite(String spriteFile) {
         mOriginalSprite = BitmapFactory.decodeFile(spriteFile);
         resize();
     }
 
+    /**
+     * Add an animation to the sprite into the internal hasmap
+     * @param name of the animation
+     * @param animation filename of the animation
+     * @param time of the animation
+     */
     public void addAnimation(String name, String animation,double time) {
         Animation anim = new Animation(animation);
         anim.computeMaxStepAnimation(mOriginalSprite.getWidth(),time);
         mAnimationMap.put(name, anim);
     }
 
+    /**
+     * Remove an animation from the internal hasmap
+     * @param name of the animation
+     */
     public void removeAnimation(String name) {
         mAnimationMap.remove(name);
     }
+
     /**
-     * Resize the OriginalSprites with the with and the height of the SpriteObject
+     * Resize the OriginalSprites with the with and the height of the SpriteObject and duplicate it into another var
      */
     public void resize() {
         if (mOriginalSprite != null) {
@@ -304,7 +305,6 @@ abstract public class SpriteObject {
      *
      * @param object The other SpriteObject we may be intersecting with
      * @return A Vector2D representing the intersection between the two SpriteObjects, null if there's no intersection
-     * @see com.herdeliaslegacy.openpixelengine.Model.Vector2D
      */
     public Vector2D intersects(SpriteObject object) {
         if (Rect.intersects(getBoundingRectangle(), object.getBoundingRectangle())) {
@@ -332,7 +332,7 @@ abstract public class SpriteObject {
     /**
      * return the enum for the position of collision
      * @param collision Vector 2D from this.intersect
-     * @return
+     * @return ColitionPosition
      */
     public CollisionPosition whereCollide(Vector2D collision) {
         String temp;
@@ -365,8 +365,8 @@ abstract public class SpriteObject {
     /**
      * Compute the collision rectangle between two rect and return it
      *
-     * @param rect1
-     * @param rect2
+     * @param rect1 to test
+     * @param rect2 to test
      * @return collision rectangle
      */
     private Rect getCollisionBounds(Rect rect1, Rect rect2) {
@@ -380,7 +380,7 @@ abstract public class SpriteObject {
     /**
      * Calculate if the param pixel contain a color
      *
-     * @param pixel
+     * @param pixel to test
      * @return boolean
      */
     private boolean PixelIsFilled(int pixel) {
@@ -391,8 +391,8 @@ abstract public class SpriteObject {
      * Rotate the actual SpriteObject into the target direction
      * this one only compute the angle needed by the rotation.
      *
-     * @param targetX
-     * @param targetY
+     * @param targetX of the target
+     * @param targetY of the target
      * @see com.herdeliaslegacy.openpixelengine.Model.SpriteObject#rotate(float) for the real rotation
      */
     public void rotate(int targetX, int targetY) {
@@ -400,10 +400,8 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Make the ScaledSprite
-     * Need an angle for the rotation
-     *
-     * @param angle
+     * Rotate the sprite from the angle
+     * @param angle to rotate
      */
     public void rotate(float angle) {
         Matrix matrix = new Matrix();
@@ -427,7 +425,7 @@ abstract public class SpriteObject {
     }
 
     /**
-     * update object
+     * Update the prite with the animation
      */
     public void update(){
        if(mAnimationMap.containsKey("default")){Animation anim = mAnimationMap.get("default");
@@ -441,7 +439,8 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Updating method for the child
+     * Update method for the child.
+     * Must be overided
      */
     protected abstract void updateChild();
 }
