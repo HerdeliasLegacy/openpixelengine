@@ -22,13 +22,15 @@ import java.util.List;
 import java.util.Observable;
 
 /**
- * Created by skad on 03/09/15.
  * This class represent a scene for the game. It's must be extend
+ *
+ * @author skad
+ * @date 03/09/15.
  */
 public abstract class Scene extends Observable {
 
 
-    public static final String TAG = "Scene";
+    public static final String TAG = "Scene"; // tag for login echo
 
     /**
      * Events to be reported to observers
@@ -37,6 +39,9 @@ public abstract class Scene extends Observable {
         SCENE_END
     }
 
+    /**
+     * Default constructor
+     */
     public Scene() {
     }
 
@@ -53,6 +58,10 @@ public abstract class Scene extends Observable {
      */
     public abstract void update();
 
+    /**
+     * To String Method in case off
+     * @return desctiption string of the scene with all sprite
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
