@@ -24,19 +24,28 @@ import android.os.Environment;
 import java.io.File;
 
 /**
- * Created by skad on 14/09/15.
+ * Static class with sommes utilities methodes for working on files
+ *
+ * @author skad
+ * @date 14/09/15.
  */
 public class FileUtils {
 
     private FileUtils(){}
 
-    /* Checks if external storage is available for read and write */
+    /**
+     * Checks if external storage is available for read and write
+     * @return true if external storage is writable else no
+     */
     public static boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
     }
 
-    /* Checks if external storage is available to at least read */
+    /**
+     * Checks if external storage is available to at least read
+     * @return true if external storage is readable else no
+     */
     public static boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state) ||
@@ -46,14 +55,20 @@ public class FileUtils {
     /**
      * Check if a file exist
      *
-     * @param name
-     * @return boolean value
+     * @param name file name to test need an absolut path
+     * @return true if exist
      */
     public static boolean fileExist(String name) {
         File file = new File(name);
         return file.exists();
     }
 
+    /**
+     * Return the full path of the file
+     * @param context of the activity
+     * @param fileName file name to test
+     * @return return the full path
+     */
     public static String getFile(Context context, String fileName){
         String filePath = null;
         if(isExternalStorageReadable()){
