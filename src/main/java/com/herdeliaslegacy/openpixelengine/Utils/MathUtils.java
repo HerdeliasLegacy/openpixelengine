@@ -19,20 +19,16 @@
 package com.herdeliaslegacy.openpixelengine.Utils;
 
 /**
- * Created by skad on 03/09/15.
+ * @author skad
+ * @date 03/09/15.
  * Original from pschmitt
  */
 import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
 
 public class MathUtils {
-    /**
-     * Pi Const
-     */
-    static public final float PI = 3.1415927f;
-    /**
-     * RadiansToDegrees ration const
-     */
-    static public final float radiansToDegrees = 180f / PI;
+
+    static public final float PI = 3.1415927f;                      // PI constant
+    static public final float radiansToDegrees = 180f / PI;         // RadiansToDegrees ration const
 
     private MathUtils() {
     }
@@ -58,8 +54,8 @@ public class MathUtils {
     /**
      * Generate a random vector Vector2D between 0 and Max
      *
-     * @param xMax
-     * @param yMax
+     * @param xMax value
+     * @param yMax value
      * @return a new vector2D
      */
     public static Vector2D randomVector(int xMax, int yMax) {
@@ -69,8 +65,8 @@ public class MathUtils {
 
     /**
      * Generate a double into [O - xMax]
-     * @param xMax
-     * @return double
+     * @param xMax value
+     * @return random double
      */
     public static double randomDouble(int xMax) {
         int lower = 0;
@@ -79,8 +75,8 @@ public class MathUtils {
 
     /**
      * Generate a int into [O - xMax]
-     * @param xMax
-     * @return
+     * @param xMax value
+     * @return random int
      */
     public static int randomInt(int xMax) {
         int lower = 0;
@@ -88,12 +84,12 @@ public class MathUtils {
     }
 
     /**
-     * Generate a new Vector2D from X1/Y1 to X2/Y2
-     * @param X1
-     * @param Y1
-     * @param X2
-     * @param Y2
-     * @return new Vector2D
+     * Generate a new Vector2D from X1/Y1 to X2/Y2 (2 points)
+     * @param X1 x point 1
+     * @param Y1 y point 1
+     * @param X2 x point 2
+     * @param Y2 y point 2
+     * @return new Vector2D from pt1 to pt2
      */
     public static Vector2D vectorFromPoint(double X1, double Y1, double X2, double Y2) {
         Vector2D vector = new Vector2D(X2 - X1, Y2 - Y1);
@@ -103,10 +99,10 @@ public class MathUtils {
     /**
      * Compute the angle between two point.
      *
-     * @param x
-     * @param y
-     * @param targetX
-     * @param targetY
+     * @param x point 1
+     * @param y point 1
+     * @param targetX point 2
+     * @param targetY point 2
      * @return Return the angle
      */
     public static float angleFromTwoPoint(int x, int y, int targetX, int targetY) {
