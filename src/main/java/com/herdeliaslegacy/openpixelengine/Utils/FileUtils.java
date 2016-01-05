@@ -24,7 +24,7 @@ import android.os.Environment;
 import java.io.File;
 
 /**
- * Static class with sommes utilities methodes for working on files
+ * Static class with somme utilities methods for working on files
  *
  * @author skad
  * @date 14/09/15.
