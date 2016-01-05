@@ -25,22 +25,26 @@ import com.herdeliaslegacy.openpixelengine.Model.Scene;
 import com.herdeliaslegacy.openpixelengine.View.SceneView;
 
 /**
- * Created by skad on 10/09/15.
+ * Running thread for updating graphics and logic of the game
+ * @author  skad
+ * @date 10/09/15.
  * Original from pschmitt
  */
 public class SceneThread extends Thread {
-    private static final String TAG = "SceneThread";
-
+    private static final String TAG = "SceneThread";                        // Tag for login echo
     private boolean mRunning;
-    private final Object mActivityPauseLock = new Object(); //activity pause lock
-    private boolean mActivityPause;                         //activity pause
-    private boolean mGamePause;                             //pause for update but running display
-    private long mDelay = 16;                               //default value for running at 60HZ
+    private final Object mActivityPauseLock = new Object();                 // Activity pause lock
+    private boolean mActivityPause;                                         // Activity pause
+    private boolean mGamePause;                                             // Pause for update but running display
+    private long mDelay = 16;                                               // Time for 1 loop in ms, default value for running at 60HZ
+    private final Scene mScene;                                             // Scene object
+    private final SceneView mSceneView;                                     // View where draw the scene
 
-
-    private final Scene mScene;
-    private final SceneView mSceneView;
-
+    /**
+     * Consructor
+     * @param sceneview scene were draw
+     * @param scene scene to draw
+     */
     public SceneThread(SceneView sceneview, Scene scene) {
         mActivityPause = false;
         mRunning = false;
@@ -49,21 +53,44 @@ public class SceneThread extends Thread {
         mScene = scene;
     }
 
+    /**
+     * Get the seted time of 1 loop
+     * @return time in ms
+     */
     public long getDelay() {
         return mDelay;
     }
 
+    /**
+     * Set the time wanted for 1 loop
+     * @param mDelay time in ms
+     */
     public void setDelay(long mDelay) {
         this.mDelay = mDelay;
     }
 
+    /**
+     * Start running the thread
+     */
     @Override
     public synchronized void start() {
         this.mRunning = true;
         super.start();
         Log.d(TAG, "start running");
+
     }
 
+    /**
+     * Running method
+     * if running
+     *  if not pause
+     *      update scene
+     *  draw scene
+     *  if time < time for 1 loop
+     *      wait
+     *  if locking pause from activity
+     *      wait
+     */
     @Override
     public void run() {
 
@@ -138,6 +165,9 @@ public class SceneThread extends Thread {
         Log.d(TAG, "set game pause to "+mGamePause);
     }
 
+    /**
+     * Stop thread
+     */
     @Override
     public void interrupt() {
         this.mRunning = false;
