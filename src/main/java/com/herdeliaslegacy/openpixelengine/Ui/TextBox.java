@@ -23,40 +23,76 @@ import android.widget.TextView;
 
 import com.herdeliaslegacy.openpixelengine.Utils.UiUtils;
 
+/**
+ * Represent a textbox which can be textured
+ *
+ * @author skad
+ * @date 02/12/15
+ */
 public class TextBox extends TextView implements IUiElement {
 
+    /**
+     * Constructor
+     * @param context generally an activity
+     */
     public TextBox(Context context) {
         super(context);
         UiUtils.setLayout(this);
 
     }
 
+    /**
+     * Set the id of the textbox
+     * @param id name of the textbox ie: thegreatesttextbox
+     */
     @Override
     public void setId(String id) {
         UiUtils.setId(this,id);
     }
 
+    /**
+     * Set the position on the screen
+     * @param x pos
+     * @param y pos
+     */
     @Override
     public void setPos(int x, int y) {
         UiUtils.setPos(this, x, y);
     }
 
+    /**
+     * Just set x position
+     * @param x pos
+     */
     @Override
     public void setX(int x) {
         UiUtils.setX(this, x);
     }
 
+    /**
+     * Just set y position
+     * @param y pos
+     */
     @Override
     public void setY(int y) {
         UiUtils.setY(this, y);
     }
 
+    /**
+     * Set the size
+     * @param w width
+     * @param h height
+     */
     @Override
     public void setSize(int w, int h) {
         this.setWidth(w);
         this.setHeight(h);
     }
 
+    /**
+     * Set the texture from the file
+     * @param file filename need and absolute path
+     */
     @Override
     public void setTexture(String file) {
         UiUtils.setTexture(this,file);

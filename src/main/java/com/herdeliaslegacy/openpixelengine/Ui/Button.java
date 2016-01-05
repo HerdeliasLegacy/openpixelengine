@@ -22,40 +22,75 @@ import android.content.Context;
 
 import com.herdeliaslegacy.openpixelengine.Utils.UiUtils;
 
+/**
+ * Represent a button which can be textured
+ * @author skad
+ * @date 07/12/15
+ */
 public class Button extends android.widget.Button implements IUiElement {
 
+    /**
+     * Constructor
+     * @param context generally an activity
+     */
     public Button(Context context) {
         super(context);
         UiUtils.setLayout(this);
 
     }
 
+    /**
+     * Set the id of the button
+     * @param id name of the button ie: mycoolestbutton
+     */
     @Override
     public void setId(String id) {
         UiUtils.setId(this,id);
     }
 
+    /**
+     * Set the position on the screen
+     * @param x pos
+     * @param y pos
+     */
     @Override
     public void setPos(int x, int y) {
         UiUtils.setPos(this, x, y);
     }
 
+    /**
+     * Just set x position
+     * @param x pos
+     */
     @Override
     public void setX(int x) {
         UiUtils.setX(this, x);
     }
 
+    /**
+     * Just set y position
+     * @param y pos
+     */
     @Override
     public void setY(int y) {
         UiUtils.setY(this, y);
     }
 
+    /**
+     * Set the size
+     * @param w width
+     * @param h height
+     */
     @Override
     public void setSize(int w, int h) {
         this.setWidth(w);
         this.setHeight(h);
     }
 
+    /**
+     * Set the texture from the file
+     * @param file filename need and absolute path
+     */
     @Override
     public void setTexture(String file) {
         UiUtils.setTexture(this,file);

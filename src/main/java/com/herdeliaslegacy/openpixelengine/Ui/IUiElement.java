@@ -18,17 +18,48 @@
 
 package com.herdeliaslegacy.openpixelengine.Ui;
 
+/**
+ * interface for Uielement
+ * @author skad
+ * @date 04/12/2015
+ */
 public interface IUiElement {
 
+    /**
+     * Set the id of the element
+     * @param id name of the element ie: mycooluielement
+     */
     void setId(String id);
 
+    /**
+     * Set the position on the screen
+     * @param x pos
+     * @param y pos
+     */
     void setPos(int x, int y);
 
+    /**
+     * Just set x position
+     * @param x pos
+     */
     void setX(int x);
 
+    /**
+     * Just set y position
+     * @param y pos
+     */
     void setY(int y);
 
-    void setSize(int x, int y);
+    /**
+     * Set the size
+     * @param w width
+     * @param h height
+     */
+    void setSize(int w, int h);
 
+    /**
+     * Set the texture from the file
+     * @param file filename need and absolute path
+     */
     void setTexture(String file);
 }
