@@ -28,7 +28,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
- * Created by skad on 14/09/15.
+ * Static class with somme utilities methods for parsing txtFile
+ * @author skad
+ * @date 14/09/15.
  */
 public class TxtParser {
 
@@ -37,9 +39,9 @@ public class TxtParser {
 
     /**
      * Read a txt file and return the content
-     * @param context
-     * @param fileName
-     * @return
+     * @param context of the acvtivity
+     * @param fileName to read
+     * @return content of the file
      * @throws IOException
      */
     public static String getFileContent(Context context, String fileName) throws IOException {
