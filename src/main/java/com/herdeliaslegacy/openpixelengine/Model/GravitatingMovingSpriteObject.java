@@ -21,8 +21,10 @@ package com.herdeliaslegacy.openpixelengine.Model;
 import android.os.SystemClock;
 
 /**
- * @author skad on 14/09/15.
- * Represent an object witch use gravity to move
+ * Represent a SpriteObject which use gravity to move
+ *
+ * @author skad
+ * @date 14/09/15.
  */
 public abstract class GravitatingMovingSpriteObject extends SpriteObject{
     private Vector2D mGravity;                      //gravity applying during the game
@@ -30,46 +32,76 @@ public abstract class GravitatingMovingSpriteObject extends SpriteObject{
     private Vector2D mV0;                           //initial force
     private Vector2D mPos0;                         //initial position for applying the force
 
+    /**
+     * Default constructor
+     */
     public GravitatingMovingSpriteObject(){
         this(0,0,0,0);
     }
+
+    /**
+     * Constructor of the GravitatingMovingSpriteObject
+     *
+     * @param x position of the sprite
+     * @param y position of the sprite
+     * @param width of the sprite
+     * @param height of the sprite
+     */
     public GravitatingMovingSpriteObject(int x, int y, int width, int height) {
         this(new Vector2D(x,y),width,height);
     }
 
+    /**
+     * Constructor of the GravitatingMovingSpriteObject but take an Vector2D instead of X and Y
+     *
+     * @param pos Vector2D position
+     * @param width of the sprite
+     * @param height of the sprite
+     */
     public GravitatingMovingSpriteObject(Vector2D pos, int width, int height) {
         super(pos, width, height);
-        setNewForce(new Vector2D(0,0));
+        setNewForce(new Vector2D(0, 0));
     }
 
+    /**
+     * Copy constructor
+     * @param object GravitatingMovingSpriteObject to copy
+     */
     public GravitatingMovingSpriteObject(GravitatingMovingSpriteObject object) {
         super(object);
         setNewForce(object.mV0);
     }
 
     /**
-     * Applying the pass gravity to the object
+     * Setting the gravity of the object
+     * @param gravity gravity
      */
     public void setGravity(Vector2D gravity){
-
         mGravity = gravity;
     }
 
+    /**
+     * Applying a force to the object
+     * @param mvt force to aply
+     */
     public void setNewForce(Vector2D mvt){
         mTime = SystemClock.elapsedRealtime();
         mPos0 = mPosition;
         mV0 = mvt;
     }
 
-
+    /**
+     * Update method
+     * Compute the position each time it's called
+     */
     @Override
     protected void updateChild(){
         mPosition = computingPos();
     }
 
     /**
-     * Compute the pos of the object with gravity and force
-     * @return
+     * Compute the pos of the object with gravity and force at a t time
+     * @return position of the object
      */
     protected Vector2D computingPos(){
         long time =  (SystemClock.elapsedRealtime() - mTime)/50;
@@ -77,5 +109,15 @@ public abstract class GravitatingMovingSpriteObject extends SpriteObject{
         temp.setX(mV0.getX() * Math.cos(90) * time);
         temp.setY(-0.5 * mGravity.getY() * Math.pow(time, 2) - mV0.getY() * Math.sin(90) * time + mPos0.getY());
         return temp;
+    }
+
+    /**
+     * Return the String of the SpriteObject like that : super.tostring + gravity + force
+     *
+     * @return Return the String of the SpriteObject
+     * @see Scene#toString() for the utiliti
+     */
+    public String toString(){
+        return super.toString()+ ", gravity: " + mGravity + ", force: [ initial position: "+mPos0+": force: "+mV0+"]";
     }
 }

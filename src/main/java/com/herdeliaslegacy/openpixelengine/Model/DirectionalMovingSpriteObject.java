@@ -133,6 +133,6 @@ public class DirectionalMovingSpriteObject extends SpriteObject {
      * @see Scene#toString() for the utiliti
      */
     public String toString(){
-        return super.toString()+ ", direction: (" + mMovingDirection + "), velocity: "+mVelocity;
+        return super.toString()+ ", direction: " + mMovingDirection + ", velocity: "+mVelocity;
     }
 }
