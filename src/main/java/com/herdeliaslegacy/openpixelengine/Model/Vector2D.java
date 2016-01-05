@@ -21,20 +21,22 @@ package com.herdeliaslegacy.openpixelengine.Model;
 import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
 
 /**
- * Created by skad on 03/09/15.
+ * 2D vector models
+ * @author skad
+ * @date 03/09/15.
  * Original from pschmitt
  */
 
 
 public class Vector2D {
-    private double mX;
-    private double mY;
+    private double mX; // x value of the vector
+    private double mY; // y value of the vector
 
     /**
      * Constructor of the Vector3D class
      *
-     * @param x
-     * @param y
+     * @param x value
+     * @param y value
      */
     public Vector2D(double x, double y) {
         mX = x;
@@ -43,7 +45,7 @@ public class Vector2D {
 
     /**
      * Compute and return the length (norm) of the vector
-     * @return Double
+     * @return norm
      */
     public double length() {
         return Math.sqrt((mX * mX) + (mY * mY));
@@ -51,6 +53,7 @@ public class Vector2D {
 
     /**
      * Normalize the Vector2D and return it
+     * @return Normalized vector
      */
     public Vector2D normalize() {
         double normX = 0.0;
@@ -66,7 +69,7 @@ public class Vector2D {
 
     /**
      * Addition the actual instance of the vector with the param Vector2D
-     * @param vector
+     * @param vector to add
      */
     public Vector2D add(Vector2D vector) {
         return new Vector2D(mX+vector.getX(),mY+vector.getY());
@@ -74,7 +77,7 @@ public class Vector2D {
 
     /**
      * Remove the actual instance of the vector with the param Vector2D
-     * @param vector
+     * @param vector to remove
      */
     public Vector2D sub(Vector2D vector) {
         return new Vector2D(mX-vector.getX(),mY-vector.getY());
@@ -83,8 +86,8 @@ public class Vector2D {
 
     /**
      * Multiply the actual instance of the vector by a number
-     * @param number
-     * @return
+     * @param number to multiply
+     * @return new vector
      */
     public Vector2D multiplyByNumber(double number){
         return multiplyByVector2D(new Vector2D(number, number));
@@ -92,7 +95,8 @@ public class Vector2D {
 
     /**
      * Multiply the actual instance of the vector with a Vector2D
-     * @param vector
+     * @param vector to multiply
+     * @return new vector
      */
     public Vector2D multiplyByVector2D(Vector2D vector) {
         return new Vector2D(mX*vector.getX(),mY*vector.getY())
@@ -100,7 +104,8 @@ public class Vector2D {
 
     /**
      * Divide the actual instance of the vector with the param Vector2D
-     * @param vector
+     * @param vector to divide
+     * @return new vector
      */
     public Vector2D divideByVector2D(Vector2D vector) {
         return new Vector2D(mX/vector.getX(),mY/vector.getY());
@@ -108,8 +113,8 @@ public class Vector2D {
 
     /**
      * Return the scalar product of the actual instance of the vector and the param
-     * @param vector
-     * @return new Vector2D
+     * @param vector to get scalar
+     * @return scalar product
      */
     public double scalar(Vector2D vector) {
 
@@ -135,7 +140,7 @@ public class Vector2D {
 
     /**
      * Return the angle with the actual instance of the vector and the I vector of the norm
-     * @return float
+     * @return angle
      */
     public float angle() {
         float angle = (float) Math.atan2(mY, mX) * MathUtils.radiansToDegrees;
@@ -145,7 +150,7 @@ public class Vector2D {
 
     /**
      * Return the X value of the actual instance of the vector
-     * @return int
+     * @return x of the vector
      */
     public double getX() {
         return mX;
@@ -153,7 +158,7 @@ public class Vector2D {
 
     /**
      * Set the X value of the actual instance of the vector
-     * @param x
+     * @param x of the vector
      */
     public void setX(double x) {
         mX = x;
@@ -161,7 +166,7 @@ public class Vector2D {
 
     /**
      * Return the Y value of the actual instance of the vector
-     * @return int
+     * @return y of the vector
      */
     public double getY() {
         return mY;
@@ -169,7 +174,7 @@ public class Vector2D {
 
     /**
      * Set the Y value of the actual instance of the vector
-     * @param y
+     * @param y of the vector
      */
     public void setY(double y) {
         mY = y;
@@ -177,8 +182,8 @@ public class Vector2D {
 
     /**
      * Set the X and Y value of the actual instance of the vector
-     * @param x
-     * @param y
+     * @param x of the vector
+     * @param y of the vector
      */
     public void setXAndY(double x, double y) {
         mX = x;
@@ -186,8 +191,8 @@ public class Vector2D {
     }
 
     /**
-     * Return a string of the actual instance of the vector
-     * @return String
+     * Return the String of the actual instance of the vector
+     * @return Return the String of the vector2D
      */
     public String toString() {
         return "X " + mX + " Y " + mY;
