@@ -26,18 +26,21 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 /**
- * Created by skad on 14/09/15.
+ * Static class with somme utilities methods for parsing JsonFile
+ * @author skad
+ * @date 14/09/15.
  */
 public class JsonParser{
+
 
     private JsonParser() {
     }
 
     /**
      * Read a json file and return a json Object from it
-     * @param context
-     * @param fileName
-     * @return
+     * @param context of the activity
+     * @param fileName of the file to convert
+     * @return jsonobject from the file
      * @throws IOException
      * @throws JSONException
      */
