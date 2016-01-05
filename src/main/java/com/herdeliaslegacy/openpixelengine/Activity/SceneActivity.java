@@ -40,6 +40,7 @@ import java.util.Observer;
  * This class must be extended for each scene (lvl) to display
  *
  * @author skad
+ * @date 28/10/2015
  */
 public abstract class SceneActivity extends Activity implements Observer {
 
