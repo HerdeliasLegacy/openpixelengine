@@ -19,10 +19,13 @@
 package com.herdeliaslegacy.openpixelengine.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import com.herdeliaslegacy.openpixelengine.Manager.SoundManager;
 import com.herdeliaslegacy.openpixelengine.Model.Scene;
@@ -63,7 +66,7 @@ public abstract class SceneActivity extends Activity implements Observer {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sceneactivity);
         mSoundManager = new SoundManager(this);
-        mSceneView = (SceneView) findViewById(R.id.level_view);
+        mSceneView = (SceneView) findViewById(R.id.scene_drawing_frame);
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         mSceneView.setScreenMetric(metrics);
@@ -75,6 +78,14 @@ public abstract class SceneActivity extends Activity implements Observer {
         mSceneThread = new SceneThread(mSceneView, mScene);
     }
 
+    /**
+     * Add a frame to the activity (like ui)
+     * @param frame view to add
+     */
+    public void addFrame(View frame){
+        RelativeLayout container = (RelativeLayout) findViewById(R.id.scene_container);
+        container.addView(frame);
+    }
     /**
      * OnStart of the activity
      *
@@ -163,15 +174,6 @@ public abstract class SceneActivity extends Activity implements Observer {
     @Override
     public abstract void update(Observable observable, Object o);
 
-
-    /**
-     *  Add an Ui element to the LevelView
-     * @param elem Ui element to add into the layout
-     */
-    public void addUiElement(View elem){
-        FrameLayout ui = (FrameLayout) findViewById(R.id.iu_layout);
-        ui.addView(elem);
-    }
 
     /**
      * Pause the Scene thread
