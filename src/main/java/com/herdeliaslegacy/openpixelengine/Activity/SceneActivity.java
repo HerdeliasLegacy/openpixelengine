@@ -86,6 +86,7 @@ public abstract class SceneActivity extends Activity implements Observer {
         RelativeLayout container = (RelativeLayout) findViewById(R.id.scene_container);
         container.addView(frame);
     }
+
     /**
      * OnStart of the activity
      *
@@ -115,10 +116,10 @@ public abstract class SceneActivity extends Activity implements Observer {
      */
     @Override
     protected void onPause() {
-        super.onPause();
-        mScene.notifyObs(Scene.Event.SCENE_PAUSE);
+        this.Pause();
         mSceneThread.activityPause();
         mSoundManager.StopBackground();
+        super.onPause();
     }
 
     /**
@@ -182,6 +183,14 @@ public abstract class SceneActivity extends Activity implements Observer {
     protected void Pause(){
         mScene.notifyObs(Scene.Event.SCENE_PAUSE);
         mSceneThread.pause();
+    }
+
+    /**
+     * UnPause the Scene thread
+     */
+    protected void UnPause(){
+        mScene.notifyObs(Scene.Event.SCENE_UNPAUSE);
+        mSceneThread.unPause();
     }
 
     /**

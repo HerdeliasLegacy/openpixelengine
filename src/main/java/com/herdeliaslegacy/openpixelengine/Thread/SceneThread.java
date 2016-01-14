@@ -150,19 +150,26 @@ public class SceneThread extends Thread {
      * Activity pause
      */
     public void activityPause() {
-        Log.d(TAG, "set activity in pause");
-        this.pause();
+        Log.d(TAG, "pause activity");
         synchronized (mActivityPauseLock) {
             mActivityPause = true;
         }
     }
 
     /**
-     * Update pause
+     * Set Game pause (just block update but not display drawing)
      */
     public void pause(){
-        mGamePause = !mGamePause;
-        Log.d(TAG, "set game pause to "+mGamePause);
+        mGamePause = true;
+        Log.d(TAG, "Pause scene");
+    }
+
+    /**
+     *
+     */
+    public void unPause(){
+        mGamePause = false;
+        Log.d(TAG, "UnPause scene");
     }
 
     /**
