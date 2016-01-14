@@ -28,8 +28,8 @@ import android.view.Window;
  * @author skad
  * @date 14/01/16
  */
-public class CustomDialogBox extends Dialog implements View.OnClickListener{
-    public CustomDialogBox(Context context) {
+public class TexturableDialogBox extends Dialog implements View.OnClickListener{
+    public TexturableDialogBox(Context context) {
         super(context);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
