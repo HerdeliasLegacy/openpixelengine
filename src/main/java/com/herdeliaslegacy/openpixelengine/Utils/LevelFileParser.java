@@ -21,7 +21,6 @@ package com.herdeliaslegacy.openpixelengine.Utils;
 import android.content.Context;
 
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
-import com.herdeliaslegacy.openpixelengine.Ui.IUiElement;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,24 +56,6 @@ public class LevelFileParser {
         object = addAnimationToElement(context,object,jsonObject);
 
         return  object;
-    }
-
-    /**
-     * Populate the elem from the json passed into param
-     * @param elem to populate
-     * @param jsonObject with data
-     * @return elem populated
-     */
-    public static IUiElement JsonToUiElement(IUiElement elem, JSONObject jsonObject) throws JSONException {
-        JSONArray size = getSizeFromJson(jsonObject);
-        JSONArray pos = getPosFromJson(jsonObject);
-
-        elem.setId(jsonObject.getString("id"));
-        elem.setSize(size.getInt(0), size.getInt(1));
-        elem.setPos(pos.getInt(0), pos.getInt(1));
-        elem.setTexture(jsonObject.getString("sprite"));
-
-        return elem;
     }
 
     /**
