@@ -35,8 +35,11 @@ public abstract class Scene extends Observable {
     /**
      * Events to be reported to observers
      */
-    public enum EVENT {
-        SCENE_END
+    public enum Event {
+        SCENE_START,
+        SCENE_END,
+        SCENE_PAUSE,
+        SCENE_UNPAUSE
     }
 
     /**
@@ -57,6 +60,16 @@ public abstract class Scene extends Observable {
      * This is you level logic
      */
     public abstract void update();
+
+
+    /**
+     * Notify All observer
+     * @param evt Enum send
+     */
+    public void notifyObs(Enum evt){
+        setChanged();
+        notifyObservers(evt);
+    }
 
     /**
      * To String Method in case off
