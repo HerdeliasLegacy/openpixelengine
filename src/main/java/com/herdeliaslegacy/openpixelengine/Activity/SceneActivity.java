@@ -116,6 +116,7 @@ public abstract class SceneActivity extends Activity implements Observer {
     @Override
     protected void onPause() {
         super.onPause();
+        mScene.notifyObs(Scene.Event.SCENE_PAUSE);
         mSceneThread.activityPause();
         mSoundManager.StopBackground();
     }
@@ -179,6 +180,7 @@ public abstract class SceneActivity extends Activity implements Observer {
      * Pause the Scene thread
      */
     protected void Pause(){
+        mScene.notifyObs(Scene.Event.SCENE_PAUSE);
         mSceneThread.pause();
     }
 
