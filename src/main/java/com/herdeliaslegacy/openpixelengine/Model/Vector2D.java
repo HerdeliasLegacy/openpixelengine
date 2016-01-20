@@ -28,19 +28,16 @@ import com.herdeliaslegacy.openpixelengine.Utils.MathUtils;
  */
 
 
-public class Vector2D {
-    private double mX; // x value of the vector
-    private double mY; // y value of the vector
+public class Vector2D extends Point2D{
 
     /**
-     * Constructor of the Vector3D class
+     * Constructor of the Vector2D class
      *
      * @param x value
      * @param y value
      */
     public Vector2D(double x, double y) {
-        mX = x;
-        mY = y;
+        super(x, y);
     }
 
     /**
@@ -148,53 +145,5 @@ public class Vector2D {
         return angle;
     }
 
-    /**
-     * Return the X value of the actual instance of the vector
-     * @return x of the vector
-     */
-    public double getX() {
-        return mX;
-    }
 
-    /**
-     * Set the X value of the actual instance of the vector
-     * @param x of the vector
-     */
-    public void setX(double x) {
-        mX = x;
-    }
-
-    /**
-     * Return the Y value of the actual instance of the vector
-     * @return y of the vector
-     */
-    public double getY() {
-        return mY;
-    }
-
-    /**
-     * Set the Y value of the actual instance of the vector
-     * @param y of the vector
-     */
-    public void setY(double y) {
-        mY = y;
-    }
-
-    /**
-     * Set the X and Y value of the actual instance of the vector
-     * @param x of the vector
-     * @param y of the vector
-     */
-    public void setXAndY(double x, double y) {
-        mX = x;
-        mY = y;
-    }
-
-    /**
-     * Return the String of the actual instance of the vector
-     * @return Return the String of the vector2D
-     */
-    public String toString() {
-        return "X " + mX + " Y " + mY;
-    }
 }
