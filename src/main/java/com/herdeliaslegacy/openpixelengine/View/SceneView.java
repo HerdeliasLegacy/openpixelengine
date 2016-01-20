@@ -29,6 +29,7 @@ import android.util.DisplayMetrics;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.herdeliaslegacy.openpixelengine.Model.Camera;
 import com.herdeliaslegacy.openpixelengine.Model.Scene;
 import com.herdeliaslegacy.openpixelengine.Model.SpriteObject;
 import com.herdeliaslegacy.openpixelengine.Model.Vector2D;
@@ -89,8 +90,8 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
         Canvas canvas = holder.lockCanvas();
         if (canvas != null) {
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-            for (final SpriteObject sprite : scene.getAllSprites()) {
-                Vector2D temp = this.computeScreenPosition(sprite);
+            for (final SpriteObject sprite : scene.getAllDisplayedSprites()) {
+                Vector2D temp = this.computeScreenPosition(sprite,scene.getCamera());
                 canvas.drawBitmap(sprite.getScaledSprite(), (int)temp.getX(), (int)temp.getY(), null);
             }
             holder.unlockCanvasAndPost(canvas);
@@ -102,13 +103,20 @@ public class SceneView extends SurfaceView implements SurfaceHolder.Callback {
      * @param spriteObject to compute
      * @return new position
      */
-    private Vector2D computeScreenPosition(SpriteObject spriteObject){
-        Vector2D position = new Vector2D(0,0);
+    private Vector2D computeScreenPosition(SpriteObject spriteObject,Camera cam){
+        Vector2D position = new Vector2D(0, 0);
         position.setX(spriteObject.getXPos());
-        position.setY(mScreenSize.heightPixels - spriteObject.getYPos() - spriteObject.getHeight());
+        position.setY(spriteObject.getYPos());
 
+        //adjust screenposition
+        position.setX(position.getX() - cam.getPosition().getX());
+        position.setY(position.getY() - cam.getPosition().getY());
+
+        //switch up/down
+        position.setY(mScreenSize.heightPixels - spriteObject.getYPos() - spriteObject.getHeight());
         return position;
     }
+
     @Override
     public void surfaceCreated(SurfaceHolder surfaceHolder) {
     }
