@@ -38,8 +38,8 @@ public class DirectionalMovingSpriteObject extends SpriteObject {
     /**
      * Constructor of the DirectionalMovingObject
      *
-     * @param x position of the sprite
-     * @param y position of the sprite
+     * @param x mPosition of the sprite
+     * @param y mPosition of the sprite
      * @param width of the sprite
      * @param height of the sprite
      */
@@ -50,7 +50,7 @@ public class DirectionalMovingSpriteObject extends SpriteObject {
     /**
      * Constructor of the DirectionalMovingObject but take an Vector2D instead of X and Y
      *
-     * @param pos Vector2D position
+     * @param pos Vector2D mPosition
      * @param width of the sprite
      * @param height of the sprite
      */

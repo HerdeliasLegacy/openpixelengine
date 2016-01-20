@@ -110,7 +110,7 @@ class Animation {
 
     /**
      * Return the current bitmap of this animation
-     * @param width width of the sprite to animate
+     * @param width mWidth of the sprite to animate
      * @param height hight of the sprite to animate
      * @return new bitmap form the animation
      */
