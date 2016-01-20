@@ -64,8 +64,8 @@ abstract public class SpriteObject {
     /**
      * Constructor of the SpriteObject
      *
-     * @param x position of the sprite
-     * @param y position of the sprite
+     * @param x mPosition of the sprite
+     * @param y mPosition of the sprite
      * @param width of the sprite
      * @param height of the sprite
      */
@@ -76,7 +76,7 @@ abstract public class SpriteObject {
     /**
      * Constructor of the SpriteObject but take an Vector2D instead of X and Y
      *
-     * @param pos Vector2D position
+     * @param pos Vector2D mPosition
      * @param width of the sprite
      * @param height of the sprite
      */
@@ -106,9 +106,9 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Return the actual position of the object
+     * Return the actual mPosition of the object
      *
-     * @return Return the actual position of the object
+     * @return Return the actual mPosition of the object
      * @see com.herdeliaslegacy.openpixelengine.Model.Vector2D
      */
     public Vector2D getPosition() {
@@ -116,55 +116,62 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Set the actual position of the SpriteObject with the param
+     * Return the actual extremity of the object
+     * @return the extremity position
+     */
+    public Vector2D getPositionSize(){
+        return new Vector2D(getXPos()+getWidth(),getYPos()+getHeight());
+    }
+    /**
+     * Set the actual mPosition of the SpriteObject with the param
      *
-     * @param position Vector2D position
+     * @param position Vector2D mPosition
      */
     public void setPosition(Vector2D position) {
         mPosition = position;
     }
 
     /**
-     * Set the actual position of the SpriteObject with the param
+     * Set the actual mPosition of the SpriteObject with the param
      *
-     * @param x position
-     * @param y position
+     * @param x mPosition
+     * @param y mPosition
      */
     public void setPosition(double x, double y){
         this.setPosition(new Vector2D(x, y));
     }
 
     /**
-     * Return the X position of the SpriteObject
+     * Return the X mPosition of the SpriteObject
      *
-     * @return Return the X position of the SpriteObject
+     * @return Return the X mPosition of the SpriteObject
      */
     public double getXPos() {
         return mPosition.getX();
     }
 
     /**
-     * Set the X position with the param
+     * Set the X mPosition with the param
      *
-     * @param xPos Set the X position with the param
+     * @param xPos Set the X mPosition with the param
      */
-    public void setXPos(int xPos) {
+    public void setXPos(double xPos) {
         mPosition.setX(xPos);
     }
 
     /**
-     * Return the Y position of the SpriteObject
+     * Return the Y mPosition of the SpriteObject
      *
-     * @return Return the Y position of the SpriteObject
+     * @return Return the Y mPosition of the SpriteObject
      */
     public double getYPos() {
         return mPosition.getY();
     }
 
     /**
-     * Set the Y position with the param
+     * Set the Y mPosition with the param
      *
-     * @param yPos Set the Y position with the param
+     * @param yPos Set the Y mPosition with the param
      */
     public void setYPos(double yPos) {
         mPosition.setY(yPos);
@@ -182,8 +189,8 @@ abstract public class SpriteObject {
     /**
      * Calculate if a point is into the bounding rectangle of the sprite
      *
-     * @param x position of the point
-     * @param y position of the point
+     * @param x mPosition of the point
+     * @param y mPosition of the point
      * @return Return true if X and Y is into the bounding rectangle of the sprite else false
      */
     public boolean isInto(int x, int y) {
@@ -283,7 +290,7 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Resize the OriginalSprites with the with and the height of the SpriteObject and duplicate it into another var
+     * Resize the OriginalSprites with the with and the mHeight of the SpriteObject and duplicate it into another var
      */
     public void resize() {
         if (mOriginalSprite != null) {
@@ -330,7 +337,7 @@ abstract public class SpriteObject {
     }
 
     /**
-     * return the enum for the position of collision
+     * return the enum for the mPosition of collision
      * @param collision Vector 2D from this.intersect
      * @return ColitionPosition
      */
@@ -414,7 +421,7 @@ abstract public class SpriteObject {
     }
 
     /**
-     * Return the String of the SpriteObject like that : x/y/width/height/angle
+     * Return the String of the SpriteObject like that : x/y/mWidth/mHeight/angle
      *
      * @return Return the String of the SpriteObject
      * @see Scene#toString() for the utiliti
