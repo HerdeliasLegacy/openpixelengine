@@ -22,12 +22,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.herdeliaslegacy.openpixelengine.Manager.SoundManager;
+import com.herdeliaslegacy.openpixelengine.Model.Camera;
 import com.herdeliaslegacy.openpixelengine.Model.Scene;
 import com.herdeliaslegacy.openpixelengine.Thread.SceneThread;
 import com.herdeliaslegacy.openpixelengine.View.SceneView;
@@ -73,6 +75,11 @@ public abstract class SceneActivity extends Activity implements Observer {
 
         //load from the child
         mScene = this.loadResource();
+
+        //if the camera is null set one with the screen size
+        if(!mScene.hasCamera()){
+            mScene.setCamera(new Camera(0,0,metrics.widthPixels,metrics.heightPixels));
+        }
 
         //Create the thread
         mSceneThread = new SceneThread(mSceneView, mScene);
